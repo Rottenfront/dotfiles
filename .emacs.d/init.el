@@ -1,0 +1,128 @@
+(require 'package)
+(setq package-archives
+      '(("GNU ELPA"     . "https://elpa.gnu.org/packages/")
+				("ORG"		. "https://orgmode.org/elpa/")
+        ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("MELPA"        . "https://melpa.org/packages/"))
+      ;; package-archive-priorities
+      ;; '(("GNU ELPA"		. 20)
+			;; 	("MELPA"        . 15)
+			;; 	("MELPA Stable" . 10)
+      ;;   ("ORG"     . 5))
+			)
+
+(package-initialize)
+(require 'use-package)
+;;(package-refresh-contents)
+
+;; Install use-package
+(when (not (package-installed-p 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(org-babel-load-file
+ (expand-file-name
+  "README.org"
+  user-emacs-directory))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(before-save-hook
+	 '(tide-format-before-save parrot-start-animation format-all-buffer))
+ '(char-fold-include
+	 '((34 "＂" "“" "”" "”" "„" "⹂" "〞" "‟" "‟" "❞" "❝" "❠" "“" "„" "〝" "〟" "🙷" "🙶" "🙸" "«" "»")
+		 (39 "❟" "❛" "❜" "‘" "’" "‚" "‛" "‚" "󠀢" "❮" "❯" "‹" "›")
+		 (96 "❛" "‘" "‛" "󠀢" "❮" "‹")
+		 (223 "ss")
+		 (953 "ΐ")
+		 (965 "ΰ")
+		 (1168 "|")
+		 (1169 "\\")
+		 (1070 ">")
+		 (1041 "<")
+		 (1068 "M")
+		 (1058 "N")
+		 (1048 "B")
+		 (1052 "V")
+		 (1057 "C")
+		 (1063 "X")
+		 (1071 "Z")
+		 (1028 "\"")
+		 (1046 ":")
+		 (1044 "L")
+		 (1051 "K")
+		 (1054 "J")
+		 (1056 "H")
+		 (1055 "G")
+		 (1040 "F")
+		 (1042 "D")
+		 (1030 "S")
+		 (1060 "A")
+		 (1031 "}")
+		 (1061 "{")
+		 (1047 "P")
+		 (1065 "O")
+		 (1064 "I")
+		 (1043 "U")
+		 (1053 "Y")
+		 (1045 "T")
+		 (1050 "R")
+		 (1059 "E")
+		 (1062 "W")
+		 (1049 "Q")
+		 (8470 "#")
+		 (1102 ".")
+		 (1073 ",")
+		 (1100 "m")
+		 (1090 "n")
+		 (1080 "b")
+		 (1084 "v")
+		 (1089 "c")
+		 (1095 "x")
+		 (1103 "z")
+		 (1108 "'")
+		 (1078 ";")
+		 (1076 "l")
+		 (1083 "k")
+		 (1086 "j")
+		 (1088 "h")
+		 (1087 "g")
+		 (1072 "f")
+		 (1074 "d")
+		 (1110 "s")
+		 (1092 "a")
+		 (1111 "]")
+		 (1093 "[")
+		 (1079 "p")
+		 (1097 "o")
+		 (1096 "i")
+		 (1075 "u")
+		 (1085 "y")
+		 (1077 "t")
+		 (1082 "r")
+		 (1091 "e")
+		 (1094 "w")
+		 (1081 "q")))
+ '(custom-safe-themes
+	 '("" default))
+ '(global-wakatime-mode t)
+ '(helm-minibuffer-history-key "M-p")
+ '(magit-todos-keywords (list "TODO" "FIXME" "HACK"))
+ '(org-agenda-files '("~/Org/agenda.org"))
+ '(package-selected-packages
+	 '())
+ '(warning-suppress-types '((comp))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blamer-face ((t :foreground "#E46876" :height 140 :italic t)) t)
+ '(mode-line ((t (:family "Iosevka Aile" :height 1.0))))
+ ;; '(mode-line-active ((t (:family "Iosevka Aile" :height 1.0))))
+ ;; '(mode-line-inactive ((t (:family "Iosevka Aile" :height 0.95))))
+ )
+(put 'dired-find-alternate-file 'disabled nil)

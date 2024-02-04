@@ -1,0 +1,7 @@
+style=/home/rtfr/.config/wofi/style.css
+always_parse_args=true
+show_all=true
+print_command=true
+layer=overlay
+insensitive=true
+prompt=

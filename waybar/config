@@ -1,0 +1,89 @@
+{
+    "position": "top",
+    "layer": "top",
+    "modules-left": [
+        "hyprland/workspaces",
+        "custom/player"
+    ],
+    "modules-right": [
+        "network",
+        "pulseaudio",
+        "battery",
+        "memory",
+        "cpu",
+        "tray",
+        "custom/date"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    // Modules configuration
+    "tray": {
+        "spacing": 5
+    },
+    "custom/player": {
+        "on-click": "playerctl play-pause",
+        "format": "{}",
+        "interval": 1,
+        "exec": "~/.config/waybar/player.sh"
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "custom/date": {
+        "format": "󰸗 {}",
+        "interval": 3600,
+        "exec": "date +\"%Y/%m/%d (%a)\""
+    },
+    "clock": {
+        "format": "󰅐 {:%H:%M:%S}",
+        "interval": 1,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15,
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄{capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-full": "󱈑 {capacity}%",
+        "format-icons": ["󱊡", "󱊢", "󱊣"]
+    },
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "󰤮 Disconnected",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "󰤮 Disconnected",
+        "tooltip-format-wifi": "Signal Strenght: {signalStrength}% | Down Speed: {bandwidthDownBits}, Up Speed: {bandwidthUpBits}",
+    },
+    "cpu": {
+        "interval": 1,
+        "format": "  {}%"
+    },
+    "memory": {
+        "interval": 1,
+        "format": "RAM {used}/{total} GiB"
+    },
+    "pulseaudio": {
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁 Muted",
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [" ", " ", " "]
+        },
+    }
+}
+

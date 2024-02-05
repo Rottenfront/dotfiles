@@ -12,7 +12,7 @@ all: dwm
 	${CC} -c ${CFLAGS} $<
 
 dwm: ${OBJ}
-	${CC} -o $@ ${LDFLAGS}
+	${CC} -o $@ ${OBJ} ${LDFLAGS}
 
 clean:
 	rm -f dwm dwm-${VERSION}.tar.gz

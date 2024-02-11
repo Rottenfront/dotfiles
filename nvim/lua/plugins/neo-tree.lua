@@ -144,8 +144,8 @@ return {
     }
   end,
 }
-
 ]]
+
 return {
   "nvim-tree/nvim-tree.lua"
 }

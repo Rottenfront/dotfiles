@@ -6,6 +6,7 @@
         "custom/player"
     ],
     "modules-right": [
+        "hyprland/language",
         "network",
         "pulseaudio",
         "battery",
@@ -31,6 +32,9 @@
         "format": "{icon}",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "hyprland/language": {
+        "format": "{}",
     },
     "custom/date": {
         "format": "󰸗 {}",

@@ -1,19 +1,19 @@
 * {
-    font-family: CaskaydiaCove Nerd Font;
+    font-family: JetBrains Mono NF;
     font-size: 12px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(59, 59, 59, 204);
+    background: #1f1f1f;
     color: white;
     padding: 2px 10px;
     margin: 2px 10px;
-    border-radius: 17px;
+    /* border-radius: 17px; */
 }
 
 tooltip {
-	background: #3b3b3b;
+	background: #2b2b2b;
 	border-radius: 15px;
 	border-width: 2px;
 	border-style: solid;
@@ -44,12 +44,12 @@ tooltip {
 	border-radius: 10px;
 }
 
-#custom-date, #clock, #battery, #pulseaudio, #network, #workspaces, #tray, #memory, #cpu, #custom-player {
+#custom-date, #clock, #battery, #pulseaudio, #network, #workspaces, #tray, #memory, #cpu, #custom-player, #language {
 	padding: 5px 10px;
 	margin: 0px 0px;
 }
 #clock {
-    background-color: #0f0f0f;
+    background-color: #181818;
     border-radius: 0px 0px 15px 15px;
     margin: 0px 0px 5px 0px;
 }

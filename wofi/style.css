@@ -1,18 +1,18 @@
 window {
 margin: 0px;
-border: 2px solid #262626;
+border: 1px solid #33ccff;
 border-radius: 15px;
-background-color: #0f0f0f;
-font-family: "Cascadia Code";
+background-color: #3b3b3b;
+font-family: "CaskaydiaCove Nerd Font";
 font-size: 12px;
 }
 
 #input {
 margin: 5px;
-border: 1px solid #262626;
+border: 1px solid #33ccff;
 border-radius: 15px;
 color: #f0f0f0;
-background-color: #262626;
+background-color: #0f0f0f;
 }
 
 #input image {

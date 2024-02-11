@@ -44,7 +44,7 @@ require("nvim-tree").setup({
 vim.cmd [[
     " colorscheme timu-macos-vim
     set clipboard+=unnamedplus
-    nnoremap <C-V> "+p
+    " nnoremap <C-V> "+p
 ]]
 
 vim.o.guifont = "CaskaydiaCove Nerd Font:h10"

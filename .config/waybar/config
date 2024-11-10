@@ -37,12 +37,12 @@
         "format": "{}",
     },
     "custom/date": {
-        "format": "󰸗 {}",
+        "format": "{}",
         "interval": 3600,
         "exec": "date +\"%Y/%m/%d (%a)\""
     },
     "clock": {
-        "format": "󰅐 {:%H:%M:%S}",
+        "format": " {:%H:%M:%S} ",
         "interval": 1,
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
     },
@@ -52,22 +52,22 @@
             "critical": 15,
         },
         "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰂄 {capacity}%",
+        "format-charging": "BAT+ {capacity}%",
+        "format-plugged": "BAT {capacity}%",
         "format-alt": "{icon} {time}",
-        "format-full": "󱈑 {capacity}%",
-        "format-icons": ["󱊡", "󱊢", "󱊣"]
+        "format-full": "BAT {capacity}%",
+        "format-icons": "BAT-"
     },
     "network": {
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰤮 Disconnected",
+        "format-wifi": "Wi-Fi {essid}",
+        "format-ethernet": "Ethernet",
         "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "󰤮 Disconnected",
+        "format-disconnected": "Disconnected",
         "tooltip-format-wifi": "Signal Strenght: {signalStrength}% | Down Speed: {bandwidthDownBits}, Up Speed: {bandwidthUpBits}",
     },
     "cpu": {
         "interval": 1,
-        "format": "  {}"
+        "format": "CPU {}"
     },
     "memory": {
         "interval": 1,
@@ -77,16 +77,16 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%",
-        "format": "{icon} {volume}%",
+        "format": "VOL {icon} {volume}%",
         "format-muted": "󰖁 Muted",
         "format-icons": {
-            "headphone": " ",
-            "hands-free": " ",
-            "headset": " ",
-            "phone": " ",
-            "portable": " ",
-            "car": " ",
-            "default": [" ", " ", " "]
+            "headphone": "HP",
+            "hands-free": "HP",
+            "headset": "HP",
+            "phone": "SP",
+            "portable": "SP",
+            "car": "SP",
+            "default": "SP"
         },
     }
 }

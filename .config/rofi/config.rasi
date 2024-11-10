@@ -21,7 +21,7 @@ configuration {
 
 
 * {
-    font: "CaskaydiaCove Nerd Font 11";
+    font: "Cascadia Code 11";
 
     background:     #1F1F1FFF;
     background-alt: #282B31FF;

@@ -1,0 +1,132 @@
+{
+  "position": "top",
+  "layer": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window",
+    "mpris"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "cava",
+    "wireplumber",
+    "battery",
+    "memory",
+    "cpu",
+    "custom/nvidia",
+    "tray",
+    "hyprland/language",
+    "custom/date"
+  ],
+  // Modules configuration
+  "tray": {
+    "spacing": 5
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "hyprland/language": {
+    "format": "{}",
+  },
+  "custom/date": {
+    "format": "{}",
+    "interval": 3600,
+    "exec": "date +\"%Y/%m/%d (%a)\""
+  },
+  "clock": {
+    "format": " {:%H:%M:%S} ",
+    "interval": 1,
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "BAT+ {capacity}%",
+    "format-plugged": "BAT {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-full": "BAT {capacity}%",
+    "format-icons": "BAT-"
+  },
+  "network": {
+    "format-wifi": "Wi-Fi {essid}",
+    "format-ethernet": "Ethernet",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected",
+    "tooltip-format-wifi": "Signal Strenght: {signalStrength}% | Down Speed: {bandwidthDownBits}, Up Speed: {bandwidthUpBits}",
+  },
+  "cpu": {
+    "interval": 1,
+    "format": " {usage}%"
+  },
+  "custom/nvidia": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1% 🌡️\\2°C/g'",
+    "format": "🖥️{}",
+    "interval": 2
+  },
+  "memory": {
+    "interval": 1,
+    "format": " {used}/{total} GiB"
+  },
+  "wireplumber": {
+    "format": "{icon} {volume}%",
+    "format-muted": " ",
+    "on-click": "pavucontrol",
+    "format-icons": [
+      " ",
+      " ",
+      " "
+    ]
+  },
+  "mpris": {
+    "format": "{player_icon} {artist} - {title}",
+    "format-paused": "{status_icon} <i>{artist} - {title}</i>",
+    "player-icons": {
+      "default": "▶",
+      "mpv": "🎵"
+    },
+    "status-icons": {
+      "paused": "⏸"
+    }
+  },
+  "cava": {
+    // "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+    "framerate": 30,
+    "autosens": 1,
+    "sensitivity": 2,
+    "bars": 30,
+    "lower_cutoff_freq": 50,
+    "higher_cutoff_freq": 10000,
+    "hide_on_silence": false,
+    // "format_silent": "quiet",
+    "method": "pipewire",
+    "source": "auto",
+    "stereo": true,
+    "reverse": false,
+    "bar_delimiter": 0,
+    "monstercat": false,
+    "waves": false,
+    "noise_reduction": 0.77,
+    "input_delay": 2,
+    "format-icons": [
+      " ",
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ],
+    "actions": {
+      "on-click-right": "mode"
+    }
+  }
+}

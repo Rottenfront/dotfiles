@@ -3,14 +3,13 @@
   "layer": "top",
   "modules-left": [
     "hyprland/workspaces",
-    "hyprland/window",
+    // "hyprland/window",
     "mpris"
   ],
   "modules-center": [
     "clock"
   ],
   "modules-right": [
-    "cava",
     "wireplumber",
     "battery",
     "memory",

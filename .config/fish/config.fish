@@ -128,7 +128,7 @@ alias jctl="journalctl -p 3 -xb"
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
-alias v="helix"
+alias v="nvim"
 
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /home/rtfr/.lmstudio/bin

@@ -80,6 +80,8 @@ require("lazy").setup({
                 "taplo",
                 -- Lua
                 "lua_ls",
+                -- Typst
+                "tinymist",
             },
             handlers = {
                 function(server_name)
@@ -170,140 +172,66 @@ require("lazy").setup({
     -- ============================================================================
     -- Completion & Snippets
     -- ============================================================================
-    -- {
-    --     "saghen/blink.cmp",
-    --     lazy = false,
-    --     opts = {
-    --         keymap = {
-    --             preset = "enter",
-    --         },
-    --         appearance = {
-    --             use_nvim_cmp_as_default = false,
-    --         },
-    --         sources = {
-    --             default = {
-    --                 "lsp",
-    --                 "path",
-    --                 "snippets",
-    --                 { name = 'buffer', option = { disabled = { 'number' } } },
-    --             },
-    --             providers = {
-    --                 lsp = {
-    --                     name = "LSP",
-    --                     enabled = true,
-    --                 },
-    --                 path = {
-    --                     opts = {
-    --                         get_cwd = function(_)
-    --                             return vim.fn.getcwd()
-    --                         end,
-    --                     },
-    --                 },
-    --             },
-    --         },
-    --         completion = {
-    --             menu = {
-    --                 enabled = true,
-    --                 max_height = 10,
-    --                 border = "rounded",
-    --             },
-    --             documentation = {
-    --                 auto_show = true,
-    --                 window = {
-    --                     border = "rounded",
-    --                 },
-    --             },
-    --         },
-    --         cmdline = {
-    --             enabled = true,
-    --             completion = {
-    --                 list = { selection = { preselect = false } },
-    --             },
-    --             keymap = {
-    --                 preset = "default",
-    --             },
-    --         },
-    --     },
-    -- },
-
     {
-        "hrsh7th/nvim-cmp",
-        version = false, -- last release is way too old
-        event = "InsertEnter",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-        },
-        -- Not all LSP servers add brackets when completing a function.
-        -- To better deal with this, LazyVim adds a custom option to cmp,
-        -- that you can configure. For example:
-        --
-        -- ```lua
-        -- opts = {
-        --   auto_brackets = { "python" }
-        -- }
-        -- ```
-        opts = function()
-            -- Register nvim-cmp lsp capabilities
-            vim.lsp.config("*", { capabilities = require("cmp_nvim_lsp").default_capabilities() })
-
-            vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-            local cmp = require("cmp")
-            local defaults = require("cmp.config.default")()
-            local auto_select = true
-            return {
-                auto_brackets = {}, -- configure any filetype to auto add brackets
+        "saghen/blink.cmp",
+        lazy = false,
+        version = "1.*",
+        opts = {
+            keymap = {
+                preset = "enter",
+            },
+            appearance = {
+                use_nvim_cmp_as_default = false,
+            },
+            sources = {
+                default = {
+                    "lsp",
+                    "path",
+                    "snippets",
+                    "buffer",
+                },
+                providers = {
+                    lsp = {
+                        name = "LSP",
+                        enabled = true,
+                    },
+                    path = {
+                        opts = {
+                            get_cwd = function(_)
+                                return vim.fn.getcwd()
+                            end,
+                        },
+                    },
+                    buffer = {
+                        opts = {
+                            disabled = { "number" }
+                        },
+                    },
+                },
+            },
+            completion = {
+                menu = {
+                    enabled = true,
+                    max_height = 10,
+                    border = "rounded",
+                },
+                documentation = {
+                    auto_show = true,
+                    window = {
+                        border = "rounded",
+                    },
+                },
+            },
+            cmdline = {
+                enabled = true,
                 completion = {
-                    completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
+                    list = { selection = { preselect = false } },
                 },
-                preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                    ["<Tab>"] = cmp.mapping.complete(),
-                    ["<CR>"] = cmp.mapping.confirm(),
-                    -- ["<CR>"] = LazyVim.cmp.confirm({ select = auto_select }),
-                    -- ["<C-y>"] = LazyVim.cmp.confirm({ select = true }),
-                    -- ["<S-CR>"] = LazyVim.cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                    ["<C-CR>"] = function(fallback)
-                        cmp.abort()
-                        fallback()
-                    end,
-                }),
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "path" },
-                }, {
-                    { name = "buffer" },
-                }),
-                formatting = {
-                    format = function(entry, item)
-                        -- local icons = LazyVim.config.icons.kinds
-                        -- if icons[item.kind] then
-                        --     item.kind = icons[item.kind] .. item.kind
-                        -- end
-
-                        local widths = {
-                            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-                            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
-                        }
-
-                        for key, width in pairs(widths) do
-                            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-                                item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
-                            end
-                        end
-
-                        return item
-                    end,
+                keymap = {
+                    preset = "default",
                 },
-                sorting = defaults.sorting,
-            }
-        end,
-        -- main = "lazyvim.util.cmp",
+            },
+        },
     },
 
     -- ============================================================================
@@ -730,70 +658,70 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Russian
-keymap({"n", "v", "o"}, "й", "q", opts)
-keymap({"n", "v", "o"}, "Й", "Q", opts)
-keymap({"n", "v", "o"}, "ф", "a", opts)
-keymap({"n", "v", "o"}, "Ф", "A", opts)
-keymap({"n", "v", "o"}, "я", "z", opts)
-keymap({"n", "v", "o"}, "Я", "Z", opts)
-keymap({"n", "v", "o"}, "ц", "w", opts)
-keymap({"n", "v", "o"}, "Ц", "W", opts)
-keymap({"n", "v", "o"}, "ы", "r", opts)
-keymap({"n", "v", "o"}, "Ы", "R", opts)
-keymap({"n", "v", "o"}, "ч", "x", opts)
-keymap({"n", "v", "o"}, "Ч", "X", opts)
-keymap({"n", "v", "o"}, "у", "f", opts)
-keymap({"n", "v", "o"}, "У", "F", opts)
-keymap({"n", "v", "o"}, "в", "s", opts)
-keymap({"n", "v", "o"}, "В", "S", opts)
-keymap({"n", "v", "o"}, "с", "c", opts)
-keymap({"n", "v", "o"}, "С", "C", opts)
-keymap({"n", "v", "o"}, "к", "p", opts)
-keymap({"n", "v", "o"}, "К", "P", opts)
-keymap({"n", "v", "o"}, "а", "t", opts)
-keymap({"n", "v", "o"}, "А", "T", opts)
-keymap({"n", "v", "o"}, "м", "v", opts)
-keymap({"n", "v", "o"}, "М", "V", opts)
-keymap({"n", "v", "o"}, "е", "g", opts)
-keymap({"n", "v", "o"}, "Е", "G", opts)
-keymap({"n", "v", "o"}, "п", "d", opts)
-keymap({"n", "v", "o"}, "П", "D", opts)
-keymap({"n", "v", "o"}, "и", "b", opts)
-keymap({"n", "v", "o"}, "И", "B", opts)
-keymap({"n", "v", "o"}, "н", "j", opts)
-keymap({"n", "v", "o"}, "Н", "J", opts)
-keymap({"n", "v", "o"}, "р", "h", opts)
-keymap({"n", "v", "o"}, "Р", "H", opts)
-keymap({"n", "v", "o"}, "т", "k", opts)
-keymap({"n", "v", "o"}, "Т", "K", opts)
-keymap({"n", "v", "o"}, "г", "l", opts)
-keymap({"n", "v", "o"}, "Г", "L", opts)
-keymap({"n", "v", "o"}, "о", "n", opts)
-keymap({"n", "v", "o"}, "О", "N", opts)
-keymap({"n", "v", "o"}, "ь", "m", opts)
-keymap({"n", "v", "o"}, "Ь", "M", opts)
-keymap({"n", "v", "o"}, "ш", "u", opts)
-keymap({"n", "v", "o"}, "Ш", "U", opts)
-keymap({"n", "v", "o"}, "л", "e", opts)
-keymap({"n", "v", "o"}, "Л", "E", opts)
-keymap({"n", "v", "o"}, "б", ",", opts)
-keymap({"n", "v", "o"}, "Б", "<", opts)
-keymap({"n", "v", "o"}, "щ", "y", opts)
-keymap({"n", "v", "o"}, "Щ", "Y", opts)
-keymap({"n", "v", "o"}, "д", "i", opts)
-keymap({"n", "v", "o"}, "Д", "I", opts)
-keymap({"n", "v", "o"}, "ю", ".", opts)
-keymap({"n", "v", "o"}, "Ю", ">", opts)
-keymap({"n", "v", "o"}, "з", ";", opts)
-keymap({"n", "v", "o"}, "З", ":", opts)
-keymap({"n", "v", "o"}, "ж", "o", opts)
-keymap({"n", "v", "o"}, "Ж", "O", opts)
-keymap({"n", "v", "o"}, "э", "'", opts)
-keymap({"n", "v", "o"}, "Э", "\"", opts)
-keymap({"n", "v", "o"}, "х", "[", opts)
-keymap({"n", "v", "o"}, "Х", "{", opts)
-keymap({"n", "v", "o"}, "ъ", "]", opts)
-keymap({"n", "v", "o"}, "Ъ", "}", opts)
+keymap({ "n", "v", "o" }, "й", "q", opts)
+keymap({ "n", "v", "o" }, "Й", "Q", opts)
+keymap({ "n", "v", "o" }, "ф", "a", opts)
+keymap({ "n", "v", "o" }, "Ф", "A", opts)
+keymap({ "n", "v", "o" }, "я", "z", opts)
+keymap({ "n", "v", "o" }, "Я", "Z", opts)
+keymap({ "n", "v", "o" }, "ц", "w", opts)
+keymap({ "n", "v", "o" }, "Ц", "W", opts)
+keymap({ "n", "v", "o" }, "ы", "r", opts)
+keymap({ "n", "v", "o" }, "Ы", "R", opts)
+keymap({ "n", "v", "o" }, "ч", "x", opts)
+keymap({ "n", "v", "o" }, "Ч", "X", opts)
+keymap({ "n", "v", "o" }, "у", "f", opts)
+keymap({ "n", "v", "o" }, "У", "F", opts)
+keymap({ "n", "v", "o" }, "в", "s", opts)
+keymap({ "n", "v", "o" }, "В", "S", opts)
+keymap({ "n", "v", "o" }, "с", "c", opts)
+keymap({ "n", "v", "o" }, "С", "C", opts)
+keymap({ "n", "v", "o" }, "к", "p", opts)
+keymap({ "n", "v", "o" }, "К", "P", opts)
+keymap({ "n", "v", "o" }, "а", "t", opts)
+keymap({ "n", "v", "o" }, "А", "T", opts)
+keymap({ "n", "v", "o" }, "м", "v", opts)
+keymap({ "n", "v", "o" }, "М", "V", opts)
+keymap({ "n", "v", "o" }, "е", "g", opts)
+keymap({ "n", "v", "o" }, "Е", "G", opts)
+keymap({ "n", "v", "o" }, "п", "d", opts)
+keymap({ "n", "v", "o" }, "П", "D", opts)
+keymap({ "n", "v", "o" }, "и", "b", opts)
+keymap({ "n", "v", "o" }, "И", "B", opts)
+keymap({ "n", "v", "o" }, "н", "j", opts)
+keymap({ "n", "v", "o" }, "Н", "J", opts)
+keymap({ "n", "v", "o" }, "р", "h", opts)
+keymap({ "n", "v", "o" }, "Р", "H", opts)
+keymap({ "n", "v", "o" }, "т", "k", opts)
+keymap({ "n", "v", "o" }, "Т", "K", opts)
+keymap({ "n", "v", "o" }, "г", "l", opts)
+keymap({ "n", "v", "o" }, "Г", "L", opts)
+keymap({ "n", "v", "o" }, "о", "n", opts)
+keymap({ "n", "v", "o" }, "О", "N", opts)
+keymap({ "n", "v", "o" }, "ь", "m", opts)
+keymap({ "n", "v", "o" }, "Ь", "M", opts)
+keymap({ "n", "v", "o" }, "ш", "u", opts)
+keymap({ "n", "v", "o" }, "Ш", "U", opts)
+keymap({ "n", "v", "o" }, "л", "e", opts)
+keymap({ "n", "v", "o" }, "Л", "E", opts)
+keymap({ "n", "v", "o" }, "б", ",", opts)
+keymap({ "n", "v", "o" }, "Б", "<", opts)
+keymap({ "n", "v", "o" }, "щ", "y", opts)
+keymap({ "n", "v", "o" }, "Щ", "Y", opts)
+keymap({ "n", "v", "o" }, "д", "i", opts)
+keymap({ "n", "v", "o" }, "Д", "I", opts)
+keymap({ "n", "v", "o" }, "ю", ".", opts)
+keymap({ "n", "v", "o" }, "Ю", ">", opts)
+keymap({ "n", "v", "o" }, "з", ";", opts)
+keymap({ "n", "v", "o" }, "З", ":", opts)
+keymap({ "n", "v", "o" }, "ж", "o", opts)
+keymap({ "n", "v", "o" }, "Ж", "O", opts)
+keymap({ "n", "v", "o" }, "э", "'", opts)
+keymap({ "n", "v", "o" }, "Э", "\"", opts)
+keymap({ "n", "v", "o" }, "х", "[", opts)
+keymap({ "n", "v", "o" }, "Х", "{", opts)
+keymap({ "n", "v", "o" }, "ъ", "]", opts)
+keymap({ "n", "v", "o" }, "Ъ", "}", opts)
 
 -- Navigation
 keymap("n", "<C-h>", "<C-w>h", opts)

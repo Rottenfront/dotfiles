@@ -21,6 +21,7 @@
 # # separated by equals signs.
 font-family = Cascadia Code PL
 font-size = 10
+theme = Zenwritten Dark
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.

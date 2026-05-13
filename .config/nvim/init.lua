@@ -183,6 +183,13 @@ require("lazy").setup({
             appearance = {
                 use_nvim_cmp_as_default = false,
             },
+            fuzzy = {
+                sorts = {
+                    'exact',
+                    'score',
+                    'sort_text'
+                }
+            },
             sources = {
                 default = {
                     "lsp",
@@ -202,11 +209,11 @@ require("lazy").setup({
                             end,
                         },
                     },
-                    buffer = {
-                        opts = {
-                            disabled = { "number" }
-                        },
-                    },
+                    -- buffer = {
+                    --     opts = {
+                    --         disabled = { "number" }
+                    --     },
+                    -- },
                 },
             },
             completion = {
@@ -231,6 +238,9 @@ require("lazy").setup({
                     preset = "default",
                 },
             },
+            term = {
+                enabled = true,
+            }
         },
     },
 
@@ -583,6 +593,8 @@ require("lazy").setup({
             },
         },
     },
+
+    -- { 'wakatime/vim-wakatime', lazy = false },
 
     -- ============================================================================
     -- Themes

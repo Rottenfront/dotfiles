@@ -130,6 +130,7 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
 alias v="nvim"
 alias yz="yazi"
+alias 7x="7z x"
 
 fish_add_path "$HOME/.npm-global/bin"
 fish_add_path "$HOME/.cargo/bin/"

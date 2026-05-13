@@ -20,7 +20,7 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 font-family = Cascadia Code PL
-font-size = 10
+font-size = 13
 theme = Zenwritten Dark
 # window-padding-x = 2
 #

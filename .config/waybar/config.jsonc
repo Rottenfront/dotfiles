@@ -91,12 +91,6 @@
     "interval": 2
   },
 
-  "custom/cpu": {
-    "exec": "~/.config/waybar/cpu.sh",
-    "format": "{}",
-    "interval": 2
-  },
-
   "custom/date": {
     "format": "{}",
     "interval": 3600,

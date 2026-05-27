@@ -24,16 +24,7 @@
 
   "hyprland/workspaces": {
     "format": "{icon}",
-    "on-click": "activate",
-	"format-icons": {
-		"1": "",
-		"2": "",
-		"3": "",
-		"4": "",
-		"5": "🎵"
-		// "active": "{id}",
-		// "default": "{id}"
-	}
+    "on-click": "activate"
   },
 
   "cpu": {
@@ -45,11 +36,13 @@
     "format": "MEM {percentage}%",
     "interval": 3
   },
+
   "hyprland/language": {
     "format": "{}",
     "format-en": "en",
     "format-ru": "ru"
   },
+
   "tray": {
     "spacing": 5
   },
@@ -73,12 +66,13 @@
     "format-alt": "{:%Y/%m/%d}",
     "tooltip-format": "{:%A %d %B %Y}"
   },
+
   "mpris": {
     "format": "{player_icon} {artist} - {title}",
     "format-paused": "{status_icon} <i>{artist} - {title}</i>",
     "player-icons": {
       "default": "▶",
-      "mpv": "🎵"
+      "termusic": "🎵"
     },
     "status-icons": {
       "paused": "⏸"

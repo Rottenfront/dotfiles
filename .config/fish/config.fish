@@ -85,6 +85,11 @@ function rename_number_space
     end
 end
 
+function detach
+    nohup $argv >/dev/null 2>&1 &
+    disown
+end
+
 ## Useful aliases
 # Replace ls with eza
 alias ls='eza -al --color=always --group-directories-first --icons' # preferred listing
@@ -132,13 +137,10 @@ alias v="nvim"
 alias yz="yazi"
 alias 7x="7z x"
 
-fish_add_path "$HOME/.npm-global/bin"
+export PYTHONSTARTUP=$HOME/.pythonrc.py
+
+# Rust configuration
 fish_add_path "$HOME/.cargo/bin/"
 
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
+# Opam configuration
 test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
-# END opam configuration

@@ -1,12 +1,3 @@
-/**
- *
- * Author : Aditya Shakya (adi1090x)
- * Github : @adi1090x
- * 
- * Rofi Theme File
- * Rofi Version: 1.7.3
- **/
-
 /*****----- Configuration -----*****/
 configuration {
 	modi:                       "drun,run,filebrowser";
@@ -26,7 +17,7 @@ configuration {
     background:     #1F1F1FFF;
     background-alt: #282B31FF;
     foreground:     #FFFFFFFF;
-    selected:       #3B9DF5FF;
+    selected:       #c8b89aFF;
     active:         #98C379FF;
     urgent:         #E06C75FF;
 

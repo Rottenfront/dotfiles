@@ -13,3 +13,7 @@ output_path = "~/.config/foot/foot.ini"
 [templates.rofi]
 input_path = "./templates/config.rasi"
 output_path = "~/.config/rofi/config.rasi"
+
+[templates.hyprland]
+input_path = "./templates/colors.lua"
+output_path = "~/.config/hypr/colors.lua"

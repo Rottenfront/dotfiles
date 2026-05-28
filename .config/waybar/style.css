@@ -1,3 +1,5 @@
+@import "colors.css";
+
 * {
   font-family: Caskaydia Cove NF;
   font-weight: bold;
@@ -7,7 +9,8 @@
 
 window#waybar {
   background: rgba(31, 31, 31, .0);
-  color: #e0e0e0;
+  /* color: #e0e0e0; */
+  color: @on_surface;
   padding: 2px 10px;
   margin: 2px;
   /* border-radius: 17px; */
@@ -15,7 +18,7 @@ window#waybar {
 
 tooltip {
   background: rgba(31, 31, 31, .85);
-  color: #e0e0e0;
+  color: @on_surface;
   border-radius: 10px;
   border-width: 1px;
   border-color: #e0e0e0;
@@ -25,26 +28,22 @@ tooltip {
 #workspaces button {
   padding: 5px 10px;
   border-radius: 10px;
-  color: #e0e0e0;
+  color: @outline;
 }
 
 #workspaces button.active {
-  background-color: rgba(62, 62, 62, 1.0);
-  color: #e0e0e0;
-  /* background-color: #c49ec4; */
-  border-radius: 10px;
+  background-color: @on_primary;
+  color: @primary;
 }
 
 #workspaces button.urgent {
-  color: #e0e0e0;
-  background-color: #9ec3c4;
-  border-radius: 10px;
+  background-color: @on_error;
+  color: @error;
 }
 
 #workspaces button:hover {
-  background-color: #c49ec4;
-  color: #e0e0e0;
-  border-radius: 10px;
+  background-color: @on_secondary;
+  color: @secondary;
 }
 
 #custom-date,
@@ -65,6 +64,11 @@ tooltip {
 #cava {
   padding: 2px 10px;
   margin: 2px 5px;
-  background-color: #181818;
-  border-radius: 10px;
+  background-color: @surface;
+  border-width: 1px;
+  border-color: @outline;
+  
+  border-style: solid;
+
+  border-radius: 15px;
 }

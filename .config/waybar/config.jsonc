@@ -63,7 +63,6 @@
   "clock": {
     "format": "{:%H:%M:%S}",
     "interval": 1,
-    "format-alt": "{:%Y/%m/%d}",
     "tooltip-format": "{:%A %d %B %Y}"
   },
 
@@ -88,6 +87,6 @@
   "custom/date": {
     "format": "{}",
     "interval": 3600,
-    "exec": "date +\"%Y/%m/%d (%a)\""
+    "exec": "date +\"%d %B %Y (%a)\""
   }
 }

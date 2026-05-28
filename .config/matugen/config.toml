@@ -6,6 +6,10 @@ input_path = "./templates/waybar-colors.css"
 output_path = "~/.config/waybar/colors.css"
 post_hook = "pkill -SIGUSR2 waybar"
 
+[templates.foot]
+input_path = "./templates/foot.ini"
+output_path = "~/.config/foot/foot.ini"
+
 [templates.rofi]
 input_path = "./templates/config.rasi"
 output_path = "~/.config/rofi/config.rasi"

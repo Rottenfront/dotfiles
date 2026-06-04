@@ -1,0 +1,28 @@
+colors:
+  name: Matugen
+  author: Rottenfront
+  primary:
+    foreground: "{{colors.on_background.default.hex}}"
+    background: "{{colors.background.default.hex}}"
+  cursor:
+    text: "{{colors.surface.default.hex}}"
+    cursor: "{{colors.on_surface.default.hex}}"
+  normal:
+    black: "{{base16.base00.default.hex}}"
+    red: "{{base16.base01.default.hex}}"
+    green: "{{base16.base02.default.hex}}"
+    yellow: "{{base16.base03.default.hex}}"
+    blue: "{{base16.base04.default.hex}}"
+    magenta: "{{base16.base05.default.hex}}"
+    cyan: "{{base16.base06.default.hex}}"
+    white: "{{base16.base07.default.hex}}"
+  bright:
+    black: "{{base16.base08.default.hex}}"
+    red: "{{base16.base09.default.hex}}"
+    green: "{{base16.base0a.default.hex}}"
+    yellow: "{{base16.base0b.default.hex}}"
+    blue: "{{base16.base0c.default.hex}}"
+    magenta: "{{base16.base0d.default.hex}}"
+    cyan: "{{base16.base0e.default.hex}}"
+    white: "{{base16.base0f.default.hex}}"
+

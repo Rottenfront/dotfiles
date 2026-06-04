@@ -1,4 +1,5 @@
 if vim.g.neovide then
+    -- vim.g.neovide_opacity = 0.9
     vim.o.guifont = "Cascadia Code:h10"
 end
 
@@ -87,6 +88,8 @@ require("lazy").setup({
                 "lua_ls",
                 -- Typst
                 "tinymist",
+                -- QML
+                "qmlls",
             },
             handlers = {
                 function(server_name)
@@ -170,6 +173,11 @@ require("lazy").setup({
                         },
                     })
                 end,
+                -- ["qmlls"] = function ()
+                --     require("lspconfid").qmlls.setup({
+                --
+                --     })
+                -- end
             },
         },
     },
@@ -745,6 +753,21 @@ end
 -- ============================================================================
 local augroup = vim.api.nvim_create_augroup
 
+autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client.name == "qmlls" then
+      local ns = vim.lsp.diagnostic.get_namespace(client.id)
+
+      vim.diagnostic.config({
+        virtual_text = false,
+        signs = false,
+        underline = false,
+      }, ns)
+    end
+  end,
+})
 -- Create undo directory if it doesn't exist
 augroup("UndoDir", { clear = true })
 autocmd("BufWritePre", {

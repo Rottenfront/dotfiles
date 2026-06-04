@@ -16,8 +16,9 @@ hl.monitor({
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("waybar")
-    hl.exec_cmd("hyprpaper")
+    -- hl.exec_cmd("waybar")
+    hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("matugen image ~/Pictures/wallpapers/wallhaven-rq2v8j.png")
     hl.exec_cmd("qs")
     hl.exec_cmd("hyprpolkitagent")
 
@@ -200,58 +201,58 @@ hl.gesture({
 ---- KEYBINDINGS ----
 ---------------------
 
-local mod = "SUPER"
+local mod = "SUPER + "
 
 --- APPLICATIONS
 
 -- application menu
-hl.bind(mod .. " + C", hl.dsp.exec_cmd("rofi -show drun"))
+hl.bind(mod .. "C", hl.dsp.exec_cmd("rofi -show drun"))
 
 -- control center
-hl.bind(mod .. " + P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
+hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal
-hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd("kitty"))
+hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
 
 -- browsers
-hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd("zen-browser"))
-hl.bind(mod .. " + SHIFT + I", hl.dsp.exec_cmd("helium-browser"))
+hl.bind(mod .. "SHIFT + B", hl.dsp.exec_cmd("librewolf"))
+hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("helium-browser"))
 
 -- file manager
-hl.bind(mod .. " + G", hl.dsp.exec_cmd("thunar"))
+hl.bind(mod .. "G", hl.dsp.exec_cmd("thunar"))
 
 -- music
-hl.bind(mod .. " + SHIFT + G", hl.dsp.exec_cmd("kitty -e termusic"))
+hl.bind(mod .. "SHIFT + G", hl.dsp.exec_cmd("kitty -e termusic"))
 
 -- audio management
-hl.bind(mod .. " + SHIFT + P", hl.dsp.exec_cmd("pwvucontrol"))
+hl.bind(mod .. "SHIFT + P", hl.dsp.exec_cmd("pwvucontrol"))
 
 
-hl.bind(mod .. " + SHIFT + N", hl.dsp.exec_cmd("neovide"))
+hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 
 -- screenshots
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd("flameshot gui"))
 
 -- brainrot
-hl.bind(mod .. " + SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="http://127.0.0.1:2080"'))
+hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="http://127.0.0.1:2080"'))
 
--- hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl layers'))
+hl.bind(mod .. "SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl clients'))
 
 
 --- WORKSPACES
 for i = 1, 10 do
     local key = i % 10
-    hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+    hl.bind(mod .. "" .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(mod .. "SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- scratch workspace
-hl.bind(mod .. " + D", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mod .. " + SHIFT + D", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mod .. "D", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mod .. "SHIFT + D", hl.dsp.window.move({ workspace = "special:magic" }))
 
 
 --- LAYOUTS
-hl.bind(mod .. " + W", function()
+hl.bind(mod .. "W", function()
     local current, err = hl.get_config("general:layout")
     if current == "dwindle" then
         hl.config({ general = { layout = "scrolling" } })
@@ -259,34 +260,34 @@ hl.bind(mod .. " + W", function()
         hl.config({ general = { layout = "dwindle" } })
     end
 end)
-hl.bind(mod .. " + SHIFT + W", hl.dsp.exec_cmd("hyprctl keyword general:layout dwindle"))
+hl.bind(mod .. "SHIFT + SEMICOLON", hl.dsp.exec_cmd("hyprctl keyword general:layout dwindle"))
 
 --- WINDOWS
-hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mod .. "T", hl.dsp.window.float({ action = "toggle" }))
 
-hl.bind(mod .. " + SHIFT + C", hl.dsp.window.close())
+hl.bind(mod .. "SHIFT + C", hl.dsp.window.close())
 
-hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))
-hl.bind(mod .. " + L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mod .. " + K", hl.dsp.focus({ direction = "up" }))
-hl.bind(mod .. " + J", hl.dsp.focus({ direction = "down" }))
+hl.bind(mod .. "H", hl.dsp.focus({ direction = "left" }))
+hl.bind(mod .. "L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mod .. "K", hl.dsp.focus({ direction = "up" }))
+hl.bind(mod .. "J", hl.dsp.focus({ direction = "down" }))
 
-hl.bind(mod .. " + SHIFT + H", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mod .. " + SHIFT + L", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mod .. " + SHIFT + K", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mod .. " + SHIFT + J", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mod .. "SHIFT + H", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mod .. "SHIFT + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mod .. "SHIFT + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mod .. "SHIFT + J", hl.dsp.window.move({ direction = "down" }))
 
-hl.bind(mod .. " + ALT + H", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
-hl.bind(mod .. " + ALT + L", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
-hl.bind(mod .. " + ALT + K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-hl.bind(mod .. " + ALT + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
+hl.bind(mod .. "ALT + H", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+hl.bind(mod .. "ALT + L", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+hl.bind(mod .. "ALT + K", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
+hl.bind(mod .. "ALT + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
 
-hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind(mod .. " + A", hl.dsp.layout("togglesplit"))
+hl.bind(mod .. "A", hl.dsp.layout("togglesplit"))
 
--- hl.bind(mod .. " + V", function()
+-- hl.bind(mod .. "V", function()
 --     if hl.get_active_window().floating then
 --         hl.dispatch(hl.dsp.window.float({ "toggle" }))
 --     else
@@ -373,7 +374,9 @@ hl.window_rule({
         class = "flameshot",
     },
 
-    float = true,
+    fullscreen = true,
+    workspace = "special:flameshot",
+    -- float = true,
     no_anim = true,
     no_blur = true,
     no_shadow = true,
@@ -398,7 +401,7 @@ hl.window_rule({
         title = "Open .*",
     },
     float = true,
-    size = { "(monitor_w*0.3)", "(monitor_h*0.5)" },
+    size = { "(monitor_w*0.3)", "(monitor_h*0.6)" },
     center = true,
 })
 

@@ -1,20 +1,10 @@
-// notifications.qml
-// Daemon de notifications style NieR / YoRHa
-//
-// Installation :
-//   1. Tuer tout autre daemon : pkill dunst; pkill mako; pkill swaync
-//   2. qs -p notifications.qml
-//
-// Tests :
-//   notify-send "Test" "Ceci est une notification"
-//   notify-send -u critical "ATTENTION" "Niveau critique"
-//   notify-send -u low "Info" "Niveau bas"
-
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.Notifications
 import Quickshell.Wayland
+
+import "../theme"
 
 Scope {
     id: root
@@ -64,17 +54,11 @@ Scope {
             implicitWidth: root.notifWidth + root.leftMargin + 40
             color: "transparent"
 
-            // ═══════════════════════════════════════════════════════════
-            // MASQUE D'INPUT : ne capture les clics QUE dans la zone
-            // qui entoure la pile de notifs. Quand il n'y en a aucune,
-            // la région fait 0x0 → tout passe à travers.
-            // ═══════════════════════════════════════════════════════════
             mask: Region {
                 x: column.x
                 y: column.y
                 width: notifRepeater.count > 0 ? root.notifWidth : 0
                 height: {
-                    // Dépendance explicite pour forcer le recalcul
                     column.layoutTrigger;
                     let h = 0;
                     for (let i = 0; i < column.children.length; i++) {
@@ -96,7 +80,6 @@ Scope {
                 width: root.notifWidth
                 height: parent.height - anchors.topMargin
 
-                // Trigger pour forcer la re-évaluation du mask de la fenêtre
                 property int layoutTrigger: 0
 
                 Repeater {
@@ -121,9 +104,6 @@ Scope {
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
-    // Composant notif
-    // ════════════════════════════════════════════════════════════════
     component NotifItem: Item {
         id: notif
 
@@ -132,22 +112,24 @@ Scope {
         readonly property bool isNotifItem: true
 
         readonly property int urgency: notification ? notification.urgency : 1
-        readonly property color accentColor: {
-            if (urgency === 2) return "#6e2a2a";
-            if (urgency === 0) return "#7a7358";
-            return "#463f2e";
+        readonly property color textColor: {
+            if (urgency === 2) return Theme.error;
+            if (urgency === 0) return Theme.on_surface_variant;
+            return Theme.on_surface;
+        }
+
+        readonly property color bgColor: Theme.surface_container
+
+        readonly property color outlineColor: {
+            if (urgency === 2) return Theme.error_container;
+            if (urgency === 0) return Theme.surface_variant;
+            return Theme.outline;
         }
 
         readonly property string urgencyLabel: {
             if (urgency === 2) return "CRITICAL";
             if (urgency === 0) return "INFO";
             return "NOTICE";
-        }
-
-        readonly property string urgencyJp: {
-            if (urgency === 2) return "緊急";
-            if (urgency === 0) return "情報";
-            return "通知";
         }
 
         // Calcul de la position Y en sommant les hauteurs des frères précédents
@@ -270,23 +252,25 @@ Scope {
             property real xShake: 0
             property real cardOpacity: 0
 
+            radius: 15
+
             x: xOffset + xShake
             opacity: cardOpacity
             width: parent.width
             implicitHeight: contentCol.implicitHeight + 12
 
-            color: "#d6cfb5"
-            border.color: "#463f2e"
+            color: notif.bgColor
+            border.color: notif.outlineColor
             border.width: 1
 
             // Bordure gauche colorée
-            Rectangle {
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                width: 3
-                color: notif.accentColor
-            }
+            // Rectangle {
+            //     anchors.left: parent.left
+            //     anchors.top: parent.top
+            //     anchors.bottom: parent.bottom
+            //     width: 3
+            //     color: notif.textColor
+            // }
 
             // Scan-line d'entrée
             Rectangle {
@@ -350,14 +334,15 @@ Scope {
                     Rectangle {
                         Layout.preferredWidth: urgLabel.implicitWidth + 10
                         Layout.preferredHeight: 14
-                        color: notif.accentColor
+                        border.color: notif.textColor
+                        color: "transparent"
 
                         Text {
                             id: urgLabel
                             anchors.centerIn: parent
                             text: notif.urgencyLabel
-                            color: "#d6cfb5"
-                            font.family: "JetBrains Mono"
+                            color: notif.textColor
+                            font.family: Theme.mono
                             font.pixelSize: 8
                             font.weight: Font.Medium
                             font.letterSpacing: 2
@@ -365,19 +350,12 @@ Scope {
                     }
 
                     Text {
-                        text: notif.urgencyJp
-                        color: "#7a7358"
-                        font.family: "Noto Sans JP"
-                        font.pixelSize: 9
-                    }
-
-                    Text {
                         Layout.fillWidth: true
                         text: notif.notification
                               ? (notif.notification.appName || "SYSTEM").toUpperCase()
                               : "SYSTEM"
-                        color: "#7a7358"
-                        font.family: "JetBrains Mono"
+                        color: Theme.on_surface_variant
+                        font.family: Theme.mono
                         font.pixelSize: 8
                         font.letterSpacing: 2
                         elide: Text.ElideRight
@@ -389,8 +367,8 @@ Scope {
                             const p = n => String(n).padStart(2, '0');
                             return `${p(d.getHours())}:${p(d.getMinutes())}`;
                         }
-                        color: "#7a7358"
-                        font.family: "JetBrains Mono"
+                        color: Theme.on_surface_variant
+                        font.family: Theme.mono
                         font.pixelSize: 8
                         font.letterSpacing: 1
                     }
@@ -398,8 +376,8 @@ Scope {
                     Rectangle {
                         Layout.preferredWidth: 16
                         Layout.preferredHeight: 14
-                        color: closeMouse.containsMouse ? notif.accentColor : "transparent"
-                        border.color: "#463f2e"
+                        color: closeMouse.containsMouse ? notif.textColor : "transparent"
+                        border.color: notif.outlineColor
                         border.width: 1
 
                         Behavior on color { ColorAnimation { duration: 120 } }
@@ -407,8 +385,8 @@ Scope {
                         Text {
                             anchors.centerIn: parent
                             text: "✕"
-                            color: closeMouse.containsMouse ? "#d6cfb5" : "#463f2e"
-                            font.family: "JetBrains Mono"
+                            color: closeMouse.containsMouse ? notif.bgColor : notif.textColor
+                            font.family: Theme.mono
                             font.pixelSize: 9
                             Behavior on color { ColorAnimation { duration: 120 } }
                         }
@@ -426,7 +404,7 @@ Scope {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 1
-                    color: "#463f2e"
+                    color: notif.textColor
                     opacity: 0.2
                 }
 
@@ -461,28 +439,20 @@ Scope {
 
                         visible: imageSource.length > 0
 
-                        // Cadre style NieR
-                        Rectangle {
-                            anchors.fill: parent
-                            color: "transparent"
-                            border.color: "#463f2e"
-                            border.width: 1
-                        }
-
                         // Badge ID coin supérieur gauche
                         Rectangle {
                             anchors.top: parent.top
                             anchors.left: parent.left
                             width: 14
                             height: 10
-                            color: notif.accentColor
+                            border.color: notif.outlineColor
                             z: 2
 
                             Text {
                                 anchors.centerIn: parent
                                 text: String(notif.itemIndex + 1).padStart(2, '0')
-                                color: "#d6cfb5"
-                                font.family: "JetBrains Mono"
+                                color: notif.textColor
+                                font.family: Theme.mono
                                 font.pixelSize: 7
                                 font.letterSpacing: 0.5
                             }
@@ -503,27 +473,27 @@ Scope {
                         }
 
                         // Petits repères décoratifs dans les coins
-                        Repeater {
-                            model: 4
-                            delegate: Item {
-                                required property int index
-                                width: 4
-                                height: 4
-                                x: (index % 2 === 0) ? 0 : parent.width - 4
-                                y: (index < 2) ? 0 : parent.height - 4
-                                z: 3
-
-                                Rectangle {
-                                    anchors.top: parent.top
-                                    anchors.left: (parent.parent.x === 0 || index % 2 === 0) ? parent.left : undefined
-                                    anchors.right: (index % 2 === 1) ? parent.right : undefined
-                                    width: 4
-                                    height: 1
-                                    color: notif.accentColor
-                                    visible: index === 0 || index === 1
-                                }
-                            }
-                        }
+                        // Repeater {
+                        //     model: 4
+                        //     delegate: Item {
+                        //         required property int index
+                        //         width: 4
+                        //         height: 4
+                        //         x: (index % 2 === 0) ? 0 : parent.width - 4
+                        //         y: (index < 2) ? 0 : parent.height - 4
+                        //         z: 3
+                        //
+                        //         Rectangle {
+                        //             anchors.top: parent.top
+                        //             anchors.left: (parent.parent.x === 0 || index % 2 === 0) ? parent.left : undefined
+                        //             anchors.right: (index % 2 === 1) ? parent.right : undefined
+                        //             width: 4
+                        //             height: 1
+                        //             color: notif.textColor
+                        //             visible: index === 0 || index === 1
+                        //         }
+                        //     }
+                        // }
                     }
 
                     // ═══ TEXTE ═══
@@ -535,10 +505,10 @@ Scope {
                         Text {
                             Layout.fillWidth: true
                             text: notif.notification ? notif.notification.summary : ""
-                            color: "#2e2a1f"
-                            font.family: "Inter"
-                            font.pixelSize: 13
-                            font.weight: Font.Medium
+                            color: notif.textColor
+                            font.family: Theme.mono
+                            font.pixelSize: 15
+                            font.weight: Font.Bold
                             font.letterSpacing: 0.8
                             wrapMode: Text.WordWrap
                             maximumLineCount: 2
@@ -549,10 +519,10 @@ Scope {
                         Text {
                             Layout.fillWidth: true
                             text: notif.notification ? notif.notification.body : ""
-                            color: "#463f2e"
-                            font.family: "Inter"
-                            font.pixelSize: 11
-                            font.weight: Font.Light
+                            color: notif.textColor
+                            font.family: Theme.mono
+                            font.pixelSize: 12
+                            font.weight: Font.Medium
                             font.letterSpacing: 0.3
                             wrapMode: Text.WordWrap
                             maximumLineCount: 4
@@ -580,8 +550,8 @@ Scope {
 
                             Layout.preferredHeight: 22
                             Layout.preferredWidth: actionText.implicitWidth + 16
-                            color: actMouse.containsMouse ? "#463f2e" : "transparent"
-                            border.color: "#463f2e"
+                            color: actMouse.containsMouse ? notif.textColor : "transparent"
+                            border.color: notif.outlineColor
                             border.width: 1
 
                             Behavior on color { ColorAnimation { duration: 120 } }
@@ -590,8 +560,8 @@ Scope {
                                 id: actionText
                                 anchors.centerIn: parent
                                 text: `▸ ${(modelData && modelData.text ? modelData.text : "").toUpperCase()}`
-                                color: actMouse.containsMouse ? "#d6cfb5" : "#463f2e"
-                                font.family: "JetBrains Mono"
+                                color: actMouse.containsMouse ? notif.bgColor : notif.textColor
+                                font.family: Theme.mono
                                 font.pixelSize: 9
                                 font.letterSpacing: 1.5
                                 Behavior on color { ColorAnimation { duration: 120 } }
@@ -615,32 +585,32 @@ Scope {
             }
 
             // Barre de progression du timeout
-            Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 3
-                height: 1
-                color: notif.accentColor
-                opacity: 0.3
-                z: 1
-
-                Rectangle {
-                    id: progressBar
-                    anchors.left: parent.left
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    width: parent.width
-                    color: notif.accentColor
-
-                    NumberAnimation on width {
-                        from: progressBar.parent.width
-                        to: 0
-                        duration: closeTimer.interval
-                        running: notif.state === "visible"
-                    }
-                }
-            }
+            // Rectangle {
+            //     anchors.left: parent.left + parent.radius
+            //     anchors.right: parent.right - parent.radius
+            //     anchors.bottom: parent.bottom - 1
+            //     anchors.leftMargin: 3
+            //     height: 1
+            //     color: notif.textColor
+            //     opacity: 0.3
+            //     z: 1
+            //
+            //     Rectangle {
+            //         id: progressBar
+            //         anchors.left: parent.left
+            //         anchors.top: parent.top
+            //         anchors.bottom: parent.bottom
+            //         width: parent.width
+            //         color: notif.textColor
+            //
+            //         NumberAnimation on width {
+            //             from: progressBar.parent.width
+            //             to: 0
+            //             duration: closeTimer.interval
+            //             running: notif.state === "visible"
+            //         }
+            //     }
+            // }
 
             // Hover sur la carte → pause du timer
             MouseArea {

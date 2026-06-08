@@ -5,7 +5,6 @@ import Quickshell
 import qs.services
 import Quickshell.Io
 import "../../theme"
-import qs.components
 
 Rectangle {
     id: pill

@@ -33,14 +33,14 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
-hl.env("QT_QPA_PLATFORM", "wayland")
+hl.env("QT_QPA_PLATFORM", "wayland:xcb")
+hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
 hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("PROTON_ENABLE_WAYLAND", "1")
 
-hl.env("GTK_THEME", "MacTahoe-Dark")
-hl.env("QT_STYLE_OVERRIDE", "kvantum")
+hl.env("GTK_THEME", "Flat-Remix-GTK-Blue-Darkest")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -209,7 +209,7 @@ local mod = "SUPER + "
 hl.bind(mod .. "C", hl.dsp.exec_cmd("rofi -show drun"))
 
 -- control center
-hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
+hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl changeVisible"))
 
 -- terminal
 hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
@@ -239,6 +239,9 @@ hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="
 hl.bind(mod .. "SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl clients'))
 
 
+hl.bind(mod .. "SHIFT + COMMA", hl.dsp.exit())
+
+
 --- WORKSPACES
 for i = 1, 10 do
     local key = i % 10
@@ -252,7 +255,7 @@ hl.bind(mod .. "SHIFT + D", hl.dsp.window.move({ workspace = "special:magic" }))
 
 
 --- LAYOUTS
-hl.bind(mod .. "W", function()
+hl.bind(mod .. "SEMICOLON", function()
     local current, err = hl.get_config("general:layout")
     if current == "dwindle" then
         hl.config({ general = { layout = "scrolling" } })
@@ -396,9 +399,9 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "openers",
+    name = "xdg",
     match = {
-        title = "Open .*",
+        class = "xdg-desktop-portal.*",
     },
     float = true,
     size = { "(monitor_w*0.3)", "(monitor_h*0.6)" },
@@ -406,12 +409,11 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "bitwarden",
+    name = "bitwarden-librewolf",
     match = {
-        class = "chrome-nngceckbapebfimnlniiiahkandclblb-Default",
+        title = ".*Bitwarden.*",
     },
     float = true,
-    -- size = { "(monitor_w*0.3)", "(monitor_h*0.5)" },
     center = true,
 })
 

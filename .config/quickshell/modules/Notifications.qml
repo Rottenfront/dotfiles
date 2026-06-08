@@ -118,7 +118,7 @@ Scope {
             return Theme.on_surface;
         }
 
-        readonly property color bgColor: Theme.surface_container
+        readonly property color bgColor: Theme.background
 
         readonly property color outlineColor: {
             if (urgency === 2) return Theme.error_container;
@@ -330,33 +330,33 @@ Scope {
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 8
-
-                    Rectangle {
-                        Layout.preferredWidth: urgLabel.implicitWidth + 10
-                        Layout.preferredHeight: 14
-                        border.color: notif.textColor
-                        color: "transparent"
-
-                        Text {
-                            id: urgLabel
-                            anchors.centerIn: parent
-                            text: notif.urgencyLabel
-                            color: notif.textColor
-                            font.family: Theme.mono
-                            font.pixelSize: 8
-                            font.weight: Font.Medium
-                            font.letterSpacing: 2
-                        }
-                    }
+                    //
+                    // Rectangle {
+                    //     Layout.preferredWidth: urgLabel.implicitWidth + 10
+                    //     Layout.preferredHeight: 14
+                    //     border.color: notif.textColor
+                    //     color: "transparent"
+                    //
+                    //     Text {
+                    //         id: urgLabel
+                    //         anchors.centerIn: parent
+                    //         text: notif.urgencyLabel
+                    //         color: notif.textColor
+                    //         font.family: Theme.mono
+                    //         font.pixelSize: 8
+                    //         font.weight: Font.Medium
+                    //         font.letterSpacing: 2
+                    //     }
+                    // }
 
                     Text {
                         Layout.fillWidth: true
-                        text: notif.notification
+                        text: notif.urgencyLabel + " | " + (notif.notification
                               ? (notif.notification.appName || "SYSTEM").toUpperCase()
-                              : "SYSTEM"
+                              : "SYSTEM")
                         color: Theme.on_surface_variant
                         font.family: Theme.mono
-                        font.pixelSize: 8
+                        font.pixelSize: 10
                         font.letterSpacing: 2
                         elide: Text.ElideRight
                     }
@@ -369,7 +369,7 @@ Scope {
                         }
                         color: Theme.on_surface_variant
                         font.family: Theme.mono
-                        font.pixelSize: 8
+                        font.pixelSize: 10
                         font.letterSpacing: 1
                     }
 

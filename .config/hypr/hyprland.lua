@@ -20,9 +20,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("matugen image ~/Pictures/wallpapers/wallhaven-rq2v8j.png")
     hl.exec_cmd("qs")
-    hl.exec_cmd("hyprpolkitagent")
+    hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
-    hl.exec_cmd("throne", { workspace = "10" })
+    hl.exec_cmd("throne")
+    hl.exec_cmd("easyeffects")
 end)
 
 
@@ -32,6 +33,8 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
+
+hl.env("MPD_HOST", "127.0.0.1")
 
 hl.env("QT_QPA_PLATFORM", "wayland:xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
@@ -132,6 +135,7 @@ hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 1, bezier = "easeOutQuint" })
+hl.animation({ leaf = "specialWorkspace", enabled = true, speed = 1, bezier = "easeOutQuint", style = "slidevert" })
 -- hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "easeOutQuint"})
 -- hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "easeOutQuint"})
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
@@ -209,7 +213,8 @@ local mod = "SUPER + "
 hl.bind(mod .. "C", hl.dsp.exec_cmd("rofi -show drun"))
 
 -- control center
-hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl changeVisible"))
+hl.bind(mod .. "B", hl.dsp.exec_cmd("qs ipc call bar toggle"))
+hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal
 hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
@@ -234,7 +239,7 @@ hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd("flameshot gui"))
 
 -- brainrot
-hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="http://127.0.0.1:2080"'))
+-- hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="http://127.0.0.1:2080"'))
 
 hl.bind(mod .. "SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl clients'))
 
@@ -312,10 +317,10 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     { locked = true, repeating = true })
 
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("mpc next"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("mpc pause"), { locked = true })
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("mpc toggle"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("mpc prev"), { locked = true })
 
 
 --------------------------------
@@ -439,4 +444,22 @@ hl.window_rule({
         class = "PortProton",
     },
     float = true
+})
+
+hl.window_rule({
+    name = "throne",
+    match = {
+        class = "Throne",
+    },
+    -- silent = true,
+    workspace = 10,
+})
+
+hl.window_rule({
+    name = "easyeffects",
+    match = {
+        class = "org.kde.easyeffects",
+    },
+    -- silent = true,
+    workspace = 9,
 })

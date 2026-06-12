@@ -147,3 +147,6 @@ test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-
 
 
 zoxide init fish | source
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+fish_add_path "$HOME/.local/bin"

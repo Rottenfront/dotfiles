@@ -24,10 +24,9 @@ Item {
             }
             spacing: 8
             Workspaces {}
-            MediaPill {}
         }
         RowLayout {
-            Clock {}
+            MediaPill {}
 
             anchors {
                 centerIn: parent
@@ -49,6 +48,7 @@ Item {
             Volume {}
             Keyboard {}
             Date {}
+            Clock {}
             SystemTray {}
             Rectangle {
                 implicitWidth: 8

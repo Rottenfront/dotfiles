@@ -9,20 +9,8 @@ import Quickshell.Hyprland
 
 ShellRoot {
     id: root
+    property bool barVisible: true
     Notifications {}
-    // PanelWindow {
-    //     focusable: true
-    //     WlrLayershell.layer: WlrLayer.Bottom
-    //     exclusionMode: ExclusionMode.Ignore
-    //     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-    //     color: "transparent"
-    //     anchors {
-    //         left: true
-    //         right: true
-    //         top: true
-    //         bottom: true
-    //     }
-    // }
     PanelWindow {
         id: rootPanel
         exclusionMode: ExclusionMode.Ignore
@@ -38,7 +26,8 @@ ShellRoot {
         focusable: false
 
         PanelWindow {
-            implicitHeight: 36
+            implicitHeight: barVisible ? topBar.height : 0
+            // implicitHeight: 0
             implicitWidth: 0
             anchors {
                 top: true
@@ -50,11 +39,26 @@ ShellRoot {
 
         TopBar {
             id: topBar
+            y: root.barVisible ? 0 : -height
+            opacity: root.barVisible ? 1 : 0
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: 250
+                    easing.type: Easing.OutCubic
+                }
+            }
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.InOutQuad
+                }
+            }
         }
 
         Loader {
-            active: false
             id: controlCenterLoader
+            active: false
             anchors.fill: parent
             sourceComponent: ControlCenter {
                 id: controlCenter
@@ -64,25 +68,40 @@ ShellRoot {
 
         mask: Region {
             Region {
-                item: topBar
+                x: topBar.x
+                y: Math.max(0, topBar.y)
+                width: topBar.width
+                height: topBar.height + Math.min(0, topBar.y)
             }
 
-            Region{
+            Region {
                 item: controlCenterLoader.item && controlCenterLoader.item.visible ? controlCenterLoader.item : null
             }
         }
     }
 
-
     IpcHandler {
         target: "ctrl"
-        function changeVisible(): void {
+        function toggle(): void {
             if (!controlCenterLoader.active) {
-                controlCenterLoader.active = true
-                controlCenterLoader.item.opened = true
+                controlCenterLoader.active = true;
+                controlCenterLoader.item.opened = true;
             } else {
-                controlCenterLoader.item.opened = !controlCenterLoader.item.opened
+                controlCenterLoader.item.opened = !controlCenterLoader.item.opened;
             }
+        }
+    }
+
+    IpcHandler {
+        target: "bar"
+        function toggle(): void {
+            root.barVisible = !root.barVisible;
+        }
+        function show(): void {
+            root.barVisible = true;
+        }
+        function hide(): void {
+            root.barVisible = false;
         }
     }
 }

@@ -8,10 +8,10 @@ import "../../theme"
 
 Rectangle {
     id: pill
-    property var media: Media
+    property var media: MpcController
 
     property int maxWidth: 1000
-    visible: media.activePlayer !== null
+    visible: media.active
 
     border.color: Theme.outline
     border.width: 1
@@ -28,20 +28,16 @@ Rectangle {
         x: 10
         y: 5
         // anchors.centerIn: parent
-        text: (media.isPlaying ? "▶ " : "⏸ ") + (media.artist ? media.artist + " — " + media.title : media.title)
+        text: (media.playing ? "▶ " : "⏸ ") + (media.artist ? media.artist + " — " + media.title : media.title)
 
         color: Theme.on_surface
         font.pixelSize: Theme.size
         font.family: Theme.mono
-        font.italic: !media.isPlaying
+        font.italic: !media.playing
     }
 
     MouseArea {
         anchors.fill: parent
-        onClicked: playPause.running = true
-    }
-    Process {
-        id: playPause
-        command: ["playerctl", "play-pause"]
+        onClicked: media.toggle()
     }
 }

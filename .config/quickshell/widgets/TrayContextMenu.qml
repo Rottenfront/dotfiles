@@ -82,7 +82,7 @@ PanelWindow {
                 x: 8
                 y: menuColumn.y + targetY
                 width: parent.width - 16
-                height: 36
+                height: 26
                 radius: 8
                 color: Theme.secondary  // was: colors.secondary
                 opacity: active ? 0.15 : 0
@@ -126,7 +126,7 @@ PanelWindow {
                         property bool hasChildren: modelData.hasChildren
 
                         width: menuColumn.width
-                        height: isSeparator ? 10 : 36
+                        height: isSeparator ? 10 : 26
 
                         Rectangle {
                             visible: isSeparator

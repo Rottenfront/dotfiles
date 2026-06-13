@@ -145,8 +145,6 @@ fish_add_path "$HOME/.cargo/bin/"
 # Opam configuration
 test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
 
-
 zoxide init fish | source
 
-# Hermes Agent — ensure ~/.local/bin is on PATH
 fish_add_path "$HOME/.local/bin"

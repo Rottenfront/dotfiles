@@ -24,6 +24,8 @@ Item {
             }
             spacing: 8
             Workspaces {}
+            Keyboard {}
+            Clock {}
         }
         RowLayout {
             MediaPill {}
@@ -40,15 +42,12 @@ Item {
                 verticalCenter: parent.verticalCenter
             }
             spacing: 10
-            // Battery {}
+            Battery {}
             // Network {}
             // Bluetooth {}
             Cpu {}
             Memory {}
             Volume {}
-            Keyboard {}
-            Date {}
-            Clock {}
             SystemTray {}
             Rectangle {
                 implicitWidth: 8

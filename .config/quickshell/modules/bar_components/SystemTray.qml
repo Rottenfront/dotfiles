@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Services.SystemTray
-import qs.Core
-import qs.Widgets
+import qs.core
+import qs.widgets
 import "../../theme"
 
 Rectangle {

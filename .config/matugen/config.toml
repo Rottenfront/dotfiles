@@ -5,9 +5,9 @@ reload_apps = false
 command = "awww img --transition-type center {{ image }}"
 set = true
 
-[templates.waybar]
-input_path = "./templates/waybar-colors.css"
-output_path = "~/.config/waybar/colors.css"
+# [templates.waybar]
+# input_path = "./templates/waybar-colors.css"
+# output_path = "~/.config/waybar/colors.css"
 # post_hook = "pkill -SIGUSR2 waybar"
 
 [templates.rofi]
@@ -22,6 +22,6 @@ output_path = "~/.config/hypr/colors.lua"
 input_path = "./templates/theme.qml"
 output_path = "~/.config/quickshell/theme/Theme.qml"
 
-[templates.termusic]
-input_path = "./templates/termusic.yml"
-output_path = "~/.config/termusic/themes/matugen.yml"
+# [templates.termusic]
+# input_path = "./templates/termusic.yml"
+# output_path = "~/.config/termusic/themes/matugen.yml"

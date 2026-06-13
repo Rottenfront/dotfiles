@@ -1,10 +1,12 @@
 import QtQuick
 import qs.services as Services
 import "../../theme"
-import qs.Core
+import qs.core
+
 Rectangle {
     radius: 14
     color: Theme.surface_container
+    visible: Services.Battery.percentage > 0
     
     border.width: 1
     border.color: Theme.outline

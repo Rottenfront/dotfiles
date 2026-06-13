@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Core
+import qs.core
 import qs.services as Services
 import "../../theme"
 

@@ -1,6 +1,6 @@
 import QtQuick
 import qs.services as Services
-import qs.Core
+import qs.core
 import Quickshell.Io
 import "../../theme"
 

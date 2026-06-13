@@ -1,7 +1,7 @@
 import QtQuick
 import qs.services as Services
 import "../../theme"
-import qs.Core
+import qs.core
 
 Rectangle {
     radius: 14

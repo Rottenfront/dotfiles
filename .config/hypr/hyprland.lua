@@ -5,10 +5,10 @@ local colors = require("colors")
 ------------------
 
 hl.monitor({
-    output   = "DP-2",
-    mode     = "3440x1440@100",
+    output   = "eDP-1",
+    mode     = "2880x1800@120",
     position = "0x0",
-    scale    = "1",
+    scale    = "1.5",
 })
 
 -------------------
@@ -169,6 +169,9 @@ hl.config({
         disable_hyprland_logo    = true,
         disable_splash_rendering = true,
     },
+    xwayland = {
+        force_zero_scaling = true
+    }
 })
 
 
@@ -227,7 +230,7 @@ hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("helium-browser"))
 hl.bind(mod .. "G", hl.dsp.exec_cmd("thunar"))
 
 -- music
-hl.bind(mod .. "SHIFT + G", hl.dsp.exec_cmd("kitty -e termusic"))
+hl.bind(mod .. "SHIFT + G", hl.dsp.exec_cmd("kitty -e rmpc"))
 
 -- audio management
 hl.bind(mod .. "SHIFT + P", hl.dsp.exec_cmd("pwvucontrol"))
@@ -322,6 +325,9 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("mpc pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("mpc toggle"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("mpc prev"), { locked = true })
 
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true })
+
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
@@ -348,7 +354,7 @@ local xwayland_fix = hl.window_rule({
     no_focus = true,
 })
 
-xwayland_fix:set_enabled(false)
+xwayland_fix:set_enabled(true)
 
 hl.window_rule({
     name = "move-hyprland-run",

@@ -148,3 +148,8 @@ test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-
 zoxide init fish | source
 
 fish_add_path "$HOME/.local/bin"
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /home/rtfr/.lmstudio/bin
+# End of LM Studio CLI section
+

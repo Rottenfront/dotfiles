@@ -6,9 +6,17 @@ local colors = require("colors")
 
 hl.monitor({
     output   = "eDP-1",
-    mode     = "2880x1800@120",
-    position = "0x0",
+    mode     = "2880x1800@60",
+    -- mode     = "2880x1800@120",
+    position = "3440x0",
     scale    = "1.5",
+})
+
+hl.monitor({
+    output   = "DP-2",
+    mode     = "3440x1440@100",
+    position = "0x0",
+    scale    = "1",
 })
 
 -------------------
@@ -56,8 +64,9 @@ hl.config({
 })
 
 hl.permission("/usr/(bin|local/bin)/hyprlock", "screencopy", "allow")
-hl.permission("/usr/(bin|local/bin)/flameshot", "screencopy", "allow")
 hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
+hl.permission("/usr/(bin|local/bin)/grimblast", "screencopy", "allow")
+hl.permission("/usr/(bin|local/bin)/hyprpicker", "screencopy", "allow")
 hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
@@ -218,6 +227,7 @@ hl.bind(mod .. "C", hl.dsp.exec_cmd("rofi -show drun"))
 -- control center
 hl.bind(mod .. "B", hl.dsp.exec_cmd("qs ipc call bar toggle"))
 hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
+hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal
 hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
@@ -239,10 +249,10 @@ hl.bind(mod .. "SHIFT + P", hl.dsp.exec_cmd("pwvucontrol"))
 hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 
 -- screenshots
-hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('sh -c \'grimblast copysave -f area "$HOME/Pictures/screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"\''))
 
 -- brainrot
--- hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('Telegram & vesktop --proxy-server="http://127.0.0.1:2080"'))
+hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland --proxy-server="http://127.0.0.1:2080"'))
 
 hl.bind(mod .. "SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl clients'))
 
@@ -320,13 +330,17 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
     { locked = true, repeating = true })
 
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("mpc next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("mpc pause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("mpc next"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("mpc toggle"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("mpc prev"), { locked = true })
 
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 5%+"), { locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locked = true })
+
+hl.bind(mod .. "F1", hl.dsp.exec_cmd("mpc prev"), { locked = true })
+hl.bind(mod .. "F2", hl.dsp.exec_cmd("mpc toggle"), { locked = true })
+hl.bind(mod .. "F3", hl.dsp.exec_cmd("mpc next"), { locked = true })
 
 
 --------------------------------

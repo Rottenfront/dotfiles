@@ -144,12 +144,3 @@ fish_add_path "$HOME/.cargo/bin/"
 
 # Opam configuration
 test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
-
-zoxide init fish | source
-
-fish_add_path "$HOME/.local/bin"
-
-# Added by LM Studio CLI (lms)
-set -gx PATH $PATH /home/rtfr/.lmstudio/bin
-# End of LM Studio CLI section
-

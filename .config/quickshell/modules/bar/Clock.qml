@@ -9,7 +9,7 @@ Rectangle {
     border.color: Theme.outline
     color: Theme.surface_container
     implicitHeight: 28
-    implicitWidth: clock.implicitWidth + 16
+    implicitWidth: clock.implicitWidth + 20
 
     MouseArea {
         onClicked: toggleProc.running = true

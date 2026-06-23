@@ -26,7 +26,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("awww image ~/Pictures/wallpapers/ae70fvoe.jpg")
     hl.exec_cmd("qs")
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
-    hl.exec_cmd("easyeffects")
 end)
 
 
@@ -241,15 +240,17 @@ hl.bind(mod .. "SHIFT + G", hl.dsp.exec_cmd("kitty -e rmpc"))
 -- audio management
 hl.bind(mod .. "SHIFT + P", hl.dsp.exec_cmd("pwvucontrol"))
 
-
+-- editors
 hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
+hl.bind(mod .. "SHIFT + Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
 hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('sh -c \'grimblast copysave -f area "$HOME/Pictures/screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"\''))
 
 -- brainrot
-hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland --proxy-server="http://127.0.0.1:2080"'))
+hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland'))
 
+-- debug tools
 hl.bind(mod .. "SHIFT + Q", hl.dsp.exec_cmd('kitty --hold hyprctl clients'))
 
 
@@ -430,15 +431,6 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "bitwarden-librewolf",
-    match = {
-        title = ".*Bitwarden.*",
-    },
-    float = true,
-    center = true,
-})
-
-hl.window_rule({
     name = "picture in picture",
     match = {
         title = "Picture-in-Picture",
@@ -462,19 +454,11 @@ hl.window_rule({
     float = true
 })
 
-hl.window_rule({
-    name = "throne",
-    match = {
-        class = "Throne",
-    },
-    -- silent = true,
-    workspace = 10,
-})
 
 hl.window_rule({
-    name = "easyeffects",
+    name = "audio stuff",
     match = {
-        class = "org.kde.easyeffects",
+        class = "(org.kde.easyeffects)|(com.saivert.pwvucontrol)",
     },
     -- silent = true,
     workspace = 9,

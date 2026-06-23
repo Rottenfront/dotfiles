@@ -34,5 +34,11 @@ There are:
 - librewolf - browser
 - thunar - file manager
 - pwvucontrol - audio manager
-- easyeffects - audio mixer
 - neovide - neovim shell
+
+## Fonts
+
+- ttf-paratype - main system fonts
+- ttf-sofia-sans - nice cyrillic
+- ttf-cascadia-code - monospace
+- noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra - extra fonts

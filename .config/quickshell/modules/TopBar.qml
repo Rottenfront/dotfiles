@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import qs.modules.bar_components
+import qs.modules.bar
 
 Item {
     id: topBar

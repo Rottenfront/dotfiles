@@ -1,7 +1,7 @@
 import QtQuick
 import qs.services as Services
 import qs.components
-import "../theme"
+import qs.theme
 
 Item {
     width: 380

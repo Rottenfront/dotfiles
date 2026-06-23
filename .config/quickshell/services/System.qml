@@ -64,7 +64,7 @@ Singleton {
 
     Process {
         id: tempProc
-        command: ["bash","-c","sensors | grep 'Package id 0:' | awk '{print $4}' | sed 's/+//;s/°C//' || echo '0'"]
+        command: ["bash","-c","sensors | grep 'temp1:' | awk '{print $2}' | sed 's/+//;s/°C//' || echo '0'"]
         stdout: StdioCollector {
             onStreamFinished: stats.temp = parseFloat(text) || 0
         }

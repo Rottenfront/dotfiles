@@ -3,7 +3,7 @@ import qs.components
 import QtQuick.Layouts
 import Quickshell.Io
 import QtQuick
-import "../../theme"
+import qs.theme
 import qs.services as Services
 
 ColumnLayout {
@@ -23,6 +23,7 @@ ColumnLayout {
         Text {
             Layout.fillWidth: true
             text: "Quick Settings"
+            font.family: Theme.sans
             font.pixelSize: 15
             font.weight: Font.DemiBold
             font.letterSpacing: 0.3
@@ -64,35 +65,8 @@ ColumnLayout {
             active: dndEnabled
             onClicked: {
                 quickSettings.dndEnabled = !dndEnabled
-                run("swaync-client -d")
+                Services.Notifications.dnd = !Services.Notifications.dnd
             }
-        }
-
-        ToggleTile {
-            label: "Night Light"
-            icon: "󰖔"
-            active: nightLightEnabled
-            onClicked: {
-                quickSettings.nightLightEnabled = !nightLightEnabled
-                run(["bash", "-c", "gammastep -O " + (nightLightEnabled ? "4000" : "6500")])
-            }
-        }
-
-        ToggleTile {
-            label: "Airplane"
-            icon: "󰀝"
-            active: airplaneModeEnabled
-            onClicked: {
-                quickSettings.airplaneModeEnabled = !airplaneModeEnabled
-                run("rfkill " + (airplaneModeEnabled ? "block" : "unblock") + " all")
-            }
-        }
-
-        ToggleTile {
-            label: "Lock"
-            icon: "󰌾"
-            active: false
-            onClicked: run("hyprlock")
         }
     }
 }

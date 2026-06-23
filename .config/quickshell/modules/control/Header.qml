@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
-import "../../theme"
+import qs.theme
 
 Rectangle {
     Layout.fillWidth: true

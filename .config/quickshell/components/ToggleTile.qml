@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "../theme"
+import qs.theme
 
 Rectangle {
         required property string label
@@ -55,6 +55,7 @@ Rectangle {
             Text {
                 Layout.alignment: Qt.AlignHCenter
                 text: label
+                font.family: Theme.sans
                 font.pixelSize: 12
                 font.weight: Font.Medium
                 color: active

@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "../theme"
+import qs.theme
 
 RowLayout {
     required property string icon

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "../theme"
+import qs.theme
 import qs.services as Services
 import Quickshell.Io
 

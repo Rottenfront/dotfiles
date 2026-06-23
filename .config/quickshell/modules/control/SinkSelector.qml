@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import qs.services as Services
-import "../../theme"
+import qs.theme
 
 ColumnLayout {
     id: root

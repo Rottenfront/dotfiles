@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell.Io
 import qs.components
-import "../theme"
+import qs.theme
 
 Item {
     width: 340

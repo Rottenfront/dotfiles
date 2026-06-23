@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "../theme"
+import qs.theme
 
 ColumnLayout {
     required property string label
@@ -47,6 +47,7 @@ ColumnLayout {
             Layout.fillWidth: true
             text: label
             color: Theme.on_surface
+            font.family: Theme.sans
             font.pixelSize: 14
             font.weight: Font.Medium
         }
@@ -58,6 +59,7 @@ ColumnLayout {
                 : value > 60
                     ? "#ffa726"
                     : Theme.primary
+            font.family: Theme.mono
             font.pixelSize: 15
             font.weight: Font.Bold
         }

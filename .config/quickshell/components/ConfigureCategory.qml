@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import qs.services as Services
-import "../theme"
+import qs.theme
 
 Dialog {
     id: commandDialog

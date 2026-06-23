@@ -1,5 +1,3 @@
-local colors = require("colors")
-
 ------------------
 ---- MONITORS ----
 ------------------
@@ -24,13 +22,10 @@ hl.monitor({
 -------------------
 
 hl.on("hyprland.start", function()
-    -- hl.exec_cmd("waybar")
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("matugen image ~/Pictures/wallpapers/wallhaven-rq2v8j.png")
+    hl.exec_cmd("awww image ~/Pictures/wallpapers/ae70fvoe.jpg")
     hl.exec_cmd("qs")
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
-
-    hl.exec_cmd("throne")
     hl.exec_cmd("easyeffects")
 end)
 
@@ -82,8 +77,8 @@ hl.config({
 
         border_size = 2,
         col = {
-            active_border = colors.outline,
-            inactive_border = colors.surface,
+            active_border = "#889392",
+            inactive_border = "#0e1514",
         },
 
         resize_on_border = false,
@@ -227,6 +222,7 @@ hl.bind(mod .. "C", hl.dsp.exec_cmd("rofi -show drun"))
 -- control center
 hl.bind(mod .. "B", hl.dsp.exec_cmd("qs ipc call bar toggle"))
 hl.bind(mod .. "P", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
+hl.bind(mod .. "SHIFT + V", hl.dsp.exec_cmd("qs ipc call musicVis toggle"))
 hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal

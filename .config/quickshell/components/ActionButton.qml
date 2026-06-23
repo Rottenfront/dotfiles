@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "../theme"
+import qs.theme
 
 Rectangle {
     id: root
@@ -38,6 +38,7 @@ Rectangle {
         Text {
             text: label
             font.pixelSize: 14
+            font.family: Theme.sans
             font.weight: Font.DemiBold
             color: Theme.on_surface
         }

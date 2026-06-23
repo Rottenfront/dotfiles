@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell
 import qs.modules
-import qs.modules.control
 import Quickshell.Io
 import qs.services as Services
 import Quickshell.Wayland
@@ -10,7 +9,14 @@ import Quickshell.Hyprland
 ShellRoot {
     id: root
     property bool barVisible: true
-    Notifications {}
+    NotificationWidget {}
+
+    Visualizer {
+        id: musicVis
+    }
+
+    // Wallpaper {}
+
     PanelWindow {
         id: rootPanel
         exclusionMode: ExclusionMode.Ignore
@@ -89,6 +95,13 @@ ShellRoot {
             } else {
                 controlCenterLoader.item.opened = !controlCenterLoader.item.opened;
             }
+        }
+    }
+
+    IpcHandler {
+        target: "musicVis"
+        function toggle(): void {
+            musicVis.visible = !musicVis.visible;
         }
     }
 

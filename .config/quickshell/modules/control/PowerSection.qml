@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import "../../theme"
+import qs.theme
 import qs.components
 
 ColumnLayout {

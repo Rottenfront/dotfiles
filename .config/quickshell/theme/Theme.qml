@@ -2,7 +2,6 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-
     readonly property color background: "#0e1514"
 
     readonly property color error: "#ffb4ab"
@@ -104,10 +103,13 @@ QtObject {
     readonly property color tertiary_fixed_dim: "#b3c8e8"
 
 
+    readonly property string sans: "PT Sans" 
     readonly property string mono: "Cascadia Code" 
     readonly property int size: 13 
 
     readonly property int durationFast:   150
     readonly property int durationMid:    380
     readonly property int durationSlow:   650
+
+    readonly property string wallpaper: "/home/rtfr/Pictures/wallpapers/ae70fvoe.jpg"
 }

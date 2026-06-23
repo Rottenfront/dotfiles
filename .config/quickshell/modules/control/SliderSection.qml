@@ -21,6 +21,7 @@ ColumnLayout {
     SliderRow {
         icon: "󰃞"
         label: "Brightness"
+        visible: Services.System.brightness != 0
         value: Services.System.brightness
         onMoved: Services.System.setBrightness(value)
         showValue: true

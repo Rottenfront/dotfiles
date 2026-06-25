@@ -247,7 +247,7 @@ hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. "SHIFT + Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('sh -c \'grimblast copysave -f area "$HOME/Pictures/screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"\''))
+hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('grimblast copysave -f area "$HOME/Pictures/Screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"'))
 
 -- brainrot
 hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland'))

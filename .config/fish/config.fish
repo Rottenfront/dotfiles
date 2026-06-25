@@ -8,20 +8,6 @@ if test -f ~/.fish_profile
     source ~/.fish_profile
 end
 
-# Add ~/.local/bin to PATH
-if test -d ~/.local/bin
-    if not contains -- ~/.local/bin $PATH
-        set -p PATH ~/.local/bin
-    end
-end
-
-# Add depot_tools to PATH
-if test -d ~/Applications/depot_tools
-    if not contains -- ~/Applications/depot_tools $PATH
-        set -p PATH ~/Applications/depot_tools
-    end
-end
-
 ## Functions
 # Functions needed for !! and !$ https://github.com/oh-my-fish/plugin-bang-bang
 function __history_previous_command
@@ -45,7 +31,6 @@ function __history_previous_command_arguments
 end
 
 if [ "$fish_key_bindings" = fish_vi_key_bindings ]
-
     bind -Minsert ! __history_previous_command
     bind -Minsert '$' __history_previous_command_arguments
 else
@@ -73,6 +58,7 @@ function rename_number_dash
         end
     end
 end
+
 function rename_number_space
     for file in *
         # Create new name
@@ -137,10 +123,11 @@ alias v="nvim"
 alias yz="yazi"
 alias 7x="7z x"
 
-export PYTHONSTARTUP=$HOME/.pythonrc.py
+set -x PYTHONSTARTUP "$HOME/.pythonrc.py"
 
 # Rust configuration
 fish_add_path "$HOME/.cargo/bin/"
+fish_add_path "$HOME/.local/bin/"
 
 # Opam configuration
 test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true

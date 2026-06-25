@@ -20,8 +20,12 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 font-family = Cascadia Code PL
-font-size = 13
+font-size = 11
 theme = Zenwritten Dark
+
+command = zellij
+
+custom-shader = ghostty-cursor-shaders/cursor_sweep.glsl
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.

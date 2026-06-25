@@ -26,6 +26,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("awww image ~/Pictures/wallpapers/ae70fvoe.jpg")
     hl.exec_cmd("qs")
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
+
+    hl.exec_cmd("~/dotfiles/scripts/zenbook_power.sh low")
 end)
 
 
@@ -225,7 +227,7 @@ hl.bind(mod .. "SHIFT + V", hl.dsp.exec_cmd("qs ipc call musicVis toggle"))
 hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal
-hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
+hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("ghostty"))
 
 -- browsers
 hl.bind(mod .. "SHIFT + B", hl.dsp.exec_cmd("librewolf"))
@@ -338,6 +340,21 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 5%-"), { locke
 hl.bind(mod .. "F1", hl.dsp.exec_cmd("mpc prev"), { locked = true })
 hl.bind(mod .. "F2", hl.dsp.exec_cmd("mpc toggle"), { locked = true })
 hl.bind(mod .. "F3", hl.dsp.exec_cmd("mpc next"), { locked = true })
+
+
+local power_state = "low"
+
+hl.bind(mod .. "F12", function ()
+    if power_state == "notes" then
+        power_state = "low"
+    elseif power_state == "low" then
+        power_state = "high"
+    elseif power_state == "high" then
+        power_state = "notes"
+    end
+
+    hl.exec_cmd("~/dotfiles/scripts/zenbook_power.sh " .. power_state)
+end)
 
 
 --------------------------------

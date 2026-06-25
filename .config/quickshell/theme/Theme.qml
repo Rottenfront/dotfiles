@@ -104,7 +104,7 @@ QtObject {
 
 
     readonly property string sans: "PT Sans" 
-    readonly property string mono: "PT Mono" 
+    readonly property string mono: "Cascadia Code" 
     readonly property int size: 13 
 
     readonly property int durationFast:   150

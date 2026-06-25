@@ -25,15 +25,14 @@ Rectangle {
 
     Text {
         id: mediaText
-        x: 10
-        y: 5
-        // anchors.centerIn: parent
-        text: (media.playing ? "▶ " : "⏸ ") + (media.artist ? media.artist + " — " + media.title : media.title)
+        anchors.centerIn: parent
+        text: (media.playing ? "> " : "⏸ ") + (media.artist ? media.artist + " — " + media.title : media.title)
 
         color: Theme.on_surface
         font.pixelSize: Theme.size
         font.family: Theme.mono
         font.italic: !media.playing
+        // font.bold: true
     }
 
     MouseArea {

@@ -37,7 +37,8 @@ def check_dependencies(push_covers):
     if not shutil.which('opusenc'):
         sys.exit("Error: 'opusenc' (opus-tools) is not installed or not in PATH.")
     if push_covers and not shutil.which('magick') and not shutil.which('convert'):
-        sys.exit("Error: ImageMagick ('magick' or 'convert') is not installed or not in PATH.")
+        sys.exit(
+            "Error: ImageMagick ('magick' or 'convert') is not installed or not in PATH.")
 
 
 def process_image(source_file, dest_dir):
@@ -48,21 +49,26 @@ def process_image(source_file, dest_dir):
 
     # 1. If it's a PNG, always convert to JPG with 90% quality and enforce size limit
     if ext == '.png':
-        cmd = [IM_BASE, source_file, '-resize', '1000x1000>', '-quality', '90', dest_file]
-        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        cmd = [IM_BASE, source_file, '-resize',
+               '1000x1000>', '-quality', '90', dest_file]
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.PIPE)
         return dest_file
 
     # 2. If it's already a JPG, check dimensions
     elif ext in ('.jpg', '.jpeg'):
         id_cmd = IM_IDENTIFY + ['-format', '%w %h', source_file]
         try:
-            result = subprocess.run(id_cmd, capture_output=True, text=True, check=True)
+            result = subprocess.run(
+                id_cmd, capture_output=True, text=True, check=True)
             w, h = map(int, result.stdout.strip().split())
 
             # If too large, resize and re-encode
             if w > 1000 or h > 1000:
-                cmd = [IM_BASE, source_file, '-resize', '1000x1000>', dest_file]
-                subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+                cmd = [IM_BASE, source_file,
+                       '-resize', '1000x1000>', dest_file]
+                subprocess.run(
+                    cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
             else:
                 # Small enough, just copy it directly to avoid quality loss
                 shutil.copy2(source_file, dest_file)
@@ -99,15 +105,18 @@ def process_track(input_file, output_file, cover_path):
     opusenc_cmd.extend(['-', output_file])
 
     try:
-        ffmpeg_proc = subprocess.Popen(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        opusenc_proc = subprocess.Popen(opusenc_cmd, stdin=ffmpeg_proc.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        ffmpeg_proc = subprocess.Popen(
+            ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        opusenc_proc = subprocess.Popen(
+            opusenc_cmd, stdin=ffmpeg_proc.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
         ffmpeg_proc.stdout.close()
         _, err = opusenc_proc.communicate()
         ffmpeg_proc.wait()
 
         if opusenc_proc.returncode != 0:
-            print(f"    [ERROR] opusenc failed on {os.path.basename(input_file)}: {err.decode(errors='ignore').strip()}", flush=True)
+            print(f"    [ERROR] opusenc failed on {os.path.basename(input_file)}: {
+                  err.decode(errors='ignore').strip()}", flush=True)
             if os.path.exists(output_file):
                 os.remove(output_file)
             return False
@@ -115,11 +124,12 @@ def process_track(input_file, output_file, cover_path):
         return True
 
     except Exception as e:
-        print(f"    [ERROR] Exception during conversion of {os.path.basename(input_file)}: {e}", flush=True)
+        print(f"    [ERROR] Exception during conversion of {
+              os.path.basename(input_file)}: {e}", flush=True)
         return False
 
 
-def process_album(input_dir, output_dir, filenames, rel_dir, push_covers):
+def process_album(input_dir, output_dir, filenames, rel_dir, push_covers, force):
     """Processes all images and audio files for a single album folder."""
     os.makedirs(output_dir, exist_ok=True)
 
@@ -130,13 +140,23 @@ def process_album(input_dir, output_dir, filenames, rel_dir, push_covers):
             ext = os.path.splitext(filename)[1].lower()
             if ext in IMAGE_EXTENSIONS:
                 source_image = os.path.join(input_dir, filename)
+                dest_image = os.path.join(
+                    output_dir, os.path.splitext(filename)[0] + '.jpg')
+
+                # Skip image processing if it already exists and we're not forcing
+                if not force and os.path.exists(dest_image):
+                    if not local_cover:
+                        local_cover = dest_image
+                    continue
+
                 try:
                     processed_image = process_image(source_image, output_dir)
                     # Save the first processed image path to use for embedding
                     if processed_image and not local_cover:
                         local_cover = processed_image
                 except subprocess.CalledProcessError as e:
-                    print(f"    [WARNING] Failed to process image {filename}: {e.stderr.decode(errors='ignore').strip()}", flush=True)
+                    print(f"    [WARNING] Failed to process image {filename}: {
+                          e.stderr.decode(errors='ignore').strip()}", flush=True)
 
     # 2. Convert audio files
     total = 0
@@ -153,8 +173,11 @@ def process_album(input_dir, output_dir, filenames, rel_dir, push_covers):
             out_filename = os.path.splitext(filename)[0] + '.opus'
             output_file = os.path.join(output_dir, out_filename)
 
-            if os.path.exists(output_file):
+            # Skip audio processing if it already exists and we're not forcing
+            if not force and os.path.exists(output_file):
                 skipped += 1
+                print(f"[SKIP]    {os.path.join(
+                    rel_dir, out_filename)} (already exists)", flush=True)
                 continue
 
             # Only embed a cover if push_covers is enabled
@@ -162,9 +185,11 @@ def process_album(input_dir, output_dir, filenames, rel_dir, push_covers):
             success = process_track(input_file, output_file, cover_for_track)
             if success:
                 converted += 1
-                print(f"[CONVERT] {os.path.join(rel_dir, filename)} -> {out_filename}", flush=True)
+                print(f"[CONVERT] {os.path.join(
+                    rel_dir, filename)} -> {out_filename}", flush=True)
             else:
-                print(f"[FAILED]  {os.path.join(rel_dir, filename)}", flush=True)
+                print(f"[FAILED]  {os.path.join(
+                    rel_dir, filename)}", flush=True)
 
     return total, converted, skipped
 
@@ -174,11 +199,17 @@ def main():
         description="Re-encode music to Opus 160k, strip ReplayGain, process covers, and embed them. (Multiprocessing)"
     )
     parser.add_argument("input_dir", help="Path to your input music library")
-    parser.add_argument("output_dir", help="Path to the new Opus music library")
+    parser.add_argument(
+        "output_dir", help="Path to the new Opus music library")
     parser.add_argument(
         "--cover",
         action="store_true",
         help="Enable cover art processing and embedding into Opus files."
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Re-encode and overwrite existing files instead of skipping them."
     )
     args = parser.parse_args()
 
@@ -206,6 +237,8 @@ def main():
     print(f"Destination: {output_dir}")
     print(f"Found {total_tasks} albums to process.")
     print(f"Cover pushing: {'ENABLED' if args.cover else 'DISABLED'}")
+    print(f"Overwrite mode: {
+          'ENABLED (--force)' if args.force else 'DISABLED (skipping existing)'}")
     print(f"Utilizing {cpu_count} CPU cores...\n" + "-"*40)
 
     total_files = 0
@@ -216,7 +249,8 @@ def main():
     # Use ProcessPoolExecutor to spread albums across all CPU cores
     with ProcessPoolExecutor(max_workers=cpu_count, initializer=init_worker) as executor:
         futures = [
-            executor.submit(process_album, task[0], task[1], task[2], task[3], args.cover)
+            executor.submit(
+                process_album, task[0], task[1], task[2], task[3], args.cover, args.force)
             for task in tasks
         ]
 
@@ -227,12 +261,15 @@ def main():
                 converted_files += conv
                 skipped_files += skp
                 completed_tasks += 1
-                print(f"[PROGRESS] {completed_tasks}/{total_tasks} albums finished.", flush=True)
+                print(f"[PROGRESS] {
+                      completed_tasks}/{total_tasks} albums finished.", flush=True)
             except Exception as e:
-                print(f"[ERROR] An album failed to process entirely: {e}", flush=True)
+                print(f"[ERROR] An album failed to process entirely: {
+                      e}", flush=True)
 
     print("-" * 40)
-    print(f"Done! Converted: {converted_files} | Skipped (existing): {skipped_files} | Total processed: {total_files}")
+    print(f"Done! Converted: {converted_files} | Skipped (existing): {
+          skipped_files} | Total processed: {total_files}")
 
 
 if __name__ == "__main__":

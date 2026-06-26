@@ -186,7 +186,7 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout = "us, ru",
+        kb_layout = "en_custom,ru_custom",
         kb_variant = "colemak,rulemak",
         kb_model = "",
         kb_options = "grp:caps_toggle,grp:win_space_toggle",
@@ -306,17 +306,6 @@ hl.bind(mod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind(mod .. "A", hl.dsp.layout("togglesplit"))
-
--- hl.bind(mod .. "V", function()
---     if hl.get_active_window().floating then
---         hl.dispatch(hl.dsp.window.float({ "toggle" }))
---     else
---         hl.dispatch(hl.dsp.window.float({ "toggle" }))
---         hl.dispatch(hl.dsp.window.resize({ x = 800, y = 500 }))
---         hl.dispatch(hl.dsp.window.center())
---     end
--- end)
-
 
 
 --- MEDIA KEYS

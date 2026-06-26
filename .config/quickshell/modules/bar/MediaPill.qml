@@ -31,7 +31,7 @@ Rectangle {
         color: Theme.on_surface
         font.pixelSize: Theme.size
         font.family: Theme.mono
-        font.italic: !media.playing
+        // font.italic: !media.playing
         // font.bold: true
     }
 

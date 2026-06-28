@@ -7,6 +7,7 @@ import subprocess
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
+
 # Supported inputs
 AUDIO_EXTENSIONS = {'.flac', '.mp3'}
 IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png'}
@@ -31,11 +32,11 @@ def init_worker():
 
 
 def check_dependencies(push_covers):
-    """Check if ffmpeg, opusenc, and (optionally) ImageMagick are installed."""
+    """Check if ffmpeg, kid3-cli, and (optionally) ImageMagick are installed."""
     if not shutil.which('ffmpeg'):
         sys.exit("Error: 'ffmpeg' is not installed or not in PATH.")
-    if not shutil.which('opusenc'):
-        sys.exit("Error: 'opusenc' (opus-tools) is not installed or not in PATH.")
+    if not shutil.which('kid3-cli'):
+        sys.exit("Error: 'kid3-cli' (kid3-common) is not installed or not in PATH.")
     if push_covers and not shutil.which('magick') and not shutil.which('convert'):
         sys.exit(
             "Error: ImageMagick ('magick' or 'convert') is not installed or not in PATH.")
@@ -85,41 +86,40 @@ def process_track(input_file, output_file, cover_path):
     """Decode with ffmpeg (stripping ReplayGain), pipe to opusenc to encode and embed cover."""
 
     ffmpeg_cmd = [
-        'ffmpeg', '-nostdin', '-i', input_file,
+        'ffmpeg', '-i', input_file,
         '-map_metadata', '0',
-        '-c:a', 'flac', '-compression_level', '5',
+        '-c:a', 'libopus', '-b:a', '160k',
         '-metadata', 'REPLAYGAIN_TRACK_GAIN=',
         '-metadata', 'REPLAYGAIN_TRACK_PEAK=',
         '-metadata', 'REPLAYGAIN_ALBUM_GAIN=',
         '-metadata', 'REPLAYGAIN_ALBUM_PEAK=',
         '-metadata', 'R128_TRACK_GAIN=',
         '-metadata', 'R128_ALBUM_GAIN=',
-        '-f', 'flac', 'pipe:1'
+        output_file
     ]
-
-    opusenc_cmd = [
-        'opusenc', '--bitrate', '160'
-    ]
-    if cover_path:
-        opusenc_cmd.extend(['--picture', cover_path])
-    opusenc_cmd.extend(['-', output_file])
 
     try:
         ffmpeg_proc = subprocess.Popen(
-            ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-        opusenc_proc = subprocess.Popen(
-            opusenc_cmd, stdin=ffmpeg_proc.stdout, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+            ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-        ffmpeg_proc.stdout.close()
-        _, err = opusenc_proc.communicate()
+        _, err = ffmpeg_proc.communicate()
         ffmpeg_proc.wait()
 
-        if opusenc_proc.returncode != 0:
+        if ffmpeg_proc.returncode != 0:
             print(f"    [ERROR] opusenc failed on {os.path.basename(input_file)}: {
                   err.decode(errors='ignore').strip()}", flush=True)
             if os.path.exists(output_file):
                 os.remove(output_file)
             return False
+
+        if cover_path:
+            vorbis_cmd = [
+                'kid3-cli', '-c', f'\'set picture:{cover_path} "Cover Art"\'',
+                output_file
+            ]
+
+            subprocess.Popen(vorbis_cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL).wait()
 
         return True
 

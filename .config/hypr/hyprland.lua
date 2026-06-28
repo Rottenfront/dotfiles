@@ -23,7 +23,7 @@ hl.monitor({
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("awww image ~/Pictures/wallpapers/ae70fvoe.jpg")
+    hl.exec_cmd("awww image ~/dotfiles/wallpapers/ae70fvoe.jpg")
     hl.exec_cmd("qs")
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 

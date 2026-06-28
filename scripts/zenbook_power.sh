@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$hostname" = "zenbook" ]; then
+if [ "$HOSTNAME" = "zenbook" ]; then
 
 MODE=$1
 

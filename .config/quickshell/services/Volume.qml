@@ -29,12 +29,12 @@ Singleton {
 
         function onVolumeChanged() {
             let vol = Math.min(defaultSink.audio.volume * 100, 100)  // Clamp to 100
-            Services.Osd.show("volume", vol)
+            Services.Osd.showVolume()
         }
 
         function onMutedChanged() {
             let vol = defaultSink.audio.muted ? 0 : Math.min(defaultSink.audio.volume * 100, 100)
-            Services.Osd.show("volume", vol)
+            Services.Osd.showVolume()
         }
     }
 
@@ -43,7 +43,7 @@ Singleton {
             defaultSink.audio.muted = false;
             let val = Math.max(0, Math.min(1, to));
             defaultSink.audio.volume = val
-            Services.Osd.show("volume", val * 100)
+            Services.Osd.showVolume()
         }
     }
 
@@ -52,7 +52,7 @@ Singleton {
             defaultSource.audio.muted = false;
             let val = Math.max(0, Math.min(1, to));
             defaultSource.audio.volume = val
-            Services.Osd.show("volume", val * 100)
+            Services.Osd.showVolume()
         }
     }
 

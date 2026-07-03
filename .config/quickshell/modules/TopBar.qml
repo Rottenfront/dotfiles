@@ -6,7 +6,7 @@ import qs.modules.bar
 Item {
     id: topBar
 
-    implicitHeight: 42
+    implicitHeight: 34
     anchors.left: parent.left
     anchors.right: parent.right
     focus: true

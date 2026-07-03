@@ -58,7 +58,7 @@ xkb_symbols "colemak" {
     key <LSGT> { [        minus,   underscore,          endash,           emdash ] };
     key <SPCE> { [        space,        space,           space,     nobreakspace ] };
 
-    // include "level3(ralt_switch)"
+    key <RALT> {[  ISO_Level3_Shift  ], type[group1]="ONE_LEVEL" };
 };
 
 

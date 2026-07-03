@@ -19,7 +19,7 @@ Scope {
 
     readonly property var notifServer: Notifications
 
-    readonly property var tracked: notifServer.trackedNotifications
+    readonly property var tracked: Notifications.notifServer.trackedNotifications
 
     Variants {
         model: Quickshell.screens
@@ -95,7 +95,7 @@ Scope {
     component NotifItem: Item {
         id: notif
 
-        visible: !notifServer.dnd
+        visible: !Notifications.notifServer.dnd
 
         property var notification: null
         property int itemIndex: 0

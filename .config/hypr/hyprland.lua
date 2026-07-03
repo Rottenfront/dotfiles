@@ -22,8 +22,7 @@ hl.monitor({
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("awww image ~/dotfiles/wallpapers/ae70fvoe.jpg")
+    hl.exec_cmd("hyprpaper")
     hl.exec_cmd("qs")
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
@@ -74,7 +73,7 @@ hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 hl.config({
     general = {
         gaps_in = 4,
-        gaps_out = 8,
+        gaps_out = 4,
 
         border_size = 2,
         col = {
@@ -103,7 +102,7 @@ hl.config({
         blur = {
             enabled  = true,
             size     = 3,
-            passes   = 1,
+            passes   = 3,
             new_optimizations = true,
             vibrancy = 0.1696,
         },
@@ -227,11 +226,11 @@ hl.bind(mod .. "SHIFT + V", hl.dsp.exec_cmd("qs ipc call musicVis toggle"))
 hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("qs ipc call ctrl toggle"))
 
 -- terminal
-hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("ghostty"))
+hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
 
 -- browsers
 hl.bind(mod .. "SHIFT + B", hl.dsp.exec_cmd("librewolf"))
-hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("helium-browser"))
+hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("chromium --ozone-platform=wayland"))
 
 -- file manager
 hl.bind(mod .. "G", hl.dsp.exec_cmd("thunar"))
@@ -305,7 +304,7 @@ hl.bind(mod .. "ALT + J", hl.dsp.window.resize({ x = 0, y = 20, relative = true 
 hl.bind(mod .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind(mod .. "A", hl.dsp.layout("togglesplit"))
+hl.bind(mod .. "O", hl.dsp.layout("togglesplit"))
 
 
 --- MEDIA KEYS

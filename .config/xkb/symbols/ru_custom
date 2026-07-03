@@ -75,6 +75,8 @@ xkb_symbols "rulemak" {
     key <AB10> { [           slash,        question,       backslash,             bar ] };
 
     key <LSGT> { [ Cyrillic_hardsign, Cyrillic_HARDSIGN,  apostrophe,        quotedbl ] };
+  
+    key <RALT> {[  ISO_Level3_Shift  ], type[group1]="ONE_LEVEL" };
 
     // include "level3(ralt_switch)"
     // include "nbsp(level4)"

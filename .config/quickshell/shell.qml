@@ -46,7 +46,7 @@ ShellRoot {
         TopBar {
             id: topBar
             y: root.barVisible ? 0 : -height
-            opacity: root.barVisible ? 1 : 0
+            // opacity: root.barVisible ? 1 : 0
 
             Behavior on y {
                 NumberAnimation {
@@ -56,10 +56,14 @@ ShellRoot {
             }
             Behavior on opacity {
                 NumberAnimation {
-                    duration: 200
+                    duration: 250
                     easing.type: Easing.InOutQuad
                 }
             }
+        }
+
+        OsdWindow {
+
         }
 
         Loader {

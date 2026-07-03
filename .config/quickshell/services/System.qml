@@ -100,7 +100,7 @@ Singleton {
 
     onBrightnessChanged: {
         if (lastBrightness !== -1 && brightness !== lastBrightness) {
-            Osd.show("brightness", brightness)
+            Osd.showBrightness()
         }
         lastBrightness = brightness
     }
@@ -109,7 +109,7 @@ Singleton {
         setBrightnessProc.command = ["brightnessctl","set", v + "%"]
         setBrightnessProc.running = true
         stats.brightness = v
-        Osd.show("brightness", v)  // Show OSD when user changes brightness
+        Osd.showBrightness()
     }
 
     Process { id: setBrightnessProc }

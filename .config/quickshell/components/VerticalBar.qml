@@ -4,7 +4,6 @@ import qs.theme
 
 Rectangle {
     id: root
-    required property bool bind
     required property real value
     required property real maxValue
     required property string icon
@@ -61,13 +60,13 @@ Rectangle {
     Behavior on x {
         NumberAnimation {
             duration: 200
-            easing.type: easing.outcubic
+            // easing.type: easing.outcubic
         }
     }
     Behavior on opacity {
         NumberAnimation {
             duration: 200
-            easing.type: easing.outcubic
+            // easing.type: easing.outcubic
         }
     }
 }

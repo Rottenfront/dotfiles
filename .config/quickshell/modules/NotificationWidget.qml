@@ -19,7 +19,7 @@ Scope {
 
     readonly property var notifServer: Notifications
 
-    readonly property var tracked: Notifications.notifServer.trackedNotifications
+    readonly property var tracked: Notifications.trackedNotifications
 
     Variants {
         model: Quickshell.screens
@@ -95,7 +95,7 @@ Scope {
     component NotifItem: Item {
         id: notif
 
-        visible: !Notifications.notifServer.dnd
+        visible: !Notifications.dnd
 
         property var notification: null
         property int itemIndex: 0
@@ -508,7 +508,7 @@ Scope {
 
                         Text {
                             Layout.fillWidth: true
-                            text: notif.notification ? notif.notification.body : ""
+                            text: notif.notification ? notif.notification.body.replace(/&quot;/g, "\"") : ""
                             color: notif.textColor
                             font.family: Theme.mono
                             font.pixelSize: 12

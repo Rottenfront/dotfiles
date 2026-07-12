@@ -15,4 +15,16 @@ Singleton {
         volVisible = true
         volHideTimer.restart()
     }
+    property bool brightnessVisible: false
+
+    Timer {
+        id: brightnessHideTimer
+        interval: 1000
+        onTriggered: brightnessVisible = false
+    }
+
+    function showBrightness() {
+        brightnessVisible = true
+        brightnessHideTimer.restart()
+    }
 }

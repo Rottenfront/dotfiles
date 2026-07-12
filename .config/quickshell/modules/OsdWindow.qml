@@ -4,17 +4,38 @@ import Quickshell
 import qs.modules.bar
 import qs.components
 import qs.services
+import Quickshell.Wayland
 
-Item {
+PanelWindow {
     id: topBar
 
-    implicitWidth: 48
-    anchors.left: parent.left
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    focus: false
+    required property ShellScreen modelData
+    screen: modelData
+
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.namespace: "osd"
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
+    WlrLayershell.exclusionMode: ExclusionMode.Ignore
+
+    color: "transparent"
+
+    anchors {
+        top: true
+        left: true
+        bottom: true
+    }
+
+    mask: Region {
+        Region {
+            item: volBar
+        }
+        Region {
+            item: brightnessBar
+        }
+    }
 
     VerticalBar {
+        id: volBar
         opacity: Osd.volVisible ? 1 : 0
         x: Osd.volVisible ? 4 : -width
         y: (parent.height - height) / 2
@@ -24,6 +45,7 @@ Item {
     }
 
     VerticalBar {
+        id: brightnessBar
         opacity: Osd.brightnessVisible ? 1 : 0
         x: Osd.brightnessVisible ? 4 : -width
         y: (parent.height - height) / 2

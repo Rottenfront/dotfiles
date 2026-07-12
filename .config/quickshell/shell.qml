@@ -15,7 +15,7 @@ ShellRoot {
         id: musicVis
     }
 
-    // Wallpaper {}
+    OsdWindow {}
 
     PanelWindow {
         id: rootPanel
@@ -60,10 +60,6 @@ ShellRoot {
                     easing.type: Easing.InOutQuad
                 }
             }
-        }
-
-        OsdWindow {
-
         }
 
         Loader {

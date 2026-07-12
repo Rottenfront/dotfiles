@@ -4,7 +4,6 @@ import Quickshell.Services.Notifications
 import Quickshell
 import Quickshell.Io
 
-Singleton {
     NotificationServer {
         id: notifServer
 
@@ -17,15 +16,6 @@ Singleton {
 
         onNotification: n => {
             n.tracked = true;
-
-            if (!dnd)
-                notifSound.start();
         }
         property bool dnd: false
     }
-    Process {
-        id: notifSound
-        running: false
-        command: ["canberra-gtk-play", "-i", "message-new-instant"]
-    }
-}

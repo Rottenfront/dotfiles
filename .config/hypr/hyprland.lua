@@ -27,6 +27,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
     hl.exec_cmd("~/dotfiles/scripts/zenbook_power.sh low")
+
+    -- hl.exec_cmd("easyeffects")
+    -- hl.exec_cmd("happ")
 end)
 
 
@@ -100,11 +103,11 @@ hl.config({
         },
 
         blur = {
-            enabled  = true,
-            size     = 3,
-            passes   = 3,
+            enabled           = true,
+            size              = 3,
+            passes            = 3,
             new_optimizations = true,
-            vibrancy = 0.1696,
+            vibrancy          = 0.1696,
         },
     },
 
@@ -246,7 +249,8 @@ hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. "SHIFT + Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('grimblast copysave -f area "$HOME/Pictures/Screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"'))
+hl.bind(mod .. "SHIFT + S",
+    hl.dsp.exec_cmd('grimblast copysave -f area "$HOME/Pictures/Screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"'))
 
 -- brainrot
 hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland'))
@@ -332,10 +336,12 @@ hl.bind(mod .. "F3", hl.dsp.exec_cmd("mpc next"), { locked = true })
 
 local power_state = "low"
 
-hl.bind(mod .. "F12", function ()
+hl.bind(mod .. "F12", function()
     if power_state == "notes" then
         power_state = "low"
     elseif power_state == "low" then
+        power_state = "lowperf"
+    elseif power_state == "lowperf" then
         power_state = "high"
     elseif power_state == "high" then
         power_state = "notes"
@@ -344,6 +350,29 @@ hl.bind(mod .. "F12", function ()
     hl.exec_cmd("~/dotfiles/scripts/zenbook_power.sh " .. power_state)
 end)
 
+local monitor_state = "default"
+
+hl.bind(mod .. "F11", function()
+    local resolution = "2880x1800@60"
+    local scale = "1.5"
+    if monitor_state == "default" then
+        monitor_state = "gaming"
+        resolution = "1920x1200@120"
+        scale = "1"
+    elseif monitor_state == "gaming" then
+        monitor_state = "default"
+        resolution = "2880x1800@60"
+        scale = "1.5"
+    end
+
+    hl.monitor({
+        output   = "eDP-1",
+        mode     = resolution,
+        position = "3440x0",
+        scale    = scale,
+    })
+    hl.exec_cmd("notify-send 'Monitor resolution' 'Monitor resolution: " .. monitor_state .. "'")
+end)
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----

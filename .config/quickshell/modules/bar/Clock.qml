@@ -23,7 +23,7 @@ Rectangle {
         font.family: Theme.mono
         font.pixelSize: Theme.size
 
-        text: Services.Time.format("d MMM yyyy hh:mm:ss")
+        text: Services.Time.format("d MMM yyyy | hh:mm:ss")
         color: Theme.on_surface
     }
 }

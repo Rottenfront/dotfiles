@@ -27,6 +27,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("/usr/lib/hyprpolkitagent/hyprpolkitagent")
 
     hl.exec_cmd("~/dotfiles/scripts/zenbook_power.sh low")
+    -- hl.exec_cmd("pkexec hyprpm enable hyprcapture")
 
     -- hl.exec_cmd("easyeffects")
     -- hl.exec_cmd("happ")
@@ -44,7 +45,7 @@ hl.env("MPD_HOST", "127.0.0.1")
 
 hl.env("QT_QPA_PLATFORM", "wayland:xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
-hl.env("SDL_VIDEODRIVER", "wayland")
+hl.env("SDL_VIDEODRIVER", "wayland,x11")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
 hl.env("PROTON_ENABLE_WAYLAND", "1")
@@ -181,6 +182,47 @@ hl.config({
     }
 })
 
+hl.config({
+    plugin = {
+        hyprcapture = {
+            -- default_mode = "region",
+            -- fullscreen_scope = "all",
+            -- window_background = "follow-system",
+            -- window_border = "keep",
+            -- window_shadow = "keep",
+            -- save = true,
+            -- clipboard = true,
+            -- show_thumbnail = true,
+            -- -- allow_quick = true,
+            -- confirm_before_capture = false,
+            -- fusion_mode = false,
+            -- save_dir = "$XDG_PICTURES_DIR/Screenshots",
+            -- filename_template = "Screenshot-%Y-%m-%d-%H%M%S.png",
+            -- record_save_dir = "$XDG_VIDEOS_DIR/Screenrecords",
+            -- record_filename_template = "Recording-%Y-%m-%d-%H%M%S.mp4",
+            -- record_format = "mp4",
+            -- record_transparent_format = "webm",
+            -- record_fps = 30,
+            -- record_fps_options = "15 24 30 60",
+            -- record_window_fps_limit = 12,
+            -- record_window_real_bg_fps_limit = 8,
+            -- record_codec = "libx264",
+            -- record_transparent_codec = "auto",
+            -- record_solid_alpha = false,
+            -- record_preset = "veryfast",
+            -- record_gsr_flags = "",
+            -- record_window_backend = "compositor",
+            -- record_max_seconds = 0,
+            -- record_countdown_seconds = 0,
+            -- include_cursor = false,
+            -- thumbnail_timeout_ms = 5000,
+            -- watermark = "",
+            -- watermark_position = "central",
+            -- watermark_width = "20%",
+            -- watermark_offset = "0 0",
+        },
+    },
+})
 
 ---------------
 ---- INPUT ----
@@ -233,7 +275,7 @@ hl.bind(mod .. "SHIFT + T", hl.dsp.exec_cmd("kitty"))
 
 -- browsers
 hl.bind(mod .. "SHIFT + B", hl.dsp.exec_cmd("librewolf"))
-hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("chromium --ozone-platform=wayland"))
+hl.bind(mod .. "SHIFT + I", hl.dsp.exec_cmd("helium-browser --ozone-platform=wayland"))
 
 -- file manager
 hl.bind(mod .. "G", hl.dsp.exec_cmd("thunar"))
@@ -249,8 +291,11 @@ hl.bind(mod .. "SHIFT + N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. "SHIFT + Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. "SHIFT + S",
-    hl.dsp.exec_cmd('grimblast copysave -f area "$HOME/Pictures/Screenshots/screenshot-$(date +%d-%m-%Y_%H-%M-%S).png"'))
+
+hl.bind(mod .. "SHIFT + S", function()
+    hl.plugin.hyprcapture.open()
+end)
+-- hl.bind(mod .. "SHIFT + S", hl.dsp.exec_cmd('hyprcapture-ui'))
 
 -- brainrot
 hl.bind(mod .. "SHIFT + U", hl.dsp.exec_cmd('discord --ozone-platform=wayland'))

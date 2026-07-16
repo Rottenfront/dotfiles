@@ -4,6 +4,7 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import qs.theme
+import qs.services
 
 Rectangle {
     Layout.fillWidth: true
@@ -45,7 +46,7 @@ Rectangle {
                 }
 
                 Text {
-                    text: Qt.formatDateTime(new Date(), "ddd, MMM d · hh:mm")
+                    text: Time.format("d MMM yyyy | hh:mm:ss")
                     font.pixelSize: 14
                     color: Theme.on_primary_container
                     opacity: 0.7

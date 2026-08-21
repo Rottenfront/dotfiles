@@ -23,7 +23,9 @@ vim.pack.add({
     {
         src = gh('mfussenegger/nvim-lint'),
         name = 'lint',
-    }
+    },
+
+    gh('stevearc/conform.nvim'),
 })
 
 -----------------------------------------------------------
@@ -105,6 +107,23 @@ lspconfig('pyright', {
                 typeCheckingMode = "standard",
             },
         },
+    },
+})
+lspconfig('hls', {
+    cmd = { "haskell-language-server-wrapper", "--lsp" },
+
+    filetypes = {
+        "haskell",
+        "lhaskell",
+        "cabal",
+    },
+
+    root_markers = {
+        "hie.yaml",
+        "cabal.project",
+        "*.cabal",
+        "stack.yaml",
+        ".git",
     },
 })
 lspconfig('ocamllsp', {
@@ -248,4 +267,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
     callback = function()
         lint.try_lint()
     end,
+})
+
+require('conform').setup({
+    formatters_by_ft = {
+        haskell = { "fourmolu", lsp_format = "fallback" }
+    },
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
 })

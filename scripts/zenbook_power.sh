@@ -38,9 +38,9 @@ elif [ "$MODE" = "lowperf" ]; then
     echo "balance_performance" | pkexec /usr/bin/tee /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference
 
     # Apply 10W limit
-    pkexec /usr/bin/ryzenadj --stapm-limit=10000 --fast-limit=10000 --slow-limit=10000
+    pkexec /usr/bin/ryzenadj --stapm-limit=15000 --fast-limit=17000 --slow-limit=15000
 
-    notify-send "Power Profile" "Gaming 10W power mode"
+    notify-send "Power Profile" "Gaming 15W power mode"
 
 
 elif [ "$MODE" = "high" ]; then

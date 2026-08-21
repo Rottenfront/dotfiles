@@ -8,7 +8,6 @@ import Quickshell.Hyprland
 
 ShellRoot {
     id: root
-    property bool barVisible: true
     NotificationWidget {}
 
     Visualizer {
@@ -16,6 +15,10 @@ ShellRoot {
     }
 
     OsdWindow {}
+
+    TopBar {
+        id: topBar
+    }
 
     PanelWindow {
         id: rootPanel
@@ -31,37 +34,6 @@ ShellRoot {
         color: "transparent"
         focusable: false
 
-        PanelWindow {
-            implicitHeight: barVisible ? topBar.height : 0
-            // implicitHeight: 0
-            implicitWidth: 0
-            anchors {
-                top: true
-            }
-            color: "transparent"
-            mask: rootPanel.mask
-            focusable: false
-        }
-
-        TopBar {
-            id: topBar
-            y: root.barVisible ? 0 : -height
-            // opacity: root.barVisible ? 1 : 0
-
-            Behavior on y {
-                NumberAnimation {
-                    duration: 250
-                    easing.type: Easing.OutCubic
-                }
-            }
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: 250
-                    easing.type: Easing.InOutQuad
-                }
-            }
-        }
-
         Loader {
             id: controlCenterLoader
             active: false
@@ -73,16 +45,7 @@ ShellRoot {
         }
 
         mask: Region {
-            Region {
-                x: topBar.x
-                y: Math.max(0, topBar.y)
-                width: topBar.width
-                height: topBar.height + Math.min(0, topBar.y)
-            }
-
-            Region {
-                item: controlCenterLoader.item && controlCenterLoader.item.visible ? controlCenterLoader.item : null
-            }
+            item: controlCenterLoader.item && controlCenterLoader.item.visible ? controlCenterLoader.item : null
         }
     }
 
@@ -108,13 +71,13 @@ ShellRoot {
     IpcHandler {
         target: "bar"
         function toggle(): void {
-            root.barVisible = !root.barVisible;
+            topBar.barVisible = !topBar.barVisible;
         }
         function show(): void {
-            root.barVisible = true;
+            topBar.barVisible = true;
         }
         function hide(): void {
-            root.barVisible = false;
+            topBar.barVisible = false;
         }
     }
 }

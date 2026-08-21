@@ -51,7 +51,7 @@ xkb_symbols "colemak" {
     key <AB05> { [            b,            B,      dead_breve,       asciitilde ] };
     key <AB06> { [            k,            K,  dead_abovering,       asciitilde ] };
     key <AB07> { [            m,            M,     dead_macron,       asciitilde ] };
-    key <AB08> { [        comma,         less,    dead_cedilla,       asciitilde ] };
+    key <AB08> { [        comma,         less, dead_belowcomma,       asciitilde ] };
     key <AB09> { [       period,      greater,   dead_abovedot,       asciitilde ] };
     key <AB10> { [        slash,     question,    questiondown,       asciitilde ] };
 

@@ -19,10 +19,6 @@ keymap("n", "<leader>bj", "<C-w>j", opts)
 keymap("n", "<leader>bk", "<C-w>k", opts)
 keymap("n", "<leader>bl", "<C-w>l", opts)
 
-keymap("n", "o", ":put=<cr>", opts)
-keymap("n", "O", ":put!=<cr>", opts)
-
-
 -- Telescope keymaps
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
 keymap("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)

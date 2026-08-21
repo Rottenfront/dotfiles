@@ -3,16 +3,31 @@ import QtQuick.Layouts
 import Quickshell
 import qs.modules.bar
 
-Item {
-    id: topBar
+PanelWindow {
+    id: root
+    property bool barVisible: true
 
-    implicitHeight: 34
-    anchors.left: parent.left
-    anchors.right: parent.right
-    focus: true
+    anchors {
+        top: true
+        left: true
+        right: true
+    }
+    color: "transparent"
+    focusable: false
+
+    implicitHeight: barVisible ? topBar.height : 0
 
     Item {
-        anchors.fill: parent
+        id: topBar
+
+        visible: root.barVisible
+
+        implicitHeight: 34
+        anchors.left: parent.left
+        anchors.right: parent.right
+        focus: true
+
+        y: root.barVisible ? 0 : -height
 
         RowLayout {
             anchors {
@@ -27,6 +42,7 @@ Item {
             Keyboard {}
             Clock {}
         }
+
         RowLayout {
             MediaPill {}
 
@@ -41,7 +57,7 @@ Item {
                 right: parent.right
                 verticalCenter: parent.verticalCenter
             }
-            spacing: 10
+            spacing: 8
             Battery {}
             // Network {}
             // Bluetooth {}
@@ -53,5 +69,23 @@ Item {
                 implicitWidth: 8
             }
         }
+        Behavior on y {
+            NumberAnimation {
+                duration: 250
+                easing.type: Easing.OutCubic
+            }
+        }
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 250
+                easing.type: Easing.InOutQuad
+            }
+        }
+    }
+    mask: Region {
+        x: topBar.x
+        y: Math.max(0, topBar.y)
+        width: topBar.width
+        height: topBar.height + Math.min(0, topBar.y)
     }
 }

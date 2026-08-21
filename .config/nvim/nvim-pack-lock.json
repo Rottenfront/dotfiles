@@ -12,9 +12,18 @@
       "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
       "src": "https://github.com/akinsho/bufferline.nvim"
     },
+    "conform.nvim": {
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
     "gitsigns.nvim": {
       "rev": "eb60cc7b94c46005237fd34170d76f3a089a90aa",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
+    "haskell-tools.nvim": {
+      "rev": "556c28dcfd7479270d557e3e73356411058005ea",
+      "src": "https://github.com/mrcjkb/haskell-tools.nvim",
+      "version": "10.0.0 - 11.0.0"
     },
     "lint": {
       "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",

@@ -1,5 +1,5 @@
 if vim.g.neovide then
-    vim.g.neovide_opacity = 0.5
+    vim.g.neovide_opacity = 0.9
     vim.o.guifont = "Cascadia Code:h10"
 end
 
@@ -40,7 +40,7 @@ opt.softtabstop = 4
 opt.tabstop = 4
 
 autocmd("FileType", {
-    pattern = { "haskell", "ocaml" },
+    pattern = { "haskell", "ocaml", "nix" },
     callback = function()
         vim.bo.shiftwidth = 2
         vim.bo.softtabstop = 2

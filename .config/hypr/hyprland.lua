@@ -5,6 +5,7 @@
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
+hl.env("MANGOHUD", "1")
 hl.env("QT_QPA_PLATFORM", "wayland:xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct:qt6ct")
 hl.env("SDL_VIDEODRIVER", "wayland,x11")
@@ -20,6 +21,7 @@ hl.env("PROTON_ENABLE_WAYLAND", "1")
 hl.config({
     ecosystem = {
         enforce_permissions = false,
+        no_update_news = true,
     },
 })
 
@@ -41,7 +43,7 @@ hl.monitor({
 })
 
 hl.monitor({
-    output   = "DP-2",
+    output   = "DP-3",
     mode     = "3440x1440@100",
     position = "0x0",
     scale    = "1",
@@ -53,9 +55,6 @@ hl.monitor({
 
 
 hl.on("hyprland.start", function()
-    -- For some reason hyprland does not load plugins at the start
-    hl.exec_cmd("hyprpm reload")
-
     hl.exec_cmd("noctalia")
 end)
 
@@ -200,13 +199,13 @@ hl.gesture({
 })
 
 
-hl.config({
-    plugin = {
-        hyprcapture = {
-            save_dir = "$XDG_PICTURES_DIR/Screenshots"
-        }
-    }
-})
+-- hl.config({
+--     plugin = {
+--         hyprcapture = {
+--             save_dir = "$XDG_PICTURES_DIR/Screenshots"
+--         }
+--     }
+-- })
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -226,13 +225,13 @@ hl.bind(mod .. "F", hl.dsp.exec_cmd("rofi -show filebrowser"))
 -- control center
 hl.bind(mod .. "B", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
 hl.bind(mod .. "V", hl.dsp.exec_cmd("noctalia msg panel-open clipboard"))
-hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("noctalia msg panel-open control-center"))
+-- hl.bind("SUPER + SHIFT + F23", hl.dsp.exec_cmd("noctalia msg panel-open control-center"))
 
 -- terminal
-hl.bind(mod .. mod2 .. "T", hl.dsp.exec_cmd("alacritty"))
+hl.bind(mod .. mod2 .. "T", hl.dsp.exec_cmd("kitty"))
 
 -- browsers
-hl.bind(mod .. mod2 .. "B", hl.dsp.exec_cmd("librewolf"))
+hl.bind(mod .. mod2 .. "B", hl.dsp.exec_cmd("firefox"))
 hl.bind(mod .. mod2 .. "I", hl.dsp.exec_cmd("helium-browser --ozone-platform=wayland"))
 
 
@@ -241,18 +240,14 @@ hl.bind(mod .. mod2 .. "N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. mod2 .. "Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. mod2 .. "S", function()
-    hl.plugin.hyprcapture.open()
-end)
-hl.bind("Print", function()
-    hl.plugin.hyprcapture.open()
-end)
+hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind("Print", hl.dsp.exec_cmd("flameshot gui"))
 
 -- brainrot
-hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('discord --ozone-platform=wayland'))
+hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10809" --ozone-platform=wayland'))
 
 -- debug tools
-hl.bind(mod .. mod2 .. "Q", hl.dsp.exec_cmd('alacritty --hold -e hyprctl clients'))
+hl.bind(mod .. mod2 .. "Q", hl.dsp.exec_cmd('kitty --hold -e hyprctl clients'))
 
 
 hl.bind(mod .. mod2 .. "COMMA", hl.dsp.exit())
@@ -266,7 +261,7 @@ for i = 1, 10 do
 end
 
 -- audio
-hl.bind(mod .. mod3 .. "G", hl.dsp.exec_cmd("alacritty -e termusic"))
+hl.bind(mod .. mod3 .. "G", hl.dsp.exec_cmd("kitty -e termusic"))
 hl.bind(mod .. mod2 .. "P", hl.dsp.exec_cmd("pwvucontrol"))
 hl.bind(mod .. "G", hl.dsp.workspace.toggle_special("music"))
 hl.bind(mod .. mod2 .. "G", hl.dsp.window.move({ workspace = "special:music" }))

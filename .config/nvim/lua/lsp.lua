@@ -126,6 +126,9 @@ lspconfig('hls', {
         ".git",
     },
 })
+lspconfig('jsonls', {
+    cmd = { 'vscode-json-language-server', '--stdio' }
+})
 lspconfig('ocamllsp', {
     cmd = { 'ocamllsp' }
 })

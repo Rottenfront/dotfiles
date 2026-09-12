@@ -105,23 +105,18 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias hw='hwinfo --short' # Hardware Info
 alias big="expac -H M '%m\t%n' | sort -h | nl" # Sort installed packages according to size in MB
-alias gitpkg='pacman -Q | grep -i "\-git" | wc -l' # List amount of -git packages
-
-# Get fastest mirrors
-alias mirror="sudo cachyos-rate-mirrors"
-
-# Cleanup orphaned packages
-alias cleanup='sudo pacman -Rns (pacman -Qtdq)'
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
-# Recent installed packages
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-
 alias v="nvim"
+alias sv="sudo nvim"
 alias yz="yazi"
 alias 7x="7z x"
+
+alias ns="nix-shell"
+
+alias rebuild="sudo nixos-rebuild switch"
 
 set -x PYTHONSTARTUP "$HOME/.pythonrc.py"
 
@@ -133,3 +128,9 @@ fish_add_path "$HOME/.local/bin/"
 test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/rtfr/.ghcup/bin # ghcup-env
+
+any-nix-shell fish --info-right | source
+
+
+function fish_greeting
+end

@@ -64,8 +64,8 @@ end)
 
 hl.config({
     general = {
-        gaps_in = 4,
-        gaps_out = 2,
+        gaps_in = 0,
+        gaps_out = 0,
 
         border_size = 1,
         col = {
@@ -81,8 +81,8 @@ hl.config({
     },
 
     decoration = {
-        rounding = 10,
-        rounding_power = 10,
+        rounding = 0,
+        -- rounding_power = 10,
 
         active_opacity = 1.0,
         inactive_opacity = 1.0,
@@ -240,11 +240,11 @@ hl.bind(mod .. mod2 .. "N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. mod2 .. "Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("flameshot gui"))
-hl.bind("Print", hl.dsp.exec_cmd("flameshot gui"))
+hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("hyprshot -m region"))
+hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region"))
 
 -- brainrot
-hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10809" --ozone-platform=wayland'))
+hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10808" --ozone-platform=wayland'))
 
 -- debug tools
 hl.bind(mod .. mod2 .. "Q", hl.dsp.exec_cmd('kitty --hold -e hyprctl clients'))
@@ -501,6 +501,15 @@ hl.window_rule({
         class = "PortProton",
     },
     float = true
+})
+
+
+hl.window_rule({
+    name = "vpn",
+    match = {
+        class = "Happ",
+    },
+    workspace = 9,
 })
 
 

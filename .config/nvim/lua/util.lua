@@ -11,6 +11,7 @@ vim.pack.add({
     gh("windwp/nvim-autopairs"),
     gh("akinsho/bufferline.nvim"),
     gh("nvim-lualine/lualine.nvim"),
+    gh("andrewferrier/wrapping.nvim"),
 })
 
 require('snacks').setup({
@@ -105,3 +106,5 @@ require('lualine').setup({
         lualine_z = { "location" },
     },
 })
+
+require("wrapping").setup()

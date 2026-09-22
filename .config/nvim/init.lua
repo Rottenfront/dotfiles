@@ -17,7 +17,6 @@ local opt = vim.opt
 -- Editor settings
 opt.number = true
 opt.relativenumber = true
-opt.wrap = true
 opt.linebreak = true
 opt.termguicolors = true
 opt.scrolloff = 8

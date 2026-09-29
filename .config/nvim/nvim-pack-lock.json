@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "ChatGPT.nvim": {
+      "rev": "5c54a7e9de67e2f8f8c3ed60f872f4a34a3e65ff",
+      "src": "https://github.com/jackMort/ChatGPT.nvim"
+    },
     "blink.cmp": {
       "rev": "101d71861f6a012f2be80e4100720874330d86aa",
       "src": "https://github.com/saghen/blink.cmp"
@@ -31,6 +35,10 @@
     "nimmy.vim": {
       "rev": "b164d8dc54325cd9f46744495fdca68f0a2c3495",
       "src": "https://github.com/NopAngel/nimmy.vim"
+    },
+    "nui.nvim": {
+      "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
     },
     "nvim-autopairs": {
       "rev": "430522f95fe4fb7c511ec64f8c1a90cc6a66c05c",
@@ -67,6 +75,10 @@
     "telescope.nvim": {
       "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "trouble.nvim": {
+      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
+      "src": "https://github.com/folke/trouble.nvim"
     },
     "vim-fugitive": {
       "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",

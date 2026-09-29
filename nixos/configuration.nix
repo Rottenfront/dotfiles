@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
 
@@ -73,10 +73,14 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
+
     ryzenadj
 
     brightnessctl
     hyprpolkitagent
+
+    wineWow64Packages.stable
 
     sing-box
     gvfs
@@ -105,6 +109,7 @@
       enable = true;
       protontricks.enable = true;
     };
+    amnezia-vpn.enable = true;
   };
 
   services.gvfs.enable = true;
@@ -133,6 +138,7 @@
 
       texliveConTeXt.fonts
       corefonts
+      stix-two
 
       (pkgs.runCommand "sofia-sans" { } ''
         mkdir -p $out/share/fonts/truetype

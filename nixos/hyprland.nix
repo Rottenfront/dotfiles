@@ -21,7 +21,7 @@
     };
   };
 
-  programs.noctalia.enable = true;
+  # programs.noctalia.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

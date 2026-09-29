@@ -17,6 +17,9 @@ local opt = vim.opt
 -- Editor settings
 opt.number = true
 opt.relativenumber = true
+opt.textwidth = 100
+opt.formatoptions = "tcqj"
+opt.colorcolumn = "100"
 opt.linebreak = true
 opt.termguicolors = true
 opt.scrolloff = 8

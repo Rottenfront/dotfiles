@@ -2,6 +2,7 @@ local gh = function(x) return 'https://github.com/' .. x end
 
 vim.pack.add({
     gh('NopAngel/nimmy.vim'),
+    gh('folke/trouble.nvim'),
     gh('folke/snacks.nvim'),
     gh('nvim-lua/plenary.nvim'),
     gh('nvim-tree/nvim-web-devicons'),
@@ -12,6 +13,9 @@ vim.pack.add({
     gh("akinsho/bufferline.nvim"),
     gh("nvim-lualine/lualine.nvim"),
     gh("andrewferrier/wrapping.nvim"),
+
+    gh("MunifTanjim/nui.nvim"),
+    gh("jackMort/ChatGPT.nvim"),
 })
 
 require('snacks').setup({
@@ -107,4 +111,9 @@ require('lualine').setup({
     },
 })
 
-require("wrapping").setup()
+require('chatgpt').setup({
+    openai_params = {
+        model = 'gpt-6-sol',
+        max_tokens = 300000,
+    }
+})

@@ -29,6 +29,9 @@
     
     btop
     mangohud
+
+    file
+    bubblewrap
     
     thunar
     thunar-volman
@@ -42,6 +45,8 @@
     neovide # neovim gui
 
     python314
+
+    nodejs
 
     rustup
 
@@ -92,7 +97,7 @@
       saveLocation = "$HOME/Pictures/screenshots";
     };
 
-    codex.enable = true;
+    # codex.enable = true;
 
     btop.enable = true;
     fastfetch = {

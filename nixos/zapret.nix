@@ -3,7 +3,7 @@
 {
   services.zapret-discord-youtube = {
     enable = true;
-    strategy = "general_alt12.bat";
+    strategy = "general_alt_exp.bat";
 
     fakeFiles = {
       "tls_clienthello_www_onetrust_com.bin" = pkgs.fetchurl {

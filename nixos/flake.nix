@@ -7,6 +7,12 @@
       inputs.nixpkgs.follows = "nixpkgs"; # optional
     };
 
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs"; # optional
+    };
+
+
 
     zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
   };

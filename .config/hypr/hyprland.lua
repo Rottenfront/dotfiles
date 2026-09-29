@@ -26,7 +26,8 @@ hl.config({
 })
 
 hl.permission({ binary = "/usr/(bin|local/bin)/hyprlock", type = "screencopy", mode = "allow" })
-hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland",
+    type = "screencopy", mode = "allow" })
 hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 
 
@@ -244,7 +245,7 @@ hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("hyprshot -m region"))
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region"))
 
 -- brainrot
-hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10808" --ozone-platform=wayland'))
+hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10809" --ozone-platform=wayland'))
 
 -- debug tools
 hl.bind(mod .. mod2 .. "Q", hl.dsp.exec_cmd('kitty --hold -e hyprctl clients'))
@@ -509,7 +510,7 @@ hl.window_rule({
     match = {
         class = "Happ",
     },
-    workspace = 9,
+    workspace = 10,
 })
 
 

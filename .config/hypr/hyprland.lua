@@ -38,6 +38,7 @@ hl.permission({ binary = "/usr/bin/hyprpm", type = "plugin", mode = "allow" })
 hl.monitor({
     output   = "eDP-1",
     mode     = "2880x1800@60",
+    bitdepth = 10,
     -- mode     = "2880x1800@120",
     position = "3440x0",
     scale    = "1.5",
@@ -241,8 +242,8 @@ hl.bind(mod .. mod2 .. "N", hl.dsp.exec_cmd("neovide"))
 hl.bind(mod .. mod2 .. "Z", hl.dsp.exec_cmd("zeditor"))
 
 -- screenshots
-hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("hyprshot -m region"))
-hl.bind("Print", hl.dsp.exec_cmd("hyprshot -m region"))
+hl.bind(mod .. mod2 .. "S", hl.dsp.exec_cmd("hyprshot -z -m region"))
+hl.bind("Print", hl.dsp.exec_cmd("hyprshot -z -m region"))
 
 -- brainrot
 hl.bind(mod .. mod2 .. "U", hl.dsp.exec_cmd('vesktop --proxy-server="127.0.0.1:10809" --ozone-platform=wayland'))
@@ -367,6 +368,7 @@ hl.bind(mod .. mod3 .. "F1", function()
     hl.monitor({
         output   = "eDP-1",
         mode     = resolution,
+    bitdepth = 10,
         position = "3440x0",
         scale    = scale,
     })
@@ -379,6 +381,7 @@ hl.bind(mod .. mod3 .. "F2", function()
     hl.monitor({
         output   = "eDP-1",
         mode     = resolution,
+    bitdepth = 10,
         position = "3440x0",
         scale    = scale,
     })
@@ -391,6 +394,7 @@ hl.bind(mod .. mod3 .. "F3", function()
     hl.monitor({
         output   = "eDP-1",
         mode     = resolution,
+    bitdepth = 10,
         position = "3440x0",
         scale    = scale,
     })

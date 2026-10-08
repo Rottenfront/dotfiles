@@ -14,8 +14,8 @@ vim.pack.add({
     gh("nvim-lualine/lualine.nvim"),
     gh("andrewferrier/wrapping.nvim"),
 
-    gh("MunifTanjim/nui.nvim"),
-    gh("jackMort/ChatGPT.nvim"),
+    -- gh("MunifTanjim/nui.nvim"),
+    -- gh("jackMort/ChatGPT.nvim"),
 })
 
 require('snacks').setup({
@@ -111,9 +111,9 @@ require('lualine').setup({
     },
 })
 
-require('chatgpt').setup({
-    openai_params = {
-        model = 'gpt-6-sol',
-        max_tokens = 300000,
-    }
-})
+-- require('chatgpt').setup({
+--     openai_params = {
+--         model = 'gpt-6-sol',
+--         max_tokens = 300000,
+--     }
+-- })

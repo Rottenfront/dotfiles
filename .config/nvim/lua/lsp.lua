@@ -26,6 +26,8 @@ vim.pack.add({
     },
 
     gh('stevearc/conform.nvim'),
+
+    gh('lervag/vimtex'),
 })
 
 -----------------------------------------------------------
@@ -282,3 +284,31 @@ require('conform').setup({
         lsp_format = "fallback",
     },
 })
+
+-----------------------------------------------------------
+--- VIMTEX
+-----------------------------------------------------------
+
+vim.g.tex_flavor = 'latex'
+
+vim.g.vimtex_view_method = 'zathura'
+
+vim.g.vimtex_quickfix_mode = 2
+
+vim.g.vimtex_compiler_method = 'latexmk'
+
+vim.g.vimtex_compiler_latexmk = {
+  build_dir = '',
+  callback = 1,
+  continuous = 1,
+  executable = 'latexmk',
+  hooks = {},
+  options = {
+    '-xelatex',                -- Force XeLaTeX
+    '-file-line-error',        -- Better error parsing for Vimtex
+    '-synctex=1',              -- Enable forward/backward search
+    '-interaction=nonstopmode' -- Don't stop for user input on errors
+  }
+}
+
+

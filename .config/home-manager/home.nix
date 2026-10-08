@@ -8,10 +8,13 @@
 
   programs.home-manager.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
     qbittorrent
     chromium
+
+    google-chrome
     
     kitty
     rofi # gui file opener

@@ -76,6 +76,7 @@
     inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
 
     ryzenadj
+    vial
 
     brightnessctl
     hyprpolkitagent
@@ -110,6 +111,11 @@
       protontricks.enable = true;
     };
     amnezia-vpn.enable = true;
+  };
+
+  services.ayuz = {
+    enable = true;
+    supportMyAsusKey = true;
   };
 
   services.gvfs.enable = true;

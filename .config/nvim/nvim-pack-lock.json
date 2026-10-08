@@ -24,6 +24,10 @@
       "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
+    "haskell-tools.nvim": {
+      "rev": "556c28dcfd7479270d557e3e73356411058005ea",
+      "src": "https://github.com/mrcjkb/haskell-tools.nvim"
+    },
     "lint": {
       "rev": "3d55c8f67c6ae5c15e1042571e107c7a3d5c5f4e",
       "src": "https://github.com/mfussenegger/nvim-lint"

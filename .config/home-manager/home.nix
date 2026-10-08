@@ -59,13 +59,6 @@
     meson
     vscode-json-languageserver
 
-    typst
-    mitex # TeX to typst
-    typstyle
-    typstPackages.cetz # graphics for Typst
-    typstPackages.mmdr # mermaid for Typst
-    tinymist # Typst LSP
-
     mermaid-cli
 
     miktex
@@ -74,6 +67,7 @@
 
     libreoffice-stable
 
+    hyprpolkitagent
     adwaita-icon-theme
     kdePackages.qt6ct
     libsForQt5.qt5ct
@@ -92,15 +86,21 @@
     yazi.enable = true;
 
     amp.enable = true;
-    neovide.enable = true;
+    neovide = {
+      enable = true;
+      settings = {
+        font = {
+          normal = [ "Cascadia Code" ];
+          size = 12.0;
+        };
+      };
+    };
 
     noctalia.enable = true;
     hyprshot = {
       enable = true;
       saveLocation = "$HOME/Pictures/screenshots";
     };
-
-    # codex.enable = true;
 
     btop.enable = true;
     fastfetch = {

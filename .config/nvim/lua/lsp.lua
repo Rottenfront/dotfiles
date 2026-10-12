@@ -128,18 +128,19 @@ lspconfig('hls', {
         ".git",
     },
 })
+
 lspconfig('jsonls', {
     cmd = { 'vscode-json-language-server', '--stdio' }
 })
+
 lspconfig('ocamllsp', {
     cmd = { 'ocamllsp' }
 })
+
 lspconfig('lua_ls', {
     cmd = { "lua-language-server" }
 })
-lspconfig('tinymist', {
-    cmd = { "tinymist" }
-})
+
 lspconfig('qmlls', {
     cmd = { "qmlls6" },
     filetypes = { "qml" },
@@ -276,7 +277,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 
 require('conform').setup({
     formatters_by_ft = {
-        haskell = { "fourmolu", lsp_format = "fallback" }
+        haskell = { "fourmolu", lsp_format = "fallback" },
+        nix = { "nixfmt" }
+    },
+    formatters = {
+        nixfmt = {
+            prepend_flags = { "--width", "80" },
+        },
     },
     format_on_save = {
         -- These options will be passed to conform.format()
@@ -298,17 +305,31 @@ vim.g.vimtex_quickfix_mode = 2
 vim.g.vimtex_compiler_method = 'latexmk'
 
 vim.g.vimtex_compiler_latexmk = {
-  build_dir = '',
-  callback = 1,
-  continuous = 1,
-  executable = 'latexmk',
-  hooks = {},
-  options = {
-    '-xelatex',                -- Force XeLaTeX
-    '-file-line-error',        -- Better error parsing for Vimtex
-    '-synctex=1',              -- Enable forward/backward search
-    '-interaction=nonstopmode' -- Don't stop for user input on errors
-  }
+    build_dir = '',
+    callback = 1,
+    continuous = 1,
+    executable = 'latexmk',
+    hooks = {},
+    options = {
+        '-lualatex',
+        '-file-line-error',
+        '-synctex=1',
+        '-interaction=nonstopmode'
+    }
 }
 
+lspconfig('texlab', {
+    on_attach = function(client, bufnr)
+        local opts = { buffer = bufnr, silent = true }
 
+        vim.keymap.set("n", "<leader>lb", "<cmd>TexlabBuild<CR>",
+            vim.tbl_extend("force", opts, {
+                desc = "LaTeX: Build",
+            }))
+
+        vim.keymap.set("n", "<leader>lc", "<cmd>TexlabCancelBuild<CR>",
+            vim.tbl_extend("force", opts, {
+                desc = "LaTeX: Cancel build",
+            }))
+    end,
+})

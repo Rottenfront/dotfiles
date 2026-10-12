@@ -2,17 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
 
   imports = [
     ./hardware-configuration.nix
-    ./hyprland.nix
+    ./fonts.nix
     ./zapret.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # Bootloader
   boot.loader.limine.enable = true;
@@ -62,6 +72,7 @@
       "wheel"
       "scanner"
       "lp"
+      "docker"
     ];
     packages = with pkgs; [ ];
 
@@ -70,20 +81,10 @@
 
   services.getty.autologinUser = "rtfr";
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
-    inputs.noctalia.packages.${stdenv.hostPlatform.system}.default
-
     ryzenadj
     vial
 
-    brightnessctl
-    hyprpolkitagent
-
-    wineWow64Packages.stable
-
-    sing-box
     gvfs
 
     eza # ls
@@ -100,6 +101,11 @@
   ];
 
   programs = {
+    hyprland = {
+      enable = true;
+      withUWSM = true;
+      xwayland.enable = true;
+    };
     fish.enable = true;
 
     gamemode.enable = true;
@@ -110,85 +116,47 @@
       enable = true;
       protontricks.enable = true;
     };
+    # proxy
     amnezia-vpn.enable = true;
+    throne = {
+      enable = true;
+      tunMode.enable = true;
+    };
   };
 
-  services.ayuz = {
-    enable = true;
-    supportMyAsusKey = true;
+  services = {
+    ayuz = {
+      enable = true;
+      supportMyAsusKey = true;
+    };
+
+    gvfs.enable = true;
+
+    upower.enable = true;
+
+    # proxy
+    happ.enable = true;
   };
 
-  services.gvfs.enable = true;
-
-  services.upower.enable = true;
+  virtualisation.docker.enable = true;
 
   console = {
     keyMap = "colemak";
   };
 
-  # fontconfig
-  fonts = {
-    enableDefaultPackages = true;
-
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-
-      paratype-pt-sans
-      paratype-pt-serif
-      paratype-pt-mono
-
-      liberation_ttf
-      cascadia-code
-
-      texliveConTeXt.fonts
-      corefonts
-      stix-two
-
-      (pkgs.runCommand "sofia-sans" { } ''
-        mkdir -p $out/share/fonts/truetype
-        cp ${./sofia-sans/SofiaSans-VariableFont_wght.ttf} $out/share/fonts/truetype/
-        cp ${./sofia-sans/SofiaSans-Italic-VariableFont_wght.ttf} $out/share/fonts/truetype/
-      '')
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
     ];
-
-    fontconfig = {
-      enable = true;
-
-      defaultFonts = {
-        sansSerif = [ "Sofia Sans" ];
-        serif = [ "PT Serif" ];
-        monospace = [ "Cascadia Code" ];
-        emoji = [ "Noto Color Emogi" ];
-      };
-
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-
-      # antialias = true;
-      subpixel = {
-        rgba = "rgb";
-      };
+    config = {
+      hyprland.preferred = [
+        "hyprland"
+        "gtk"
+      ];
     };
   };
-
-  security.sudo.extraRules = [
-    {
-      users = [ "yourusername" ];
-      commands = [
-        {
-          command = "/run/current-system/sw/bin/tee";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
-    
-  # proxy & anti-dpi
-  services.happ.enable = true;
 
   # repo version
   system.stateVersion = "26.11";

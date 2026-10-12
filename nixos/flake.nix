@@ -5,11 +5,22 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    happ.url = "github:Rottenfront/happ.nix";
-    ayuz.url = "github:Traciges/Ayuz";
-
-    zapret.url = "github:novvux/zapret-discord-youtube-nix.flake";
+    happ = {
+      url = "github:Rottenfront/happ.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ayuz = {
+      url = "github:Traciges/Ayuz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zapret = {
+      url = "github:novvux/zapret-discord-youtube-nix.flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    termusic = {
+      url = "github:rottenfront/termusic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

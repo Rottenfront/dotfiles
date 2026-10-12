@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -29,7 +30,7 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    termusic
+    inputs.termusic.packages.${stdenv.hostPlatform.system}.default
     playerctl
     pwvucontrol
     easyeffects

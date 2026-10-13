@@ -71,6 +71,8 @@
 
     (texliveBasic.withPackages (
       ps: with ps; [
+        latexmk
+
         # languages
         fontspec
         babel-russian
@@ -103,6 +105,8 @@
     vesktop
 
     libreoffice-stable
+
+    anki
   ];
 
   programs = {

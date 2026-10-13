@@ -32,8 +32,6 @@
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "aorus";
-
   networking.networkmanager.enable = true;
 
   hardware.bluetooth = {
@@ -82,7 +80,6 @@
   services.getty.autologinUser = "rtfr";
 
   environment.systemPackages = with pkgs; [
-    ryzenadj
     vial
 
     gvfs
@@ -125,17 +122,7 @@
   };
 
   services = {
-    ayuz = {
-      enable = true;
-      supportMyAsusKey = true;
-    };
-
     gvfs.enable = true;
-
-    upower.enable = true;
-
-    # proxy
-    happ.enable = true;
   };
 
   virtualisation.docker.enable = true;

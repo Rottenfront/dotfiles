@@ -278,7 +278,8 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 require('conform').setup({
     formatters_by_ft = {
         haskell = { "fourmolu", lsp_format = "fallback" },
-        nix = { "nixfmt" }
+        nix = { "nixfmt" },
+        tex = { "tex-fmt" },
     },
     formatters = {
         nixfmt = {
@@ -301,6 +302,13 @@ vim.g.tex_flavor = 'latex'
 vim.g.vimtex_view_method = 'zathura'
 
 vim.g.vimtex_quickfix_mode = 2
+vim.g.vimtex_quickfix_open_on_warning = 0
+
+vim.g.vimtex_quickfix_ignore_filters = {
+    'Underfull \\hbox',
+    'Overfull \\hbox',
+    'LaTeX Font Warning',
+}
 
 vim.g.vimtex_compiler_method = 'latexmk'
 
@@ -319,6 +327,8 @@ vim.g.vimtex_compiler_latexmk = {
 }
 
 lspconfig('texlab', {
+    cmd = { 'texlab' },
+    latexFormatter = 'tex-fmt',
     on_attach = function(client, bufnr)
         local opts = { buffer = bufnr, silent = true }
 

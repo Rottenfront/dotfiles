@@ -5,10 +5,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    happ = {
-      url = "github:Rottenfront/happ.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ayuz = {
       url = "github:Traciges/Ayuz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,26 +26,40 @@
       home-manager,
       ...
     }@inputs:
+
+    let
+      home-manager-setup = [
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { inherit inputs; };
+            users.rtfr = import ./home;
+          };
+        }
+      ];
+    in
     {
       nixosConfigurations.aorus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./configuration.nix
+          ./aorus.nix
+          inputs.zapret.nixosModules.default
+        ]
+        ++ home-manager-setup;
+      };
+
+      nixosConfigurations.zenbook = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./zenbook.nix
           inputs.ayuz.nixosModules.default
           inputs.zapret.nixosModules.default
-          inputs.happ.nixosModules.default
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
-              users.rtfr = import ./home;
-            };
-          }
-        ];
+        ]
+        ++ home-manager-setup;
       };
     };
 }

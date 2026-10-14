@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs = {
-    
+
     bat.enable = true;
     eza.enable = true;
     fd.enable = true;
@@ -60,13 +65,15 @@
         yz = "yazi";
         v = "nvim";
         sv = "sudo nvim";
-        tarnow="tar -acf ";
-        untar="tar -zxvf ";
-        wget="wget -c ";
-        psmem="ps auxf | sort -nr -k 4";
-        psmem10="ps auxf | sort -nr -k 4 | head -10";
+        tarnow = "tar -acf ";
+        untar = "tar -zxvf ";
+        wget = "wget -c ";
+        psmem = "ps auxf | sort -nr -k 4";
+        psmem10 = "ps auxf | sort -nr -k 4 | head -10";
 
         rebuild = "sudo nixos-rebuild switch";
+        rebuild-aorus = "sudo nixos-rebuild switch --flake .#aorus";
+        rebuild-zenbook = "sudo nixos-rebuild switch --flake .#zenbook";
       };
 
       shellInit = ''

@@ -31,6 +31,7 @@
 
   home.packages = with pkgs; [
     inputs.termusic.packages.${stdenv.hostPlatform.system}.default
+    strawberry
     playerctl
     pwvucontrol
     easyeffects

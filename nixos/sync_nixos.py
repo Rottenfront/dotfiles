@@ -39,7 +39,7 @@ def make_diff(source: Path, target: Path, relative_path: Path) -> list[str]:
             target_lines,
             source_lines,
             fromfile=f"/etc/nixos/{relative_path}",
-            tofile=f"./nixos/{relative_path}",
+            tofile=f"./{relative_path}",
         )
     )
 
@@ -159,8 +159,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "source",
         nargs="?",
-        default="nixos",
-        help="source directory (default: ./nixos)",
+        default=".",
+        help="source directory (default: .)",
     )
     parser.add_argument(
         "target",

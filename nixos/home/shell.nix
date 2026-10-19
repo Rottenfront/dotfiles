@@ -7,16 +7,16 @@
 
 {
   programs = {
-
     bat.enable = true;
     eza.enable = true;
     fd.enable = true;
     fzf.enable = true;
     ripgrep.enable = true;
     jq.enable = true;
+
     fish = {
       loginShellInit = ''
-        if uwsm check may-start
+        if not set -q TMUX; and uwsm check may-start
           exec uwsm start hyprland-uwsm.desktop
         end
       '';
@@ -44,11 +44,16 @@
               end
           end
         '';
-        fish_greeting = "";
+        fish_greeting = "
+          echo 'Welcome home'
+        ";
         detach = ''
           nohup $argv >/dev/null 2>&1 &
           disown
         '';
+
+        rebuild-zenbook = "sudo nixos-rebuild switch --flake /etc/nixos#zenbook $argv";
+        rebuild-aorus = "sudo nixos-rebuild switch --flake /etc/nixos#aorus $argv";
       };
 
       shellAliases = {
@@ -72,8 +77,6 @@
         psmem10 = "ps auxf | sort -nr -k 4 | head -10";
 
         rebuild = "sudo nixos-rebuild switch";
-        rebuild-aorus = "sudo nixos-rebuild switch --flake .#aorus";
-        rebuild-zenbook = "sudo nixos-rebuild switch --flake .#zenbook";
       };
 
       shellInit = ''
@@ -88,14 +91,16 @@
         set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
         set -x PYTHONSTARTUP "$HOME/.pythonrc.py"
+        set -x NODE_PATH "$HOME/.npm-packages/lib/node_modules"
 
         fish_add_path "$HOME/.cargo/bin/"
         fish_add_path "$HOME/.local/bin/"
 
+        fish_add_path "$HOME/.npm-packages/bin"
+
         test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
 
         any-nix-shell fish --info-right | source
-
       '';
       enable = true;
     };

@@ -26,8 +26,6 @@ vim.pack.add({
     },
 
     gh('stevearc/conform.nvim'),
-
-    gh('lervag/vimtex'),
 })
 
 -----------------------------------------------------------
@@ -69,65 +67,12 @@ autocmd("LspAttach", {
 --- LSP SERVERS
 -----------------------------------------------------------
 
-lspconfig('rust_analyzer', {
-    cmd = { 'rust-analyzer' },
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "self",
-            },
-            cargo = {
-                buildScripts = {
-                    enable = true,
-                },
-            },
-            procMacro = {
-                enable = true,
-            },
-            checkOnSave = {
-                command = "clippy",
-            },
-        },
-    },
-})
-lspconfig('clangd', {
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--header-insertion=iwyu",
-    },
-})
-lspconfig('pyright', {
-    cmd = { 'pyright' },
-    settings = {
-        ['pyright'] = {
-            analysis = {
-                autoSearchPaths = true,
-                diagnosticMode = "workspace",
-                typeCheckingMode = "standard",
-            },
-        },
-    },
-})
-lspconfig('hls', {
-    cmd = { "haskell-language-server-wrapper", "--lsp" },
 
-    filetypes = {
-        "haskell",
-        "lhaskell",
-        "cabal",
-    },
-
-    root_markers = {
-        "hie.yaml",
-        "cabal.project",
-        "*.cabal",
-        "stack.yaml",
-        ".git",
-    },
-})
+require('languages.cc')
+require('languages.haskell')
+require('languages.python')
+require('languages.rust')
+require('languages.tex')
 
 lspconfig('jsonls', {
     cmd = { 'vscode-json-language-server', '--stdio' }
@@ -140,13 +85,6 @@ lspconfig('ocamllsp', {
 lspconfig('lua_ls', {
     cmd = { "lua-language-server" }
 })
-
-lspconfig('qmlls', {
-    cmd = { "qmlls6" },
-    filetypes = { "qml" },
-    single_file_support = true,
-})
-
 
 -----------------------------------------------------------
 --- BLINK
@@ -283,7 +221,7 @@ require('conform').setup({
     },
     formatters = {
         nixfmt = {
-            prepend_flags = { "--width", "80" },
+            prepend_flags = { "--width", "100" },
         },
     },
     format_on_save = {
@@ -291,55 +229,4 @@ require('conform').setup({
         timeout_ms = 500,
         lsp_format = "fallback",
     },
-})
-
------------------------------------------------------------
---- VIMTEX
------------------------------------------------------------
-
-vim.g.tex_flavor = 'latex'
-
-vim.g.vimtex_view_method = 'zathura'
-
-vim.g.vimtex_quickfix_mode = 2
-vim.g.vimtex_quickfix_open_on_warning = 0
-
-vim.g.vimtex_quickfix_ignore_filters = {
-    'Underfull \\hbox',
-    'Overfull \\hbox',
-    'LaTeX Font Warning',
-}
-
-vim.g.vimtex_compiler_method = 'latexmk'
-
-vim.g.vimtex_compiler_latexmk = {
-    build_dir = '',
-    callback = 1,
-    continuous = 1,
-    executable = 'latexmk',
-    hooks = {},
-    options = {
-        '-lualatex',
-        '-file-line-error',
-        '-synctex=1',
-        '-interaction=nonstopmode'
-    }
-}
-
-lspconfig('texlab', {
-    cmd = { 'texlab' },
-    latexFormatter = 'tex-fmt',
-    on_attach = function(client, bufnr)
-        local opts = { buffer = bufnr, silent = true }
-
-        vim.keymap.set("n", "<leader>lb", "<cmd>TexlabBuild<CR>",
-            vim.tbl_extend("force", opts, {
-                desc = "LaTeX: Build",
-            }))
-
-        vim.keymap.set("n", "<leader>lc", "<cmd>TexlabCancelBuild<CR>",
-            vim.tbl_extend("force", opts, {
-                desc = "LaTeX: Cancel build",
-            }))
-    end,
 })

@@ -1,6 +1,6 @@
 # !(env bash)
 
-if [ "$HOSTNAME" = "aorus" ]; then
+if [ "$HOSTNAME" = "zenbook" ]; then
 
 MODE=$1
 

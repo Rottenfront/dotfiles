@@ -86,6 +86,11 @@ lspconfig('lua_ls', {
     cmd = { "lua-language-server" }
 })
 
+lspconfig('svls', {
+    cmd = { 'svls' },
+    filetypes = { 'verilog', 'systemverilog' }
+})
+
 -----------------------------------------------------------
 --- BLINK
 -----------------------------------------------------------

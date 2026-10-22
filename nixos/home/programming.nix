@@ -63,6 +63,13 @@
     tex-fmt
     texlab # TeX LSP
     vscode-json-languageserver
+
+    # FPGA
+    quartus-prime-lite
+    iverilog # verilog HDL
+    svls # systemverilog lsp
+    gtkwave
+    surfer # waveform viewer
   ];
 
   programs = {

@@ -9,7 +9,7 @@
     ./shared.nix
   ];
 
-  hardware.cpu.amd.ryzen-smu.enable = true;
+  hardware.cpu.amd.ryzen-smu.enable = false;
   networking.hostName = "zenbook";
 
   environment.systemPackages = with pkgs; [

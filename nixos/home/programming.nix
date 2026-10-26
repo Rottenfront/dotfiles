@@ -31,8 +31,11 @@
       ps.parsec
     ]))
     haskellPackages.haskell-language-server
+    haskellPackages.implicit-hie
     fourmolu
     cabal-install
+
+    odin
 
     (texliveBasic.withPackages (
       ps: with ps; [

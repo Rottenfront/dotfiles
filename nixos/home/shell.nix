@@ -44,9 +44,7 @@
               end
           end
         '';
-        fish_greeting = "
-          echo 'Welcome home'
-        ";
+        fish_greeting = "";
         detach = ''
           nohup $argv >/dev/null 2>&1 &
           disown
@@ -75,8 +73,6 @@
         wget = "wget -c ";
         psmem = "ps auxf | sort -nr -k 4";
         psmem10 = "ps auxf | sort -nr -k 4 | head -10";
-
-        rebuild = "sudo nixos-rebuild switch";
       };
 
       shellInit = ''
@@ -86,6 +82,8 @@
           set -gx OCAMLPATH ${lib.escapeShellArg config.home.sessionVariables.OCAMLPATH}
         end
 
+        # source '/home/rtfr/.opam/opam-init/init.fish'
+
         # format man pages
         set -x MANROFFOPT -c
         set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
@@ -94,11 +92,10 @@
         set -x NODE_PATH "$HOME/.npm-packages/lib/node_modules"
 
         fish_add_path "$HOME/.cargo/bin/"
-        fish_add_path "$HOME/.local/bin/"
-
         fish_add_path "$HOME/.npm-packages/bin"
 
-        test -r '/home/rtfr/.opam/opam-init/init.fish' && source '/home/rtfr/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
+        fish_add_path "$HOME/.local/bin/"
+        fish_add_path "$HOME/.kimi-code/bin"
 
         any-nix-shell fish --info-right | source
       '';

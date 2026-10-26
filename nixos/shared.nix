@@ -83,22 +83,35 @@
 
   services.getty.autologinUser = "rtfr";
 
-  services.udev.extraRules = ''
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  services.udev = {
+    packages = [
+      (pkgs.writeTextFile {
+        name = "intel-fpga";
+        text = ''
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="0666"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
+          SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6022", MODE="0666"
+        '';
+        destination = "/etc/udev/rules.d/90-intel-fpga.rules";
+      })
+    ];
+    extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
 
-    # USB Blaster
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
-    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6022", MODE="0666"
-  '';
+      # USB Blaster
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
     vial
 
     gvfs
+
+    usbutils
+    gdu
 
     eza # ls
     jq # json queries
@@ -159,6 +172,28 @@
         "gtk"
       ];
     };
+  };
+
+  programs.nix-ld = {
+    enable = true;
+
+    libraries = with pkgs; [
+      # List by default
+      zlib
+      zstd
+      stdenv.cc.cc
+      curl
+      openssl
+      attr
+      libssh
+      bzip2
+      libxml2
+      acl
+      libsodium
+      util-linux
+      xz
+      systemd
+    ];
   };
 
   # repo version

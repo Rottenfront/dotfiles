@@ -17,6 +17,11 @@
       url = "github:rottenfront/termusic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    artcraft = {
+      url = "github:devitek/artcraft-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -39,27 +44,34 @@
           };
         }
       ];
+      common-apps = [
+      ]
+      ++ home-manager-setup;
     in
     {
       nixosConfigurations.aorus = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./aorus.nix
           inputs.zapret.nixosModules.default
+          inputs.artcraft.nixosModules.default
+
+          ./aorus.nix
         ]
-        ++ home-manager-setup;
+        ++ common-apps;
       };
 
       nixosConfigurations.zenbook = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          ./zenbook.nix
-          inputs.ayuz.nixosModules.default
           inputs.zapret.nixosModules.default
+          inputs.artcraft.nixosModules.default
+          inputs.ayuz.nixosModules.default
+
+          ./zenbook.nix
         ]
-        ++ home-manager-setup;
+        ++ common-apps;
       };
     };
 }

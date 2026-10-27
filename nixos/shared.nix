@@ -54,6 +54,10 @@
   time.timeZone = "Europe/Moscow";
 
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocales = [
+    "bg_BG.UTF-8/UTF-8"
+    "ro_RO.UTF-8/UTF-8"
+  ];
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -147,6 +151,15 @@
     throne = {
       enable = true;
       tunMode.enable = true;
+    };
+
+    artcraft = {
+      enable = true;
+      apps = [
+        "photocraft"
+        "pdfcraft"
+        "filmcraft"
+      ];
     };
   };
 

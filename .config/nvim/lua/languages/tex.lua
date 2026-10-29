@@ -52,3 +52,14 @@ vim.lsp.config('texlab', {
 })
 
 vim.lsp.enable('texlab')
+
+local tex_group = vim.api.nvim_create_augroup("TexSettings", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    group = tex_group,
+    pattern = "tex",
+    callback = function()
+        vim.opt_local.textwidth = 80
+        vim.opt_local.colorcolumn = "80"
+    end
+})

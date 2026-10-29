@@ -19,6 +19,13 @@
     NIXOS_OZONE_WL = "1";
   };
 
+  home.packages = with pkgs; [
+    playerctl
+    brightnessctl
+    hyprpolkitagent
+    hyprpaper
+  ];
+
   wayland.windowManager.hyprland =
     let
       concatToKeymap = lib.concatStringsSep " + ";

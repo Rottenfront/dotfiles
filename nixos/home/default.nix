@@ -29,14 +29,9 @@
     # inputs.termusic.packages.${stdenv.hostPlatform.system}.default
     termusic
     strawberry
-    playerctl
     pwvucontrol
     easyeffects
-    brightnessctl
 
-    hyprpolkitagent
-
-    hyprpaper
     adwaita-icon-theme
     kdePackages.qt6ct
     libsForQt5.qt5ct

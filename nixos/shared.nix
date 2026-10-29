@@ -110,6 +110,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    hyprpolkitagent
     vial
 
     gvfs

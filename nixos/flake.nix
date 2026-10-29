@@ -45,6 +45,8 @@
         }
       ];
       common-apps = [
+        inputs.zapret.nixosModules.default
+        inputs.artcraft.nixosModules.default
       ]
       ++ home-manager-setup;
     in
@@ -53,9 +55,6 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          inputs.zapret.nixosModules.default
-          inputs.artcraft.nixosModules.default
-
           ./aorus.nix
         ]
         ++ common-apps;
@@ -65,8 +64,6 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          inputs.zapret.nixosModules.default
-          inputs.artcraft.nixosModules.default
           inputs.ayuz.nixosModules.default
 
           ./zenbook.nix

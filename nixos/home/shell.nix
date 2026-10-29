@@ -73,6 +73,11 @@
         wget = "wget -c ";
         psmem = "ps auxf | sort -nr -k 4";
         psmem10 = "ps auxf | sort -nr -k 4 | head -10";
+
+        pull = "git pull";
+        fetch = "git fetch";
+        commit = "git commit";
+        push = "git push";
       };
 
       shellInit = ''

@@ -43,6 +43,7 @@
 
         # languages
         fontspec
+        unicode-math
         babel-russian
         hyphen-russian
 
@@ -53,6 +54,8 @@
 
         # TikZ
         tikzfill
+
+        mathtools
       ]
     ))
 

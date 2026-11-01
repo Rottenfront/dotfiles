@@ -102,4 +102,18 @@
     };
   };
 
+  home.file.".latexmkrc".text = ''
+    # Default to PDF generation (5 for xelatex / 4 for lualatex)
+    $pdf_mode = 4;
+
+    # Continuous preview mode settings (auto-recompile on save)
+    $pvc_view_file_via_temporary = 0;
+
+    # PDF previewer command (e.g., zathura, evince, okular)
+    $pdf_previewer = "zathura %S";
+
+    # Cleanup extensions when running `latexmk -c` or `latexmk -C`
+    $clean_ext = "synctex.gz fls fdb_latexmk bbl nav snm vrb auxlock";
+  '';
+
 }

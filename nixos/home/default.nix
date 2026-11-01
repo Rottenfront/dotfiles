@@ -45,7 +45,6 @@
     zathura
     zathuraPkgs.zathura_pdf_mupdf
 
-    google-chrome
     qbittorrent
     telegram-desktop
     vesktop

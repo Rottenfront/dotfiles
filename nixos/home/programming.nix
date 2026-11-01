@@ -7,10 +7,17 @@
 }:
 
 {
-  # Home profiles do not run the OCaml library setup hooks used by nix-shell.
-  home.sessionVariables.OCAMLPATH = lib.makeSearchPath "lib/ocaml/${pkgs.ocaml.version}/site-lib" (
-    lib.closePropagation [ pkgs.ocamlPackages.alcotest ]
-  );
+  home.sessionVariables = {
+    # Home profiles do not run the OCaml library setup hooks used by nix-shell.
+    OCAMLPATH = lib.makeSearchPath "lib/ocaml/${pkgs.ocaml.version}/site-lib" (
+      lib.closePropagation [ pkgs.ocamlPackages.alcotest ]
+    );
+    PYTHONSTARTUP = "${config.home.homeDirectory}/.pythonrc.py";
+  };
+
+  home.file.".pythonrc.py".text = ''
+    from math import *
+  '';
 
   home.packages = with pkgs; [
     # language support

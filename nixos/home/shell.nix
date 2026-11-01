@@ -93,7 +93,6 @@
         set -x MANROFFOPT -c
         set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-        set -x PYTHONSTARTUP "$HOME/.pythonrc.py"
         set -x NODE_PATH "$HOME/.npm-packages/lib/node_modules"
 
         fish_add_path "$HOME/.cargo/bin/"

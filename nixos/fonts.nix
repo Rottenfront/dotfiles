@@ -1,4 +1,3 @@
-
 { config, pkgs, ... }:
 
 {
@@ -14,6 +13,10 @@
       paratype-pt-sans
       paratype-pt-serif
       paratype-pt-mono
+
+      material-design-icons
+      material-icons
+      nerd-fonts.symbols-only
 
       liberation_ttf
       cascadia-code

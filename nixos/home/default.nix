@@ -70,6 +70,11 @@
       };
     };
 
+    alacritty = {
+      enable = true;
+      theme = "blood_moon";
+    };
+
     mpv.enable = true;
     imv.enable = true;
     zathura.enable = true;

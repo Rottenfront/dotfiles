@@ -23,7 +23,6 @@
 
   security.pki.caCertificateBlacklist = [
     "Comodo AAA Services root"
-    "emSign ECC Root CA - G3"
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -32,6 +31,11 @@
   boot.loader.limine.enable = true;
   boot.loader.limine.maxGenerations = 5;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [
+    "usbcore.old_scheme_first=1"
+    "usbcore.autosuspend=-1"
+  ];
+  boot.blacklistedKernelModules = [ "ftdi_sio" ];
 
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -70,6 +74,8 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
+  users.groups.plugdev = { };
+
   users.users.rtfr = {
     isNormalUser = true;
     description = "Andre Rottenfront";
@@ -79,6 +85,7 @@
       "scanner"
       "lp"
       "docker"
+      "plugdev"
     ];
     packages = with pkgs; [ ];
 
@@ -104,18 +111,23 @@
     ];
     extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+      # Common FTDI clones (FT245 / FT232)
+      SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", MODE="0666", GROUP="plugdev", TAG+="uaccess"
 
-      # USB Blaster
+      # Disable runtime power management specifically for USB-Blaster devices
+      ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{power/control}="on"
+      ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", ATTR{power/control}="on"
     '';
   };
 
   environment.systemPackages = with pkgs; [
-    hyprpolkitagent
     vial
 
     gvfs
 
     usbutils
+    pciutils
+
     gdu
 
     eza # ls
@@ -159,7 +171,6 @@
       apps = [
         "photocraft"
         "pdfcraft"
-        "filmcraft"
       ];
     };
   };

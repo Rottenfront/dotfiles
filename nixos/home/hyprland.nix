@@ -26,6 +26,8 @@
     hyprpaper
   ];
 
+  # systemd.user.targets.default.wants = [ "hyprpolkitagent.service" ];
+
   wayland.windowManager.hyprland =
     let
       concatToKeymap = lib.concatStringsSep " + ";

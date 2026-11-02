@@ -10,7 +10,7 @@ Singleton {
 
     readonly property bool active: running || requests.length > 0
     readonly property int barsCount: Math.max(2, Math.min(512, Config.cavaBarsCount - Config.cavaBarsCount % 2))
-    readonly property string configuration: ["[general]", "bars = " + barsCount, "framerate = " + Math.max(1, Config.cavaFramerate), "autosens = 1", "[input]", "method = " + Config.cavaInputMethod, "source = " + Config.cavaInputSource, "[output]", "method = raw", "raw_target = /dev/stdout", "data_format = ascii", "ascii_max_range = " + maxRange, "bar_delimiter = 59", "frame_delimiter = 10", "[smoothing]", "monstercat = " + Config.cavaMonstercat, "waves = 0", ""].join("\n")
+    readonly property string configuration: ["[general]", "bars = " + barsCount, "framerate = " + Math.max(1, Config.cavaFramerate), "autosens = 1", "[output]", "method = raw", "raw_target = /dev/stdout", "data_format = ascii", "ascii_max_range = " + maxRange, "bar_delimiter = 59", "frame_delimiter = 10", "[smoothing]", "monstercat = " + Config.cavaMonstercat, "waves = 0", ""].join("\n")
     readonly property int maxRange: Math.max(1, Config.cavaAsciiMaxRange)
     property int nextRequest: 0
     readonly property bool processRunning: cavaProc.running
@@ -80,7 +80,7 @@ Singleton {
     Process {
         id: cavaProc
 
-        command: ["cava", "-p", "/dev/stdin"]
+        command: ["python3", decodeURIComponent(Qt.resolvedUrl("../scripts/cava_capture.py").toString().replace(/^file:\/\//, ""))]
         environment: Config.commandEnvironment
 
         stderr: SplitParser {

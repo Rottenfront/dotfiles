@@ -25,11 +25,20 @@ Rectangle {
         color: Theme.on_surface
         font.family: Theme.mono
         font.pixelSize: Theme.size
-        text: (pill.media.isPlaying ? "> " : "⏸ ") + (pill.media.artist ? pill.media.artist + " — " + pill.media.title : pill.media.title)
+        text: {
+            const characters = ((pill.media.isPlaying ? "> " : "⏸ ") + (pill.media.artist ? pill.media.artist + " — " + pill.media.title : pill.media.title)).match(/[\s\S]/gu)
+            return characters.length > 100 ? characters.slice(0, 99).join("") + "…" : characters.join("")
+        }
     }
     MouseArea {
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         anchors.fill: parent
 
-        onClicked: pill.media.playPause()
+        onClicked: mouse => {
+            if (mouse.button === Qt.RightButton)
+                Services.Panels.toggleMusic()
+            else
+                pill.media.playPause()
+        }
     }
 }

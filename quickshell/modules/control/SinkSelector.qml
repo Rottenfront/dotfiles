@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Io
 import qs.services as Services
 import qs.theme
 
@@ -55,11 +54,6 @@ ColumnLayout {
                 Layout.fillWidth: true
                 implicitHeight: 48
 
-                Process {
-                    id: pactlSetSink
-
-                    command: ["pactl", "set-default-sink", delegate.sinkName]
-                }
                 Rectangle {
                     anchors.fill: parent
                     color: delegate.isDefault ? Qt.rgba(Theme.primary_container.r, Theme.primary_container.g, Theme.primary_container.b, 0.85) : hoverHandler.hovered ? Theme.surface_container_high : Theme.surface_container
@@ -146,10 +140,8 @@ ColumnLayout {
                     }
                     TapHandler {
                         onTapped: {
-                            if (!delegate.isDefault) {
-                                pactlSetSink.running = true
+                            if (!delegate.isDefault)
                                 Services.Volume.setDefaultSink(delegate.modelData)
-                            }
                         }
                     }
                 }

@@ -10,8 +10,6 @@ QtObject {
     readonly property int cavaAsciiMaxRange: 1000
     readonly property int cavaBarsCount: 100
     readonly property int cavaFramerate: 30
-    readonly property string cavaInputMethod: "pipewire"
-    readonly property string cavaInputSource: "auto"
     readonly property real cavaMonstercat: 1.5
     readonly property int cavaRetryInterval: 5000
     readonly property real cavaSmoothingFactor: 0.3
@@ -30,8 +28,8 @@ QtObject {
     readonly property real powerActionDelay: 0.35
     readonly property string recordingCommand: "nohup wf-recorder -f \"$1/recording_$(date +%Y%m%d_%H%M%S).mp4\" >/dev/null 2>&1 &"
     readonly property string recordingDirectory: Quickshell.env("HOME") + "/Videos/recordings"
-    readonly property string screenshotCommand: "qs ipc --pid \"$2\" call ctrl toggle && grimblast copysave area \"$1/screenshot_$(date +%Y%m%d_%H%M%S).png\""
-    readonly property string screenshotDirectory: Quickshell.env("HOME") + "/Pictures/Screenshots"
+    readonly property string screenshotCommand: "qs ipc --pid \"$2\" call ctrl toggle && mkdir -p -- \"$1\" && hyprshot -m region -o \"$1\" -f \"screenshot_$(date +%Y%m%d_%H%M%S).png\""
+    readonly property string screenshotDirectory: Quickshell.env("HOME") + "/Pictures/screenshots"
     readonly property int secondInterval: 1000
     readonly property int statCriticalThreshold: 80
     readonly property int statWarningThreshold: 60

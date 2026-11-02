@@ -15,11 +15,13 @@ Singleton {
     readonly property string artist: activePlayer?.trackArtist ?? ""
     readonly property string currentPlayerName: activePlayer ? (activePlayer.identity || activePlayer.desktopEntry || "Unknown") : ""
     readonly property bool isPlaying: activePlayer?.playbackState === MprisPlaybackState.Playing
-    readonly property double length: activePlayer?.length ?? 0
+    readonly property double length: lengthSupported ? Math.max(0, activePlayer.length) : 0
+    readonly property bool lengthSupported: activePlayer?.lengthSupported ?? false
     property bool manualSelection: false
     readonly property int playerCount: players.length
     readonly property var players: Mpris.players.values
-    property double position: 0
+    readonly property double position: positionSupported ? Math.max(0, activePlayer.position) : 0
+    readonly property bool positionSupported: activePlayer?.positionSupported ?? false
     readonly property string title: activePlayer?.trackTitle || "No Media"
     readonly property string trackId: activePlayer ? String(activePlayer.uniqueId) : ""
 
@@ -79,7 +81,6 @@ Singleton {
     }
 
     Component.onCompleted: updateActivePlayer()
-    onActivePlayerChanged: position = activePlayer?.position ?? 0
     onPlayersChanged: updateActivePlayer()
 
     Timer {
@@ -89,7 +90,8 @@ Singleton {
 
         onTriggered: {
             root.updateActivePlayer()
-            root.position = root.activePlayer?.position ?? 0
+            if (root.isPlaying && root.positionSupported)
+                root.activePlayer.positionChanged()
         }
     }
 }

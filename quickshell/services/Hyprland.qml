@@ -17,6 +17,10 @@ Singleton {
     readonly property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
     readonly property int focusedWorkspaceId: focusedWorkspace?.id ?? 1
     property string keyboardLayout: "?"
+    property bool keyboardLayoutInitialized: false
+    property string keyboardLayoutName: "Unknown layout"
+    property string keyboardLayoutRaw: ""
+    property string keyboardName: ""
     property var layers: ({})
     readonly property var monitors: Hyprland.monitors
     property var monitorsInfo: []
@@ -33,6 +37,7 @@ Singleton {
     readonly property var workspaces: Hyprland.workspaces
     property var workspacesInfo: []
 
+    signal layoutChanged(string layoutName)
     signal stateChanged
 
     // largest window in a workspace
@@ -66,14 +71,50 @@ Singleton {
         }, null)
     }
 
+    function fullKeyboardLayoutName(layout: string): string {
+        if (/^rulemak$/i.test(layout))
+            return "Russian (Rulemak)"
+        if (/^colemak$/i.test(layout))
+            return "English (Colemak)"
+        return layout
+    }
+
+    function handleKeyboardLayoutEvent(data: string): void {
+        const separator = data.indexOf(",")
+        if (separator < 0)
+            return
+        const name = data.slice(0, separator).trim()
+        const layout = data.slice(separator + 1).trim()
+        if (!name || !layout)
+            return
+        keyboardName = name
+        setKeyboardLayout(layout)
+    }
+
     // check if a workspace has any windows
     function isWorkspaceOccupied(id: int): bool {
         return Hyprland.workspaces.values.find(w => w?.id === id)?.lastIpcObject.windows > 0 || false
     }
 
-    // refresh keyboard layout
     function refreshKeyboardLayout() {
+        if (hyprctlDevices.running)
+            return
+        hyprctlDevices.layoutSnapshot = keyboardName + "\n" + keyboardLayoutRaw
         hyprctlDevices.running = true
+    }
+
+    function setKeyboardLayout(layout: string): void {
+        const raw = layout.trim()
+        if (!raw)
+            return
+        const name = fullKeyboardLayoutName(raw)
+        const changed = keyboardLayoutInitialized && keyboardLayoutName !== name
+        keyboardLayoutRaw = raw
+        keyboardLayout = raw.toUpperCase().slice(0, 2)
+        keyboardLayoutName = name
+        keyboardLayoutInitialized = true
+        if (changed)
+            layoutChanged(name)
     }
 
     // update all hyprctl processes
@@ -83,6 +124,15 @@ Singleton {
         getMonitors.running = true
         getWorkspaces.running = true
         getActiveWorkspace.running = true
+    }
+
+    function updateKeyboardDevices(devices): void {
+        const keyboards = Array.isArray(devices?.keyboards) ? devices.keyboards.filter(keyboard => typeof keyboard?.active_keymap === "string" && keyboard.active_keymap.trim()) : []
+        const keyboard = keyboards.find(keyboard => keyboard.name === root.keyboardName) || keyboards.find(keyboard => keyboard.main) || keyboards[0]
+        if (!keyboard)
+            return
+        keyboardName = keyboard.name || ""
+        setKeyboardLayout(keyboard.active_keymap)
     }
 
     // Populate the cached hyprctl state at startup.
@@ -95,18 +145,19 @@ Singleton {
     Process {
         id: hyprctlDevices
 
+        property string layoutSnapshot: ""
+
         command: ["hyprctl", "devices", "-j"]
         running: false
 
         stdout: StdioCollector {
             onStreamFinished: {
+                if (hyprctlDevices.layoutSnapshot !== root.keyboardName + "\n" + root.keyboardLayoutRaw)
+                    return
                 try {
-                    const devices = JSON.parse(this.text)
-                    const keyboard = devices.keyboards.find(k => k.main) || devices.keyboards[0]
-                    root.keyboardLayout = keyboard?.active_keymap?.toUpperCase()?.slice(0, 2) ?? "?"
+                    root.updateKeyboardDevices(JSON.parse(this.text))
                 } catch (err) {
                     console.error("Failed to parse keyboard layout:", err)
-                    root.keyboardLayout = "?"
                 }
             }
         }
@@ -205,9 +256,13 @@ Singleton {
         function onRawEvent(event) {
             if (event.name.endsWith("v2"))
                 return
-            if (event.name.includes("activelayout"))
-                refreshKeyboardLayout()
-            else if (event.name.includes("mon"))
+            if (event.name === "activelayout") {
+                root.handleKeyboardLayoutEvent(event.data)
+                return
+            }
+            if (event.name === "configreloaded")
+                root.refreshKeyboardLayout()
+            if (event.name.includes("mon"))
                 Hyprland.refreshMonitors()
             else if (event.name.includes("workspace") || event.name.includes("window"))
                 Hyprland.refreshWorkspaces()

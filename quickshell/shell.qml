@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.modules
+import qs.services as Services
 import qs.theme
 
 ShellRoot {
@@ -15,6 +16,10 @@ ShellRoot {
         id: musicVis
     }
     OsdWindow {}
+    KeyboardOsd {}
+    MusicPopup {}
+    NotificationPanel {}
+    ClipboardPicker {}
     PanelWindow {
         id: rootPanel
 
@@ -97,6 +102,39 @@ ShellRoot {
         }
 
         target: "musicVis"
+    }
+    IpcHandler {
+        function close(): void {
+            Services.Panels.notificationsOpen = false
+        }
+
+        function toggle(): void {
+            Services.Panels.toggleNotifications()
+        }
+
+        target: "notifications"
+    }
+    IpcHandler {
+        function close(): void {
+            Services.Panels.clipboardOpen = false
+        }
+
+        function toggle(): void {
+            Services.Panels.toggleClipboard()
+        }
+
+        target: "clipboard"
+    }
+    IpcHandler {
+        function close(): void {
+            Services.Panels.musicOpen = false
+        }
+
+        function toggle(): void {
+            Services.Panels.toggleMusic()
+        }
+
+        target: "music"
     }
     IpcHandler {
         function hide(): void {

@@ -30,10 +30,25 @@
     lm_sensors
     wf-recorder
     libnotify
+    pipewire
+    wl-clipboard
+    python3
     gawk
     gnused
     procps
   ];
+
+  services.cliphist = {
+    enable = true;
+    allowImages = true;
+    systemdTargets = [ ];
+  };
+
+  systemd.user.services.cliphist.Service = {
+    ExecStart = lib.mkForce "${lib.getExe' config.services.cliphist.clipboardPackage "wl-paste"} --type text --watch ${lib.getExe config.services.cliphist.package} ${lib.escapeShellArgs config.services.cliphist.extraOptions} store";
+    UMask = "0077";
+  };
+  systemd.user.services.cliphist-images.Service.UMask = "0077";
 
   xdg.configFile = {
     "xkb/symbols/en_custom".text = ''
@@ -277,6 +292,7 @@
                 hl.exec_cmd("hyprpolkitagent")
                 hl.exec_cmd("qs")
                 hl.exec_cmd("hyprpaper")
+                hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE DISPLAY XDG_CURRENT_DESKTOP && systemctl --user restart cliphist.service cliphist-images.service")
 
                 --- Displays
                 hl.monitor({
@@ -442,7 +458,10 @@
               (mkCmdBind [ mod "C" ] "rofi -show drun" null)
               (mkCmdBind [ mod "B" ] "qs ipc call bar toggle" null)
               (mkCmdBind [ mod "P" ] "qs ipc call ctrl toggle" null)
-              (mkCmdBind [ mod "V" ] "qs ipc call musicVis toggle" null)
+              (mkCmdBind [ mod mod2 "V" ] "qs ipc call musicVis toggle" null)
+              (mkCmdBind [ mod "V" ] "qs ipc call clipboard toggle" null)
+              (mkCmdBind [ mod "N" ] "qs ipc call notifications toggle" null)
+              (mkCmdBind [ mod "M" ] "qs ipc call music toggle" null)
               (mkCmdBind [ mod "T" ] terminal null)
               (mkCmdBind [ mod mod2 "T" ] "${terminal} -e tmux" null)
               (mkCmdBind [ mod mod2 "N" ] "neovide" null)

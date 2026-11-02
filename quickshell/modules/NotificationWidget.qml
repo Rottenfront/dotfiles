@@ -33,6 +33,7 @@ Scope {
             color: "transparent"
             implicitWidth: root.notifWidth + root.leftMargin + 40
             screen: modelData
+            visible: !Notifications.dnd && notifRepeater.count > 0
 
             mask: Region {
                 height: {

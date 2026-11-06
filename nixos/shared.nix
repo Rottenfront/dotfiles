@@ -96,6 +96,7 @@
 
   services.udev = {
     packages = [
+      pkgs.vial
       (pkgs.writeTextFile {
         name = "intel-fpga";
         text = ''
@@ -110,7 +111,6 @@
       })
     ];
     extraRules = ''
-      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
       # Common FTDI clones (FT245 / FT232)
       SUBSYSTEM=="usb", ATTR{idVendor}=="0403", ATTR{idProduct}=="6001", MODE="0666", GROUP="plugdev", TAG+="uaccess"
 

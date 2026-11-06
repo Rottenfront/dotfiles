@@ -51,6 +51,7 @@
         # languages
         fontspec
         unicode-math
+        lualatex-math
         babel-russian
         hyphen-russian
 

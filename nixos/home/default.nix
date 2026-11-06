@@ -70,15 +70,25 @@
       };
     };
 
-    alacritty = {
+    ghostty = {
       enable = true;
-      theme = "blood_moon";
+      enableFishIntegration = true;
+      installBatSyntax = true;
+      systemd.enable = true;
       settings = {
-        font = {
-          size = 10.0;
-        };
+        font-size = 10;
       };
     };
+
+    # alacritty = {
+    #   enable = true;
+    #   theme = "blood_moon";
+    #   settings = {
+    #     font = {
+    #       size = 10.0;
+    #     };
+    #   };
+    # };
 
     mpv.enable = true;
     imv.enable = true;

@@ -271,7 +271,8 @@
       mod3 = "CTRL";
       mod4 = "ALT";
       # terminal = "kitty";
-      terminal = "alacritty";
+      # terminal = "alacritty";
+      terminal = "ghostty";
 
       mkCmdBind =
         keys: cmd: opts:

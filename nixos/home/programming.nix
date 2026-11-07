@@ -88,15 +88,15 @@
 
   programs = {
     amp.enable = true;
-    neovide = {
-      enable = true;
-      settings = {
-        font = {
-          normal = [ "Cascadia Code" ];
-          size = 12.0;
-        };
-      };
-    };
+    # neovide = {
+    #   enable = true;
+    #   settings = {
+    #     font = {
+    #       normal = [ "Cascadia Code" ];
+    #       size = 12.0;
+    #     };
+    #   };
+    # };
 
     gh.enable = true;
     git = {

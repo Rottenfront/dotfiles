@@ -9,7 +9,6 @@
   home.sessionVariables = {
     XCURSOR_SIZE = "24";
     HYPRCURSOR_SIZE = "24";
-    MANGOHUD = "1";
     QT_QPA_PLATFORM = "wayland:xcb";
     QT_QPA_PLATFORMTHEME = "qt5ct:qt6ct";
     SDL_VIDEODRIVER = "wayland,x11";

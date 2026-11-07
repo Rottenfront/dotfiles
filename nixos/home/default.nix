@@ -77,6 +77,7 @@
       systemd.enable = true;
       settings = {
         font-size = 10;
+        theme = "Patina Dark";
       };
     };
 

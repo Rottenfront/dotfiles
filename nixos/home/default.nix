@@ -81,16 +81,6 @@
       };
     };
 
-    # alacritty = {
-    #   enable = true;
-    #   theme = "blood_moon";
-    #   settings = {
-    #     font = {
-    #       size = 10.0;
-    #     };
-    #   };
-    # };
-
     mpv.enable = true;
     imv.enable = true;
     zathura.enable = true;

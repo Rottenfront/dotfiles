@@ -269,8 +269,6 @@
       mod2 = "SHIFT";
       mod3 = "CTRL";
       mod4 = "ALT";
-      # terminal = "kitty";
-      # terminal = "alacritty";
       terminal = "ghostty";
 
       mkCmdBind =

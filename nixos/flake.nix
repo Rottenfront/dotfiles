@@ -17,7 +17,6 @@
       url = "github:rottenfront/termusic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     artcraft = {
       url = "github:devitek/artcraft-nixos";
       inputs.nixpkgs.follows = "nixpkgs";

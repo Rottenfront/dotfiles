@@ -4,6 +4,22 @@ This is a repo with my configuration of Linux (to be precise, CachyOS/Arch) envi
 It is not designed to be installed. I just provide it so you can use source code for your own purpose, and also as archive of my settings.
 
 
+## Standalone configuration
+
+- Link `hypr/hyprland.lua` to `~/.config/hypr/hyprland.lua`.
+- Link `fish/config.fish` to `~/.config/fish/config.fish`.
+
+These files are maintained separately from Home Manager and are not linked automatically.
+Nix still provides packages, services, session variables, and the custom XKB layouts.
+
+Fish's `config.fish` sources sibling files for toolchain paths (`toolchain.fish`),
+media functions (`media.fish`), terminal aliases (`terminal.fish`), and Nix commands
+(`nix.fish`). Only `config.fish` needs linking; it resolves its symlink to find them.
+
+Run `nixos-prune-generations` to delete system profile generations older than
+the running system, then `nix-purge-orphans` to reclaim unreferenced store paths.
+Pruning removes old rollback entries. Other profiles and GC roots remain intact.
+
 ## Structure
 
 There are:

@@ -79,25 +79,22 @@
     vscode-json-languageserver
 
     # FPGA
-    quartus-prime-lite
+    (quartus-prime-lite.override {
+      supportedDevices = [
+        "Cyclone IV"
+      ];
+
+      # Includes the Questa FPGA simulator
+      withQuesta = true;
+    })
+    verilator
+    yosys
     iverilog # verilog HDL
     svls # systemverilog lsp
     gtkwave
-    surfer # waveform viewer
   ];
 
   programs = {
-    amp.enable = true;
-    # neovide = {
-    #   enable = true;
-    #   settings = {
-    #     font = {
-    #       normal = [ "Cascadia Code" ];
-    #       size = 12.0;
-    #     };
-    #   };
-    # };
-
     gh.enable = true;
     git = {
       enable = true;

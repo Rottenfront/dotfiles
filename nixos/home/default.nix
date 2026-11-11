@@ -26,8 +26,9 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    # inputs.termusic.packages.${stdenv.hostPlatform.system}.default
-    termusic
+    (inputs.termusic.packages.${stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+      doCheck = false;
+    }))
     strawberry
     pwvucontrol
     easyeffects
@@ -50,8 +51,6 @@
     vesktop
 
     libreoffice-stable
-
-    anki
   ];
 
   programs = {

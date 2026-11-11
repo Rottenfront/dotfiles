@@ -1,3 +1,13 @@
+hl.env('XCURSOR_SIZE', "24")
+hl.env('HYPRCURSOR_SIZE', "24")
+hl.env('QT_QPA_PLATFORM', "wayland:xcb")
+hl.env('QT_QPA_PLATFORMTHEME', "qt5ct:qt6ct")
+hl.env('SDL_VIDEODRIVER', "wayland,x11")
+hl.env('QT_WAYLAND_DISABLE_WINDOWDECORATION', "1")
+hl.env('QT_AUTO_SCREEN_SCALE_FACTOR', "1")
+hl.env('PROTON_ENABLE_WAYLAND', "1")
+hl.env('NIXOS_OZONE_WL', "1")
+
 local set_edp = function(disabled, resolution, scale)
     if disabled then
         hl.monitor({

@@ -277,8 +277,8 @@ hl.bind(mod .. "F1", (hl.dsp.exec_cmd('playerctl previous')))
 hl.bind(mod .. "F2", (hl.dsp.exec_cmd('playerctl play-pause')))
 hl.bind(mod .. "F3", (hl.dsp.exec_cmd('playerctl next')))
 hl.bind(mod .. mod2 .. "COMMA", (hl.dsp.exec_cmd('hl.dsp.exit()')))
-hl.bind(mod .. mod2 .. "S", (hl.dsp.exec_cmd('hyprshot -z -m region')))
-hl.bind("Print", (hl.dsp.exec_cmd('hyprshot -z -m region')))
+hl.bind(mod .. mod2 .. "S", (hl.dsp.exec_cmd('hyprshot -z -m region -o "$HOME/Pictures/screenshots"')))
+hl.bind("Print", (hl.dsp.exec_cmd('hyprshot -z -m region -o "$HOME/Pictures/screenshots"')))
 
 hl.window_rule({
     match = {

@@ -51,6 +51,13 @@
     vesktop
 
     libreoffice-stable
+
+    ffmpeg
+    flac
+    cuetools
+    shntool
+    kid3-cli
+    imagemagick
   ];
 
   programs = {

@@ -11,6 +11,7 @@ import qs.services as Services
 import qs.theme
 
 PanelWindow {
+    contentItem.opacity: Theme.windowOpacity
     id: root
 
     property var media: Services.Media

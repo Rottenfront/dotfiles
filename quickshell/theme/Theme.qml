@@ -69,6 +69,7 @@ QtObject {
     readonly property color on_tertiary_container: "#d3e4ff"
     readonly property color on_tertiary_fixed: "#041c35"
     readonly property color on_tertiary_fixed_variant: "#334863"
+    readonly property real windowOpacity: 0.95
     readonly property real opacityMuted: 0.6
     readonly property real opacitySecondary: 0.7
     readonly property real opacityStrong: 0.8

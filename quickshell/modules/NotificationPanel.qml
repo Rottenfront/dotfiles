@@ -2,8 +2,10 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import qs.services as Services
+import qs.theme
 
 PanelWindow {
+    contentItem.opacity: Theme.windowOpacity
     id: root
 
     WlrLayershell.exclusionMode: ExclusionMode.Ignore

@@ -47,7 +47,12 @@ ColumnLayout {
 
             StatBar {
                 icon: "󰻠"
-                label: "CPU"
+                label: "CPU · busiest thread"
+                value: Services.System.cpuPeak
+            }
+            StatBar {
+                icon: "󰻠"
+                label: "CPU · all"
                 value: Services.System.cpu
             }
             Rectangle {

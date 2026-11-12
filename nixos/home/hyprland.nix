@@ -52,6 +52,15 @@
   systemd.user.services.cliphist-images.Service.UMask = "0077";
 
   xdg.configFile = {
+    "hypr/hyprpaper.conf".text = ''
+      splash = false
+      wallpaper {
+        monitor = 
+        path = ~/wallpaper.jpg
+        fit_mode = cover
+      }
+    '';
+
     "xkb/symbols/en_custom".text = ''
       // Colemak symbols for xkb on X.Org Server 7.x
       // 2006-01-01 Shai Coleman, http://colemak.com/
@@ -115,8 +124,6 @@
 
           key <RALT> {[  ISO_Level3_Shift  ], type[group1]="ONE_LEVEL" };
       };
-
-
     '';
 
     "xkb/symbols/ru_custom".text = ''
@@ -197,11 +204,8 @@
           key <AB10> { [           slash,        question,       backslash,             bar ] };
 
           key <LSGT> { [ Cyrillic_hardsign, Cyrillic_HARDSIGN,  apostrophe,        quotedbl ] };
-      ${"  "}
           key <RALT> {[  ISO_Level3_Shift  ], type[group1]="ONE_LEVEL" };
       };
-
-
     '';
 
     "xkb/rules/evdev.xml".text = ''
@@ -253,7 +257,6 @@
     '';
   };
 
-  # systemd.user.targets.default.wants = [ "hyprpolkitagent.service" ];
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;

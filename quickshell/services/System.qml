@@ -4,12 +4,16 @@ import Quickshell
 import Quickshell.Io
 import qs.config
 import qs.services
+import "CpuUsage.js" as CpuUsage
 
 Singleton {
     id: stats
 
     property int brightness: 0
     property real cpu: 0
+    property real cpuPeak: 0
+    property var cpuCores: []
+    property var previousCpuSample: ({})
     property real disk: 0
     property int lastBrightness: -1
     property real ram: 0
@@ -36,12 +40,19 @@ Singleton {
         running: true
 
         onTriggered: {
-            cpuProc.running = true
             ramProc.running = true
             diskProc.running = true
             tempProc.running = true
             uptimeProc.running = true
         }
+    }
+    Timer {
+        interval: Config.cpuPollInterval
+        repeat: true
+        running: true
+        triggeredOnStart: true
+
+        onTriggered: cpuProc.running = true
     }
     Timer {
         interval: Config.brightnessPollInterval
@@ -55,11 +66,22 @@ Singleton {
     Process {
         id: cpuProc
 
-        command: ["bash", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print 100-$8}'"]
+        command: ["cat", "/proc/stat"]
         environment: Config.commandEnvironment
 
         stdout: StdioCollector {
-            onStreamFinished: stats.cpu = parseFloat(text) || 0
+            onStreamFinished: {
+                const sample = CpuUsage.parse(text)
+                if (!sample.cpu)
+                    return
+                const result = CpuUsage.measure(stats.previousCpuSample, sample)
+                stats.previousCpuSample = sample
+                if (result.all !== null) {
+                    stats.cpu = result.all
+                    stats.cpuPeak = result.peak
+                    stats.cpuCores = result.cores
+                }
+            }
         }
     }
     Process {

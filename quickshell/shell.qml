@@ -21,6 +21,7 @@ ShellRoot {
     NotificationPanel {}
     ClipboardPicker {}
     PanelWindow {
+        contentItem.opacity: Theme.windowOpacity
         id: rootPanel
 
         color: "transparent"
@@ -48,6 +49,7 @@ ShellRoot {
             top: true
         }
         PanelWindow {
+            contentItem.opacity: Theme.windowOpacity
             color: "transparent"
             focusable: false
             implicitHeight: barVisible ? topBar.height : 0

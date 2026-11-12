@@ -9,6 +9,7 @@ import qs.services
 import qs.theme
 
 PanelWindow {
+    contentItem.opacity: Theme.windowOpacity
     id: popup
 
     property bool confirmWipe: false

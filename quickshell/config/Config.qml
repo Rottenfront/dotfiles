@@ -15,6 +15,7 @@ QtObject {
     readonly property real cavaSmoothingFactor: 0.3
     readonly property int cavaStopTimeout: 1000
     readonly property int clockPollInterval: 100
+    readonly property int cpuPollInterval: 500
     readonly property var commandEnvironment: ({
             LANG: "C.UTF-8",
             LC_ALL: "C.UTF-8"

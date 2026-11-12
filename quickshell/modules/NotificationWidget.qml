@@ -22,6 +22,8 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
+
+            contentItem.opacity: Theme.windowOpacity
             id: panel
 
             required property ShellScreen modelData

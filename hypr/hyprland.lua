@@ -69,19 +69,19 @@ end
 
 hl.config({
     animations = {
-        enabled = false
+        enabled = true
     },
     decoration = {
         active_opacity = 1.0,
         blur = {
             enabled = true,
             new_optimizations = true,
-            passes = 4,
+            passes = 5,
             size = 3,
-            vibrancy = 0.1696
+            vibrancy = 0.0
         },
         inactive_opacity = 1.0,
-        rounding = 0,
+        rounding = 7,
         shadow = {
             enabled = false
         }
@@ -100,8 +100,8 @@ hl.config({
             active_border = "#889392",
             inactive_border = "#0e1514"
         },
-        gaps_in = 0,
-        gaps_out = 0,
+        gaps_in = 3,
+        gaps_out = 3,
         layout = "dwindle",
         resize_on_border = false
     },
@@ -132,6 +132,43 @@ hl.config({
         force_zero_scaling = true
     }
 })
+
+-- Brief, purposeful motion inspired by Apple's HIG (timings are local choices):
+-- https://developer.apple.com/design/human-interface-guidelines/motion
+-- 1 = normal, 2 = twice as fast, 0.5 = half speed; must be positive.
+local animationSpeed = 2.5
+assert(animationSpeed > 0, "animationSpeed must be positive")
+
+hl.curve("motion", { type = "bezier", points = { { 0.42, 0 }, { 0.58, 1 } } })
+
+-- Hyprland's speed field is a duration in deciseconds, so divide by the multiplier.
+local animate = function(leaf, durationMs, style)
+    hl.animation({
+        leaf = leaf,
+        enabled = true,
+        speed = durationMs / (100 * animationSpeed),
+        bezier = "motion",
+        style = style,
+    })
+end
+
+animate("global", 200)
+animate("border", 150)
+animate("windows", 200)
+animate("windowsIn", 200, "popin 95%")
+animate("windowsOut", 200, "popin 95%")
+animate("windowsMove", 200)
+animate("fade", 150)
+animate("fadeIn", 150)
+animate("fadeOut", 150)
+animate("layers", 200, "fade")
+animate("layersIn", 200, "fade")
+animate("layersOut", 200, "fade")
+animate("fadeLayersIn", 150)
+animate("fadeLayersOut", 150)
+animate("workspaces", 250, "slide")
+animate("specialWorkspace", 250, "slidevert")
+animate("zoomFactor", 200)
 
 hl.gesture({
     action = "workspace",

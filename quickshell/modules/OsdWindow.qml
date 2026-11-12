@@ -4,8 +4,10 @@ import Quickshell.Wayland
 import qs.components
 import qs.modules.bar
 import qs.services
+import qs.theme
 
 PanelWindow {
+    contentItem.opacity: Theme.windowOpacity
     id: topBar
 
     WlrLayershell.exclusionMode: ExclusionMode.Ignore

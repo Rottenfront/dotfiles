@@ -77,6 +77,8 @@
       settings = {
         font-size = 10;
         theme = "Patina Dark";
+        background-opacity = 0.95;
+        background-opacity-cells = true;
       };
     };
 

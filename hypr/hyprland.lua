@@ -33,12 +33,7 @@ local set_edp = function(disabled, resolution, scale)
     })
 end
 
-hl.monitor({
-    output   = "DP-3",
-    mode     = "3440x1440@100",
-    position = "0x0",
-    scale    = "1",
-})
+
 
 hl.on("hyprland.start", (function()
     --- Software
@@ -47,25 +42,10 @@ hl.on("hyprland.start", (function()
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd(
         "systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE DISPLAY XDG_CURRENT_DESKTOP && systemctl --user restart cliphist.service cliphist-images.service")
-
-    --- Displays
-    hl.monitor({
-        output   = "eDP-1",
-        disabled = false,
-        mode     = "2880x1800@60",
-        bitdepth = 10,
-        position = "3440x0",
-        scale    = "1.5",
-    })
-
-    hl.monitor({
-        output   = "DP-3",
-        mode     = "3440x1440@100",
-        position = "0x0",
-        scale    = "1",
-    })
 end
 ))
+
+set_edp(false, '2880x1800@60', '1.5')
 
 hl.config({
     animations = {
@@ -179,6 +159,7 @@ hl.gesture({
 local mod = "SUPER + "
 local mod2 = "SHIFT + "
 local mod3 = "CTRL + "
+local mod4 = "ALT + "
 
 for workspace = 1, 10 do
     local key = tostring(workspace % 10)
@@ -228,10 +209,10 @@ hl.bind(mod .. mod2 .. "H", (hl.dsp.window.move({ direction = 'left' })))
 hl.bind(mod .. mod2 .. "L", (hl.dsp.window.move({ direction = 'right' })))
 hl.bind(mod .. mod2 .. "K", (hl.dsp.window.move({ direction = 'up' })))
 hl.bind(mod .. mod2 .. "J", (hl.dsp.window.move({ direction = 'down' })))
-hl.bind(mod .. "ALT + H", (hl.dsp.window.resize({ x = -10, y = 0, relative = true })), ({ repeating = true }))
-hl.bind(mod .. "ALT + L", (hl.dsp.window.resize({ x = 10, y = 0, relative = true })), ({ repeating = true }))
-hl.bind(mod .. "ALT + K", (hl.dsp.window.resize({ x = 0, y = -20, relative = true })), ({ repeating = true }))
-hl.bind(mod .. "ALT + J", (hl.dsp.window.resize({ x = 0, y = 20, relative = true })), ({ repeating = true }))
+hl.bind(mod .. mod4 .. "H", (hl.dsp.window.resize({ x = -10, y = 0, relative = true })), ({ repeating = true }))
+hl.bind(mod .. mod4 .. "L", (hl.dsp.window.resize({ x = 10, y = 0, relative = true })), ({ repeating = true }))
+hl.bind(mod .. mod4 .. "K", (hl.dsp.window.resize({ x = 0, y = -20, relative = true })), ({ repeating = true }))
+hl.bind(mod .. mod4 .. "J", (hl.dsp.window.resize({ x = 0, y = 20, relative = true })), ({ repeating = true }))
 hl.bind(mod .. "mouse:272", (hl.dsp.window.drag()), ({ mouse = true }))
 hl.bind(mod .. "mouse:273", (hl.dsp.window.resize()), ({ mouse = true }))
 hl.bind(mod .. "O", (hl.dsp.layout('togglesplit')))

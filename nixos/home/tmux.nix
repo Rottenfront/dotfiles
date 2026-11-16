@@ -59,6 +59,7 @@ let
   windowPixelWidth = "#{e|*:#{window_width},#{?window_cell_width,#{window_cell_width},1}}";
 in
 {
+  # Applied if Kitty is enabled; Ghostty remains the default terminal.
   programs.kitty.keybindings =
     kittyPaneKeys
     // kittyTabKeys

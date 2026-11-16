@@ -1,9 +1,9 @@
 function rebuild-aorus
-    sudo nixos-rebuild switch --flake /etc/nixos#aorus $argv
+    sudo nixos-rebuild switch --flake "path:/home/rtfr/dotfiles/nixos#aorus" $argv
 end
 
 function rebuild-zenbook
-    sudo nixos-rebuild switch --flake /etc/nixos#zenbook $argv
+    sudo nixos-rebuild switch --flake "path:/home/rtfr/dotfiles/nixos#zenbook" $argv
 end
 
 # Delete only system generations older than the currently running system.

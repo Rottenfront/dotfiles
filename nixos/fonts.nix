@@ -39,7 +39,7 @@
         sansSerif = [ "Sofia Sans" ];
         serif = [ "PT Serif" ];
         monospace = [ "Cascadia Code" ];
-        emoji = [ "Noto Color Emogi" ];
+        emoji = [ "Noto Color Emoji" ];
       };
 
       hinting = {

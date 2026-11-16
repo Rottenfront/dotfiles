@@ -29,14 +29,16 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       ...
     }@inputs:
 
     let
-      home-manager-setup = [
+      commonModules = [
+        inputs.zapret.nixosModules.default
+        inputs.bootvine.nixosModules.default
+        inputs.artcraft.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -47,33 +49,21 @@
           };
         }
       ];
-      common-apps = [
-        inputs.zapret.nixosModules.default
-        inputs.bootvine.nixosModules.default
-
-        inputs.artcraft.nixosModules.default
-      ]
-      ++ home-manager-setup;
+      mkHost =
+        modules:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = commonModules ++ modules;
+        };
     in
     {
-      nixosConfigurations.aorus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./aorus.nix
-        ]
-        ++ common-apps;
-      };
-
-      nixosConfigurations.zenbook = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
+      nixosConfigurations = {
+        aorus = mkHost [ ./aorus.nix ];
+        zenbook = mkHost [
           inputs.ayuz.nixosModules.default
-
           ./zenbook.nix
-        ]
-        ++ common-apps;
+        ];
       };
     };
 }

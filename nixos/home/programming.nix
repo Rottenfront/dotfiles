@@ -100,7 +100,12 @@
       ];
     in
     with pkgs;
-    [
+    haskellDevShell
+    ++ ccStack
+    ++ fpgaStack
+    ++ latexStack
+    ++ [
+
       automake
 
       python314

@@ -1,7 +1,8 @@
 local gh = function(x) return 'https://github.com/' .. x end
 
 vim.pack.add({
-    gh('NopAngel/nimmy.vim'),
+    gh('NopAngel/nimmy.vim'), -- colorscheme
+    gh('tinted-theming/tinted-vim'),
     gh('folke/trouble.nvim'),
     gh('folke/snacks.nvim'),
     gh('nvim-lua/plenary.nvim'),
@@ -27,7 +28,17 @@ require('snacks').setup({
     words = { enabled = true },
 })
 
-vim.cmd.colorscheme("nimmy")
+vim.g.tinted_colorspace = 256
+vim.cmd.colorscheme('base16-classic-dark')
+
+local hl = vim.api.nvim_set_hl
+
+hl(0, "Normal", { ctermfg = 7, bg = "NONE" })
+hl(0, "NormalNC", { link = "Normal" })
+hl(0, "NormalFloat", { link = "Normal" })
+hl(0, "SignColumn", { bg = "NONE" })
+hl(0, "EndOfBuffer", { bg = "NONE" })
+
 
 require("telescope").setup({
     defaults = {

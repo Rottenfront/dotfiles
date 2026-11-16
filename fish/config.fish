@@ -6,6 +6,9 @@ source "$config_dir/terminal.fish"
 source "$config_dir/media.fish"
 source "$config_dir/nix.fish"
 
+set -gx VISUAL nvim
+set -gx EDITOR nvim
+
 # format man pages
 set -x MANROFFOPT -c
 set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"

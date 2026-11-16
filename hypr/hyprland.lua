@@ -33,8 +33,6 @@ local set_edp = function(disabled, resolution, scale)
     })
 end
 
-
-
 hl.on("hyprland.start", (function()
     --- Software
     hl.exec_cmd("hyprpolkitagent")
@@ -216,25 +214,25 @@ hl.bind(mod .. mod4 .. "J", (hl.dsp.window.resize({ x = 0, y = 20, relative = tr
 hl.bind(mod .. "mouse:272", (hl.dsp.window.drag()), ({ mouse = true }))
 hl.bind(mod .. "mouse:273", (hl.dsp.window.resize()), ({ mouse = true }))
 hl.bind(mod .. "O", (hl.dsp.layout('togglesplit')))
-hl.bind(mod .. mod3 .. "F1", (function()
+hl.bind("SUPER + CTRL + F1", (function()
     set_edp(false, '2880x1800@60', '1.5')
 
     hl.exec_cmd('notify-send "eDP display resolution" "Display resolution: 2880x1800@60"')
 end
 ))
-hl.bind(mod .. mod3 .. "F2", (function()
+hl.bind("SUPER + CTRL + F2", (function()
     set_edp(false, '2880x1800@120', '1.5')
 
     hl.exec_cmd('notify-send "eDP display resolution" "Display resolution: 2880x1800@120"')
 end
 ))
-hl.bind(mod .. mod3 .. "F3", (function()
+hl.bind("SUPER + CTRL + F3", (function()
     set_edp(false, '1920x1200@120', '1')
 
     hl.exec_cmd('notify-send "eDP display resolution" "Display resolution: 1920x1200@120"')
 end
 ))
-hl.bind(mod .. mod3 .. "F4", (function()
+hl.bind("SUPER + CTRL + F4", (function()
     set_edp(true, "", "")
 
     hl.exec_cmd('notify-send "eDP display disabled"')

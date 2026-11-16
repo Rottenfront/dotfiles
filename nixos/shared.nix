@@ -27,15 +27,18 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Bootloader
+  programs.xfconf.enable = true;
+
+  services.bootvine.enable = true;
+
   boot.loader.limine.enable = true;
   boot.loader.limine.maxGenerations = 5;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [
-    "usbcore.old_scheme_first=1"
-    "usbcore.autosuspend=-1"
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.blacklistedKernelModules = [
+    "ftdi_sio"
+    "ntfs3"
   ];
-  boot.blacklistedKernelModules = [ "ftdi_sio" ];
 
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -99,6 +102,11 @@
       pkgs.usb-blaster-udev-rules
       pkgs.vial
     ];
+
+    extraRules = ''
+      # fix for webhid
+      SUBSYSTEM=="hidraw", TAG+="uaccess"
+    '';
   };
 
   environment.systemPackages = with pkgs; [
@@ -107,6 +115,7 @@
     lsof
 
     gvfs
+    ntfs3g
 
     gdu
 
@@ -131,20 +140,20 @@
     };
     fish.enable = true;
 
-    gamemode.enable = true;
-    gamescope.enable = true;
-
     neovim.enable = true;
-    steam = {
-      enable = true;
-      protontricks.enable = true;
-    };
     # proxy
     amnezia-vpn.enable = true;
     throne = {
       enable = true;
       tunMode.enable = true;
     };
+
+    steam = {
+      enable = true;
+      protontricks.enable = true;
+    };
+    gamemode.enable = true;
+    gamescope.enable = true;
 
     artcraft = {
       enable = true;
@@ -159,8 +168,14 @@
   };
 
   services = {
+    udisks2.enable = true;
     gvfs.enable = true;
   };
+
+  environment.etc."udisks2/mount_options.conf".text = ''
+    [defaults]
+    ntfs_drivers=ntfs
+  '';
 
   virtualisation.docker.enable = true;
 

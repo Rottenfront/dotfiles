@@ -19,80 +19,107 @@
     from math import *
   '';
 
-  home.packages = with pkgs; [
-    # language support
-    (lib.hiPrio clang)
-    (lib.lowPrio gcc)
-    python314
-    nodejs
-    rustup
+  home.packages =
+    let
+      haskellDevShell =
+        let
+          haskell = pkgs.haskell.packages.ghc9103;
+        in
+        [
+          # the compiler
+          (haskell.ghcWithPackages (ps: [
+            ps.parsec
+            ps.pretty-simple
+          ]))
+          # toolchain
+          pkgs.cabal-install
+          # language server
+          haskell.haskell-language-server
+          # metadata generator for hls
+          haskell.implicit-hie
+          # formatter
+          pkgs.fourmolu
+          # parser utilities
+          haskell.BNFC
+          haskell.alex
+          haskell.happy
+        ];
 
-    # OCaml
-    ocaml
-    dune_3
-    ocamlPackages.findlib
-    ocamlPackages.alcotest
+      ccStack = with pkgs; [
+        (lib.hiPrio clang)
+        (lib.lowPrio gcc)
 
-    # Haskell
-    (haskellPackages.ghcWithPackages (ps: [
-      ps.parsec
-    ]))
-    haskellPackages.haskell-language-server
-    haskellPackages.implicit-hie
-    fourmolu
-    cabal-install
+        clang-tools # clangd, clang-tidy, other utilities
 
-    odin
-
-    (texliveBasic.withPackages (
-      ps: with ps; [
-        latexmk
-
-        # languages
-        fontspec
-        unicode-math
-        lualatex-math
-        babel-russian
-        hyphen-russian
-
-        # decorations
-        titlesec
-        tcolorbox
-        pdfcol
-
-        # TikZ
-        tikzfill
-
-        mathtools
-      ]
-    ))
-
-    # build systems
-    cmake
-
-    # programming tools
-    clang-tools # clangd, clang-tidy, other utilities
-    lua-language-server
-    nixfmt
-    tex-fmt
-    texlab # TeX LSP
-    vscode-json-languageserver
-
-    # FPGA
-    (quartus-prime-lite.override {
-      supportedDevices = [
-        "Cyclone IV"
+        # build systems
+        cmake
       ];
 
-      # Includes the Questa FPGA simulator
-      withQuesta = true;
-    })
-    verilator
-    yosys
-    iverilog # verilog HDL
-    svls # systemverilog lsp
-    gtkwave
-  ];
+      fpgaStack = with pkgs; [
+        # FPGA
+        (quartus-prime-lite.override {
+          supportedDevices = [
+            "Cyclone IV"
+          ];
+
+          # Includes the Questa FPGA simulator
+          withQuesta = true;
+        })
+        verilator
+        yosys
+        iverilog # verilog HDL
+        svls # systemverilog lsp
+        gtkwave
+      ];
+
+      latexStack = with pkgs; [
+        (texliveBasic.withPackages (
+          ps: with ps; [
+            latexmk
+
+            # languages
+            fontspec
+            unicode-math
+            lualatex-math
+            babel-russian
+            hyphen-russian
+
+            # decorations
+            titlesec
+            tcolorbox
+            pdfcol
+
+            # TikZ
+            tikzfill
+
+            mathtools
+          ]
+        ))
+        texlab # TeX LSP
+        tex-fmt
+      ];
+    in
+    with pkgs;
+    [
+      automake
+
+      python314
+      nodejs
+
+      rustup
+
+      ocaml
+      dune_3
+      ocamlPackages.findlib
+      ocamlPackages.alcotest
+
+      odin
+
+      # programming tools
+      lua-language-server
+      nixfmt
+      vscode-json-languageserver
+    ];
 
   programs = {
     gh.enable = true;

@@ -13,12 +13,16 @@
       url = "github:novvux/zapret-discord-youtube-nix.flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    termusic = {
-      url = "github:rottenfront/termusic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     artcraft = {
       url = "github:devitek/artcraft-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    bootvine = {
+      url = "git+https://codeberg.org/wvhulle/bootvine";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    wlctl = {
+      url = "github:aashish-thapa/wlctl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -45,6 +49,8 @@
       ];
       common-apps = [
         inputs.zapret.nixosModules.default
+        inputs.bootvine.nixosModules.default
+
         inputs.artcraft.nixosModules.default
       ]
       ++ home-manager-setup;

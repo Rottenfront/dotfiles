@@ -80,6 +80,10 @@
       "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
+    "tinted-vim": {
+      "rev": "21e92ddf942b95009da8087335b0586efeb27eb1",
+      "src": "https://github.com/tinted-theming/tinted-vim"
+    },
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"

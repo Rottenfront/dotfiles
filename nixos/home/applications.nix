@@ -8,36 +8,46 @@
     "misc-directory-specific-settings" = false;
   };
 
-  home.packages = with pkgs; [
-    (termusic.overrideAttrs (old: {
-      doCheck = false;
-    }))
-    strawberry
-    pwvucontrol
+  home.packages =
+    with pkgs;
+    let
+      mediaTools = [
+        ffmpeg
+        flac
+        cuetools
+        shntool
+        kid3-cli
+        imagemagick
+      ];
+      appStyle = [
+        kdePackages.qt6ct
+        libsForQt5.qt5ct
+        adwaita-qt
+      ];
+    in
+    mediaTools
+    ++ appStyle
+    ++ [
+      (termusic.overrideAttrs (old: {
+        doCheck = false;
+      }))
+      strawberry
+      pwvucontrol
 
-    bluetui
-    inputs.wlctl.packages.${stdenv.hostPlatform.system}.default
+      bluetui
+      inputs.wlctl.packages.${stdenv.hostPlatform.system}.default
 
-    kdePackages.qt6ct
-    libsForQt5.qt5ct
-    adwaita-qt
+      qbittorrent
 
-    file
+      discord
+      telegram-desktop
 
-    qbittorrent
-    telegram-desktop
+      libreoffice-stable
 
-    libreoffice-stable
+      file
 
-    ffmpeg
-    flac
-    cuetools
-    shntool
-    kid3-cli
-    imagemagick
-
-    umu-launcher
-  ];
+      umu-launcher
+    ];
 
   # EasyEffects is managed as a session service.
   services.easyeffects.enable = true;
@@ -69,7 +79,6 @@
     imv.enable = true;
     zathura = {
       enable = true;
-
       package = pkgs.zathura.override {
         plugins = with pkgs.zathuraPkgs; [
           zathura_pdf_mupdf
@@ -77,9 +86,16 @@
         ];
       };
     };
+
     yazi.enable = true;
 
     btop.enable = true;
+    bat.enable = true;
+    eza.enable = true;
+    fd.enable = true;
+    fzf.enable = true;
+    ripgrep.enable = true;
+    jq.enable = true;
 
     zed-editor = {
       enable = true;

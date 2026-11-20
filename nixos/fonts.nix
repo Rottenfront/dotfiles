@@ -35,6 +35,19 @@
     fontconfig = {
       enable = true;
 
+      # Sofia Sans has Bulgarian Cyrillic forms by default. Prevent language
+      # localization from substituting Russian forms in Fontconfig clients.
+      localConf = ''
+        <match target="font">
+          <test name="family" compare="eq">
+            <string>Sofia Sans</string>
+          </test>
+          <edit name="fontfeatures" mode="append">
+            <string>locl=0</string>
+          </edit>
+        </match>
+      '';
+
       defaultFonts = {
         sansSerif = [ "Sofia Sans" ];
         serif = [ "PT Serif" ];

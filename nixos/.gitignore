@@ -1,5 +1,4 @@
 hardware-configuration.nix
-flake.lock
 
 /result
 /result-*

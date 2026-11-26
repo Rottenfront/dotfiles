@@ -25,6 +25,10 @@
       url = "github:aashish-thapa/wlctl";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    cintec = {
+      url = "github:PepsiCommunity/cintec";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

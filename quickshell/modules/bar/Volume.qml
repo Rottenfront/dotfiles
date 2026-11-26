@@ -20,6 +20,6 @@ Rectangle {
         font.family: Theme.mono
         font.pixelSize: Theme.size
         maximumLineCount: 1
-        text: " " + Math.round(Services.Volume.volume * 100) + "%"
+        text: "VOL " + Math.round(Services.Volume.volume * 100) + "%"
     }
 }

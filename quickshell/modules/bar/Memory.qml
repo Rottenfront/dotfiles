@@ -24,7 +24,7 @@ Rectangle {
         color: Theme.on_surface
         font.family: Theme.mono
         font.pixelSize: Theme.size
-        text: " " + Math.round(Services.System.ram) + "%"
+        text: "RAM " + Math.round(Services.System.ram) + "%"
     }
     Process {
         id: toggleProc

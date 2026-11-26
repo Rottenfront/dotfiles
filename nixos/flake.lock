@@ -65,6 +65,26 @@
         "url": "https://codeberg.org/wvhulle/bootvine"
       }
     },
+    "cintec": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795341638,
+        "narHash": "sha256-9l/EQlaVMhmgUZqt38Wr9zUHsohP4KYGUCxt7za86Vw=",
+        "owner": "PepsiCommunity",
+        "repo": "cintec",
+        "rev": "4f76209a42297326b1a2bf3f583dbe69a72a97b5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PepsiCommunity",
+        "repo": "cintec",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1793836618,
@@ -193,6 +213,7 @@
         "artcraft": "artcraft",
         "ayuz": "ayuz",
         "bootvine": "bootvine",
+        "cintec": "cintec",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "wlctl": "wlctl",

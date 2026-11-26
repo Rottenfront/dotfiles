@@ -31,8 +31,12 @@
       (termusic.overrideAttrs (old: {
         doCheck = false;
       }))
+      (inputs.cintec.packages.${stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+        doCheck = false;
+      }))
       strawberry
       pwvucontrol
+      easyeffects
 
       bluetui
       inputs.wlctl.packages.${stdenv.hostPlatform.system}.default
@@ -48,9 +52,6 @@
 
       umu-launcher
     ];
-
-  # EasyEffects is managed as a session service.
-  services.easyeffects.enable = true;
 
   programs = {
     mangohud.enable = true;

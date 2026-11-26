@@ -108,10 +108,32 @@
 
       automake
 
-      python314
+      (python314.withPackages (
+        ps: with ps; [
+          numpy
+          scipy
+          matplotlib
+        ]
+      ))
       nodejs
 
       rustup
+      alsa-lib
+      libxkbcommon
+      wayland
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      libxcb
+      vulkan-loader
+      libGL
+      fontconfig
+      freetype
+      openssl
+      pkg-config
+      cmake
+      rustPlatform.bindgenHook
 
       ocaml
       dune_3

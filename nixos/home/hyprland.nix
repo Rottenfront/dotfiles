@@ -25,7 +25,6 @@
     libnotify
     pipewire
     wl-clipboard
-    python3
     gawk
     gnused
     procps

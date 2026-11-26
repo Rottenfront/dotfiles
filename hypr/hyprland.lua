@@ -1,12 +1,21 @@
 hl.env('XCURSOR_SIZE', "24")
 hl.env('HYPRCURSOR_SIZE', "24")
-hl.env('QT_QPA_PLATFORM', "wayland:xcb")
+
 hl.env('QT_QPA_PLATFORMTHEME', "qt5ct:qt6ct")
-hl.env('SDL_VIDEODRIVER', "wayland,x11")
 hl.env('QT_WAYLAND_DISABLE_WINDOWDECORATION', "1")
 hl.env('QT_AUTO_SCREEN_SCALE_FACTOR', "1")
+
+hl.env('QT_QPA_PLATFORM', "wayland:xcb")
+hl.env('SDL_VIDEODRIVER', "wayland,x11")
 hl.env('PROTON_ENABLE_WAYLAND', "1")
 hl.env('NIXOS_OZONE_WL', "1")
+hl.env('WORDCRAFT_WAYLAND', "1")
+hl.env('PDFCRAFT_WAYLAND', "1")
+hl.env('PHOTOCRAFT_WAYLAND', "1")
+hl.env('FILMCRAFT_WAYLAND', "1")
+hl.env('GRIDCRAFT_WAYLAND', "1")
+
+hl.env('GTK_IM_MODULE', "simple")
 
 local set_edp = function(disabled, resolution, scale)
     if disabled then
@@ -179,7 +188,7 @@ hl.bind(mod .. mod2 .. "B", (hl.dsp.exec_cmd('firefox')))
 hl.bind(mod .. mod2 .. "I", (hl.dsp.exec_cmd('chrome')))
 hl.bind(mod .. "G", (hl.dsp.workspace.toggle_special('music')))
 hl.bind(mod .. mod2 .. "G", (hl.dsp.window.move({ workspace = 'special:music' })))
-hl.bind(mod .. mod3 .. "G", (hl.dsp.exec_cmd('ghostty -e termusic')))
+hl.bind(mod .. mod3 .. "G", (hl.dsp.exec_cmd('cintec')))
 hl.bind(mod .. mod2 .. "P", (hl.dsp.exec_cmd('pwvucontrol')))
 hl.bind(mod .. "D", (hl.dsp.workspace.toggle_special('magic')))
 hl.bind(mod .. mod2 .. "D", (hl.dsp.window.move({ workspace = 'special:magic' })))
